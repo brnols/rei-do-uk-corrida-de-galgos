@@ -15,7 +15,6 @@ use Inertia\Inertia;
 |
 */
 
-
 Route::view('/', 'home')
     ->name('home');
 
