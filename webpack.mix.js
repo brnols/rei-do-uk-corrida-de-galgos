@@ -11,6 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
+/* Landing Page */
+mix.js('resources/js/page.js', 'public/js')
+    .postCss('resources/css/page.css', 'public/css', [
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ])
+
+/* Painel */
 mix.js('resources/js/app.js', 'public/js')
     .vue()
     .postCss('resources/css/app.css', 'public/css', [
@@ -19,6 +28,8 @@ mix.js('resources/js/app.js', 'public/js')
         require('autoprefixer'),
     ])
     .webpackConfig(require('./webpack.config'));
+
+mix.disableSuccessNotifications();
 
 if (mix.inProduction()) {
     mix.version();
