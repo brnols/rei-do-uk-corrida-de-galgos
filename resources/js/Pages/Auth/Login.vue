@@ -6,7 +6,7 @@
     </div>
 
     <q-card class="bg-light">
-        <q-form @submit.prevent="submit">
+        <q-form @submit.prevent="submit" class="flex flex-col space-y-6">
             <q-input
                 type="email"
                 v-model="form.email"
@@ -18,7 +18,6 @@
                 dense
             />
             <q-input
-                class="mt-8"
                 type="password"
                 v-model="form.email"
                 required
@@ -28,6 +27,17 @@
                 outlined
                 dense
             />
+            <q-checkbox
+                v-model="form.remember"
+                label="Lembrar"
+                dense
+            ></q-checkbox>
+            <q-btn
+                class="mx-auto"
+                color="primary"
+                rounded
+                label="Entrar"
+            ></q-btn>
         </q-form>
     </q-card>
     <form @submit.prevent="submit">
@@ -56,9 +66,9 @@
                 Forgot your password?
             </Link>
 
-            <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <q-btn class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                 Log in
-            </BreezeButton>
+            </q-btn>
         </div>
     </form>
 </template>
@@ -76,11 +86,6 @@ export default {
     layout: BreezeGuestLayout,
 
     components: {
-        BreezeButton,
-        BreezeCheckbox,
-        BreezeInput,
-        BreezeLabel,
-        BreezeValidationErrors,
         Head,
         Link,
     },
