@@ -11,6 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.browserSync()
+
 /* Landing Page */
 mix.js('resources/js/page.js', 'public/js')
     .postCss('resources/css/page.css', 'public/css', [
