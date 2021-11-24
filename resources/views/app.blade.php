@@ -13,7 +13,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/painel.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+        <!-- Quasar CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/quasar@2.3.0/dist/quasar.prod.css" rel="stylesheet" type="text/css">
 
         <!-- Scripts -->
         @routes
