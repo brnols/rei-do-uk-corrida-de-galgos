@@ -11,7 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.browserSync()
+mix.browserSync({
+    proxy: 'localhost:8000',
+    open: false,
+})
 
 /* Landing Page */
 mix.js('resources/js/page.js', 'public/js')
