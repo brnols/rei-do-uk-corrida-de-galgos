@@ -11,6 +11,10 @@ module.exports = {
     ],
 
     theme: {
+        container: {
+            center: true,
+        },
+
         extend: {
             fontFamily: {
                 sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
