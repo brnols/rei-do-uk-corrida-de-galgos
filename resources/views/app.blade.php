@@ -19,6 +19,8 @@
     <!-- Quasar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/quasar@2.3.0/dist/quasar.prod.css" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <!-- Scripts -->
     @routes
     <script src="{{ mix('js/app.js') }}" defer></script>
