@@ -18,6 +18,12 @@ use Inertia\Inertia;
 Route::view('/', 'home')
     ->name('home');
 
+Route::view('planosevalores', 'planosvalores')
+    ->name('planosvalores');
+
+    Route::view('cursos', 'cursos')
+    ->name('cursos');
+
 require __DIR__.'/app.php';
 
 require __DIR__.'/auth.php';

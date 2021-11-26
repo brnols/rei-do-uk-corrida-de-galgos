@@ -19,7 +19,10 @@
 
 </head>
 <body class="antialiased">
-    @include('includes.header')
+    
+    @if (Request::path() == '/')     @include('includes.header') @endif
+
+
     @yield('content')
 </body>
 </html>

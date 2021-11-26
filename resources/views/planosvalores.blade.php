@@ -1,59 +1,11 @@
 @extends('layouts.page')
 
+
 @section('content')
     <div class="container">
         <section>
-            <img src="{{ asset('images/Cachorros1.svg') }}" alt="cachorros" class="mt-10 mx-auto">
-            <div class="flex  justify-center">
-                <img src="{{ asset('images/icons/bandeiracurvada1.svg') }}" alt="bandeiracurvada"
-                    class="mt-[-350px] mr-[-56px] relative">
-                <button
-                    class=" mt-[-179px] h-[50px] px-[60px]  md:rounded-[20px] bg-secondary  text-light uppercase;">Acessar
-                    corridas de galgos</button>
-            </div>
-            <div>
-                <h1 class="flex justify-center text-[50px] text-primary pb-8 font-bold">Nossos Pilares</h1>
-                <h2 class="flex justify-center text-[28px] text-primary pb-12">Entre para a realeza!</h2>
-                <p class="flex text-center justify-center text-[16px] text-primary ">Melhor site de corridas inglesas do
-                    Brasil, teste
-                    gratuitamente e comece a lucrar hoje mesmo, tenha acesso a tudo
-                    que você precisa para dominar esse mercado de galgos.</p>
-            </div>
-        </section>
-
-        <section class="container p-4">
-            <div class="grid pt-16 grid-colunas pl-16">
-                <span class="numeros">1</span>
-                <div>
-                    <h2 class="text-[32px] text-secondary font-bold">Acessível</h2>
-                    <p class="pt-6 text-[21px] text-dark">Tenha acesso as corridas atualizadas diariamente com todas as
-                        informações que você precisa para analisar.
-                    </p>
-                </div>
-            </div>
-            <div class="grid  pt-16 grid-colunas pl-16">
-                <span class="numeros">2</span>
-                <div>
-                    <h2 class="text-[32px] text-secondary font-bold">Exclusividade</h2>
-                    <p class="pt-6 text-[21px] text-dark">Obtenha um filtro único que vai te ajudar a trabalhar com top 3,
-                        back
-                        e placed.</p>
-                </div>
-            </div>
-            <div class="grid pt-16 grid-colunas pl-16">
-                <span class="numeros">3</span>
-                <div>
-                    <h2 class="text-[32px] text-secondary font-bold">Aprendizado</h2>
-                    <p class="pt-6 text-[21px] text-dark">Você vai receber acesso a um curso completo de como analisar as
-                        corridas para AvB, possibilitando a você
-                        viver do mercado.</p>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="container">
-            <h1 class="flex justify-center text-[50px] text-primary lg:pb-16 lg:pt-24 font-bold">Conheça nossos planos</h1>
+            <img src="{{ asset('images/icons/rei-do-uk.svg') }}" alt="reidoukicone" class="p-2 h-full pl-8 object-contain">
+            <h1 class="flex justify-center text-[50px] text-primary lg:pb-16 lg:pt-24 font-bold">Planos e Valores</h1>
 
             <h2 class="text-[32px] text-secondary pb-8 font-bold pl-8">Site de analise</h2>
             <div class="flex gap-4 pr-8 pl-8">
