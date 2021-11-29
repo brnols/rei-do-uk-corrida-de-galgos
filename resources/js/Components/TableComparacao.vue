@@ -64,10 +64,10 @@ const columns = [
   },
 
   {
-    name: "idade",
+    name: "sexo",
     align: "center",
     label: "Pick",
-    field: "idade",
+    field: "sexo",
     align: "left",
   },
   {
@@ -76,8 +76,8 @@ const columns = [
     field: "linhagem",
     align: "left",
   },
-  { name: "sexo", label: "Split", field: "", align: "left" },
-  { name: "idade", label: "UT", field: "2", align: "left" },
+  { name: "name", label: "Split", field: "", align: "center" },
+  { name: "linhagem", label: "UT", field: "linhagem", align: "center" },
   { name: "linhagem", label: "PN", field: "linhagem", align: "center" },
   { name: "linhagem", label: "AN", field: "linhagem", align: "center" },
   { name: "linhagem", label: "M", field: "linhagem", align: "center" },
@@ -121,7 +121,7 @@ export default {
         trap: 2,
         canil: 159,
         nome: "Hollyoak Vanessa",
-        sexo: "m",
+        sexo: "f",
         idade: 0,
         linhagem: "19.60s",
         treinador: "treinador",
