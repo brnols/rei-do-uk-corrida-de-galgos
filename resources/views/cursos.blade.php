@@ -3,36 +3,70 @@
 
 @section('content')
     <div class="container">
-        <section class="p-36">
-            <img src="{{ asset('images/icons/rei-do-uk.svg') }}" alt="reidoukicone" class="p-2 h-full pl-8 object-contain">
-            <h1 class="flex text-[50px] text-primary lg:pb-16 lg:pt-24 font-bold">Navegando no site</h1>
-            <div class="container-cards">
+        <section>
+            <div class="grid grid-curso">
+                <h1 class="text-[48px] text-primary  font-bold">Navegando no site</h1>
+                <button class="flex text-light p-4 items-center justify-between">
+                    <div class="flex flex-col items-start"> <span>Curso de</span> <span
+                            class="text-[22px] block text-light font-bold">Galgo vencedor</span></div> <img
+                        src="{{ asset('images/casa.svg') }}" alt="casa">
+                </button>
                 <div class="card">
-                <iframe class="w-[100%] h-[100%]" src="https://www.youtube.com/embed/OR74idpsweg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="w-[100%] h-[100%]" src="https://www.youtube.com/embed/m8QESxCjUH4"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="card">
-                <a href="#"></a>
+                    <iframe class="w-[100%] h-[100%]" src="https://www.youtube.com/embed/dYHeotRsBxQ"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="card">
-                <a href="#"></a>
+                    <iframe class="w-[100%] h-[100%]" src="https://www.youtube.com/embed/9dc6258Jgtk"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="card">
-                <a href="#"></a>
+                    <iframe class="w-[100%] h-[100%]" src="https://www.youtube.com/embed/QXw3dJRHyMY"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
             </div>
 
         </section>
     </div>
     <style>
-    .card{
-        height: 30rem;
-        width: 30rem;
-        border: solid 2px #000;
-    }
-    .container-cards{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 1rem;
-    }
+        .card {
+            height: 21rem;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .container-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 1rem;
+            justify-content: center;
+            border-radius: 20px 20px 0px 0px;
+        }
+
+        .grid-curso {
+            grid-template-columns: 30rem 30rem;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        button {
+            background: #DA0627;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            height: 5rem;
+        }
+
     </style>
 @endsection

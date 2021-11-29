@@ -14,8 +14,10 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::view('/', 'home')
+    ->name('home');
+
+Route::view('home', 'home')
     ->name('home');
 
 Route::view('planosevalores', 'planosvalores')

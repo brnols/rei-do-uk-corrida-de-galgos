@@ -4,33 +4,32 @@
 @section('content')
     <div class="container">
         <section>
-            <img src="{{ asset('images/icons/rei-do-uk.svg') }}" alt="reidoukicone" class="p-2 h-full pl-8 object-contain">
-            <h1 class="flex justify-center text-[50px] text-primary lg:pb-16 lg:pt-24 font-bold">Planos e Valores</h1>
+            <h1 class="flex justify-center text-[50px] text-primary mb-12 font-bold">Planos e Valores</h1>
 
             <h2 class="text-[32px] text-secondary pb-8 font-bold pl-8">Site de analise</h2>
-            <div class="flex gap-4 pr-8 pl-8">
+            <div class="flex gap-4">
                 <div class="card">
                     <p class="text-secondary font-bold">1º mês</p>
                     <img class="mx-auto" src="{{ asset('images/cartao.svg') }}" alt="cartao">
-                    <p>R$ <span class="text-[55px] text-primary font-bold">29,90</span></p>
+                    <p>R$ <span class="text-[47px] text-primary font-bold">29,90</span></p>
                     <p class="text-primary">• Pagamento com cartão</p>
                 </div>
                 <div class="card">
                     <p class="text-secondary font-bold">1º mês</p>
                     <img class="mx-auto" src="{{ asset('images/pix-boleto.svg') }}" alt="pixboleto">
-                    <p>R$ <span class="text-[55px] text-primary font-bold">39,90</span></p>
-                    <p class="text-primary">• Pagamento com Pix / Boleto</p>
+                    <p>R$ <span class="text-[47px] text-primary font-bold">39,90</span></p>
+                    <p class="text-primary">• Pagamento com Pix ou Boleto</p>
                 </div>
                 <div class="card">
                     <p class="text-secondary font-bold">Trimestral</p>
                     <img class="mx-auto" src="{{ asset('images/pix-cartao-boleto.svg') }}" alt="pixcartaoboleto">
-                    <p>R$ <span class="text-[55px] text-primary font-bold">69,90</span></p>
+                    <p>R$ <span class="text-[47px] text-primary font-bold">69,90</span></p>
                     <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>
                 </div>
                 <div class="card">
                     <p class="text-secondary font-bold">Semestral</p>
                     <img class="mx-auto" src="{{ asset('images/boleto-pix-cartao.svg') }}" alt="cartao">
-                    <p>R$ <span class="text-[55px] text-primary font-bold">139,90</span></p>
+                    <p>R$ <span class="text-[47px] text-primary font-bold">139,90</span></p>
                     <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>
                 </div>
             </div>
@@ -38,29 +37,29 @@
 
             <h2 class="text-[32px] text-secondary pt-16 pb-8 font-bold pl-8">Site de análise + Grupo VIP</h2>
 
-            <div class="flex gap-4 pr-8 pl-8">
+            <div class="flex gap-4">
                 <div class="card">
                     <p class="text-secondary font-bold">1º mês</p>
                     <img class="mx-auto" src="{{ asset('images/cartao.svg') }}" alt="cartao">
-                    <p>R$ <span class="text-[55px] text-primary font-bold">97,00</span></p>
+                    <p>R$ <span class="text-[47px] text-primary font-bold">97,00</span></p>
                     <p class="text-primary">• Pagamento com cartão</p>
                 </div>
                 <div class="card">
                     <p class="text-secondary font-bold">1º mês</p>
                     <img class="mx-auto" src="{{ asset('images/pix-boleto.svg') }}" alt="pixboleto">
-                    <p>R$ <span class="text-[55px] text-primary font-bold">109,90</span></p>
-                    <p class="text-primary">• Pagamento com Pix / Boleto</p>
+                    <p>R$ <span class="text-[47px] text-primary font-bold">109,90</span></p>
+                    <p class="text-primary">• Pagamento com Pix ou Boleto</p>
                 </div>
                 <div class="card">
                     <p class="text-secondary font-bold">Trimestral</p>
                     <img class="mx-auto" src="{{ asset('images/pix-cartao-boleto.svg') }}" alt="pixcartaoboleto">
-                    <p>R$ <span class="text-[55px] text-primary font-bold">249,90</span></p>
+                    <p>R$ <span class="text-[47px] text-primary font-bold">249,90</span></p>
                     <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>
                 </div>
                 <div class="card">
                     <p class="text-secondary font-bold">Semestral</p>
                     <img class="mx-auto" src="{{ asset('images/boleto-pix-cartao.svg') }}" alt="cartao">
-                    <p>R$ <span class="text-[55px] text-primary font-bold">499,90</span></p>
+                    <p>R$ <span class="text-[47px] text-primary font-bold">499,90</span></p>
                     <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>
                 </div>
             </div>

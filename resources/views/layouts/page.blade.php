@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laragon') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
 </head>
 <body class="antialiased">
     
-    @if (Request::path() == '/')     @include('includes.header') @endif
+    @if (Request::path() !== '')     @include('includes.header') @endif
 
 
     @yield('content')
