@@ -8,9 +8,6 @@
     rows-per-page-options="6"
     hide-pagination
   >
-    <template v-slot:top>
-      <h2 class="text-xs font-bold text-primary">Participantes</h2>
-    </template>
 
     <template v-slot:header="props">
       <q-tr :props="props">
@@ -61,7 +58,7 @@ import { ref } from "vue";
 const columns = [
   {
     name: "trap",
-    label: "Trap",
+    label: "Trap / Galgo /Sexo" ,
     align: "left",
     field: "trap",
   },
@@ -69,33 +66,42 @@ const columns = [
   {
     name: "canil",
     align: "center",
-    label: "Canil",
+    label: "Pick",
     field: "canil",
     align: "left",
   },
   {
     name: "nome",
-    label: "Nome",
+    label: "BRT",
     field: "nome",
     align: "left",
   },
-  { name: "sexo", label: "Sexo", field: "sexo", align: "left" },
-  { name: "idade", label: "Idade", field: "idade", align: "left" },
-  { name: "linhagem", label: "Linhagem", field: "linhagem", align: "center" },
-  { name: "treinador", label: "Treinador", field: "treinador" },
+  { name: "sexo", label: "Split", field: "sexo", align: "left" },
+  { name: "idade", label: "UT", field: "idade", align: "left" },
+  { name: "linhagem", label: "PN", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "AN", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "M", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "Peso", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "idade", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "S.C.", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "A", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "R", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "SF", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "Cat", field: "linhagem", align: "center" },
+   { name: "linhagem", label: "VM", field: "linhagem", align: "center" },
+    { name: "linhagem", label: "FM", field: "linhagem", align: "center" },
+  
   {
     name: "races",
-    label: "Races",
+    label: "O.TP",
     field: "races",
   },
   {
-    name: "galgo",
-    label: "Vizualisar Galgo",
-    field: "galgo",
+    name: "races",
+    label: "Over",
+    field: "races",
   },
-  {
-    name: "icon",
-  },
+  
 ];
 
 export default {
@@ -104,63 +110,35 @@ export default {
       {
         trap: 1,
         canil: 159,
-        nome: "nome 1",
+        nome: "19.70s",
         sexo: "f",
         idade: 4.0,
-        linhagem: "linhagem 1",
+        linhagem: "19.70s",
         treinador: "treinador",
         races: "10",
       },
       {
         trap: 2,
         canil: 159,
-        nome: "nome 2",
+        nome: "19.60s",
         sexo: "m",
         idade: 4.0,
-        linhagem: "linhagem 2",
+        linhagem: "19.60s",
         treinador: "treinador",
         races: "10",
       },
       {
         trap: 3,
         canil: 159,
-        nome: "nome 3",
+        nome: "2",
         sexo: "f",
         idade: 4.0,
-        linhagem: "linhagem 3",
+        linhagem: "2",
         treinador: "treinador",
         races: "5",
       },
-      {
-        trap: 4,
-        canil: 159,
-        nome: "nome 4",
-        sexo: "m",
-        idade: 4.0,
-        linhagem: "linhagem 4",
-        treinador: "treinador",
-        races: "20",
-      },
-      {
-        trap: 5,
-        canil: 159,
-        nome: "nome 5",
-        sexo: "m",
-        idade: 4.0,
-        linhagem: "linhagem 5",
-        treinador: "treinador",
-        races: "4",
-      },
-      {
-        trap: 6,
-        canil: 159,
-        nome: "nome 6",
-        sexo: "f",
-        idade: 4.0,
-        linhagem: "linhagem 6",
-        treinador: "treinador",
-        races: "10",
-      },
+      
+     
     ],
   }),
 

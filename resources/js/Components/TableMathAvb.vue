@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-xs font-bold text-primary m-4">Participantes</h2>
+    <h2 class="text-xs font-bold text-primary m-4">Math AvB</h2>
     <div class="px-4 py-8 shadow-xl tabela c-TableGrid">
       <q-btn 
       v-for="item in items" 
