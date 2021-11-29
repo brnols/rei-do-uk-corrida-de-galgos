@@ -3,7 +3,11 @@
 
   <div class="q-pa-md" style="max-width: 300px">
     <div class="q-gutter-md">
-      <q-select dense filled v-model="model" :options="options" />
+      <q-select dense filled v-model="model" :options="options">
+        <template v-slot:prepend>
+          <q-icon name="fas fa-arrow-up" />
+        </template>
+      </q-select>
     </div>
   </div>
 </template>

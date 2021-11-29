@@ -23,7 +23,8 @@ const QuasarConfig = {
             success: '#6FCF97',
         },
         extras: [
-            'fontawesome-v5'
+            'fontawesome-v5',
+            'material-icons'
         ],
         framework: {
             iconSet: iconSet
