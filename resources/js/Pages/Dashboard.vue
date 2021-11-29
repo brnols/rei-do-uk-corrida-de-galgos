@@ -1,33 +1,53 @@
 <template>
-    <Head title="Dashboard" />
+  <Head title="Dashboard" />
 
-    <BreezeAuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
-        </template>
+  <div class="relative">
+    <q-img class="img" src="/images/bandeira.png"> </q-img>
+    <div class="card bot">
+      <div class="rounded-3xl" style="width: 90%; background: #eff3f8">
+        <form-home />
+      </div>
+    </div>
+  </div>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        You're logged in!
-                    </div>
-                </div>
-            </div>
-        </div>
-    </BreezeAuthenticatedLayout>
+  <div class="mt-7">
+    <table-home></table-home>
+  </div>
 </template>
 
 <script>
-import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import Guest from "@/Layouts/Guest.vue";
+import FormHome from "@/Components/FormHome.vue";
+import TableHome from "@/Components/TableHome.vue";
+import { Head } from "@inertiajs/inertia-vue3";
 
 export default {
-    components: {
-        BreezeAuthenticatedLayout,
-        Head,
-    },
-}
+  layout: Guest,
+
+  components: {
+    Head,
+    FormHome,
+    TableHome,
+  },
+  data() {
+    return {};
+  },
+
+  methods: {},
+};
 </script>
+<style scoped>
+.img {
+  height: 287px;
+  opacity: 0.5;
+}
+.bot {
+  position: absolute;
+  bottom: 5%;
+}
+.card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+</style>

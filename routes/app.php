@@ -9,4 +9,6 @@ Route::prefix('app')->middleware(['auth'])->group(function () {
     Route::inertia('/dashboard', 'Dashboard')
         ->name('dashboard');
 
+    Route::inertia('/race', 'Race')
+        ->name('race');
 });

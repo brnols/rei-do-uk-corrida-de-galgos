@@ -1,116 +1,115 @@
 <template>
-    <Head title="Log in"/>
+  <Head title="Log in" />
 
-    <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-        {{ status }}
+  <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+    {{ status }}
+  </div>
+
+  <div class="row items-center">
+    <div class="col-12 col-sm-6">
+      <q-img max-width="667" src="/images/dog-galgos.png" alt="" />
     </div>
+    <div class="col-12 col-sm-6">
+      <q-card class="card q-pa-lg">
+        <h1>Login</h1>
+        <p class="text-primary">
+          Seja bem vindo! Acesse agora toda a potência em análise de Galgos UK.
+        </p>
 
-    <q-card class="bg-light">
-        <q-form @submit.prevent="submit" class="flex flex-col space-y-6">
-            <q-input
-                type="email"
-                v-model="form.email"
-                required
-                autocomplete="username"
-                placeholder="seu@email.com"
-                rounded
-                outlined
-                dense
-            />
-            <q-input
-                type="password"
-                v-model="form.email"
-                required
-                autocomplete="current-password"
-                placeholder="********"
-                rounded
-                outlined
-                dense
-            />
-            <q-checkbox
-                v-model="form.remember"
-                label="Lembrar"
-                dense
-            ></q-checkbox>
-            <q-btn
-                class="mx-auto"
-                color="primary"
-                rounded
-                label="Entrar"
-            ></q-btn>
+        <q-form
+          @submit.prevent="submit"
+          class="flex flex-col space-y-6 q-pb-lg"
+        >
+          <q-input
+            type="email"
+            v-model="form.email"
+            required
+            autocomplete="username"
+            placeholder="seu@email.com"
+            rounded
+            outlined
+            dense
+          />
+          <q-input
+            type="password"
+            v-model="form.password"
+            required
+            autocomplete="current-password"
+            placeholder="********"
+            rounded
+            outlined
+            dense
+          />
+          <q-checkbox
+            class="text-primary"
+            v-model="form.remember"
+            label="Lembrar"
+            dense
+          ></q-checkbox>
+          <q-btn
+            type="submit"
+            class="mx-auto"
+            color="primary"
+            rounded
+            label="Entrar"
+            :loading="form.processing"
+            :disabled="form.processing"
+          ></q-btn>
         </q-form>
-    </q-card>
-    <form @submit.prevent="submit">
-        <div>
-            <BreezeLabel for="email" value="Email"/>
-            <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus
-                         autocomplete="username"/>
-        </div>
-
-        <div class="mt-4">
-            <BreezeLabel for="password" value="Password"/>
-            <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
-                         autocomplete="current-password"/>
-        </div>
-
-        <div class="block mt-4">
-            <label class="flex items-center">
-                <BreezeCheckbox name="remember" v-model:checked="form.remember"/>
-                <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <Link v-if="canResetPassword" :href="route('password.request')"
-                  class="underline text-sm text-gray-600 hover:text-gray-900">
-                Forgot your password?
-            </Link>
-
-            <q-btn class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Log in
-            </q-btn>
-        </div>
-    </form>
+      </q-card>
+    </div>
+  </div>
 </template>
 
 <script>
-import BreezeButton from '@/Components/Button.vue'
-import BreezeCheckbox from '@/Components/Checkbox.vue'
-import BreezeGuestLayout from '@/Layouts/Guest.vue'
-import BreezeInput from '@/Components/Input.vue'
-import BreezeLabel from '@/Components/Label.vue'
-import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
-import {Head, Link} from '@inertiajs/inertia-vue3';
+import Guest from "@/Layouts/Guest.vue";
+import { Head, Link } from "@inertiajs/inertia-vue3";
 
 export default {
-    layout: BreezeGuestLayout,
+  layout: Guest,
 
-    components: {
-        Head,
-        Link,
+  components: {
+    Head,
+    Link,
+  },
+
+  props: {
+    canResetPassword: Boolean,
+    status: String,
+  },
+
+  data() {
+    return {
+      form: this.$inertia.form({
+        email: "",
+        password: "",
+        remember: false,
+      }),
+    };
+  },
+
+  methods: {
+    submit() {
+      this.form.post(this.route("login"), {
+        onFinish: () => this.form.reset("password"),
+      });
+      
     },
-
-    props: {
-        canResetPassword: Boolean,
-        status: String,
-    },
-
-    data() {
-        return {
-            form: this.$inertia.form({
-                email: '',
-                password: '',
-                remember: false
-            })
-        }
-    },
-
-    methods: {
-        submit() {
-            this.form.post(this.route('login'), {
-                onFinish: () => this.form.reset('password'),
-            })
-        }
-    }
-}
+  },
+};
 </script>
+<style scoped>
+h1 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 60px;
+  color: #0342a1;
+}
+.card {
+  max-width: 420px;
+  border: 0.5px solid #eaebed;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+}
+</style>
