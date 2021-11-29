@@ -57,27 +57,27 @@
 import { ref } from "vue";
 const columns = [
   {
-    name: "trap",
+    name: "nome",
     label: "Trap / Galgo /Sexo" ,
     align: "left",
-    field: "trap",
+    field: "nome",
   },
 
   {
-    name: "canil",
+    name: "idade",
     align: "center",
     label: "Pick",
-    field: "canil",
+    field: "idade",
     align: "left",
   },
   {
-    name: "nome",
+    name: "linhagem",
     label: "BRT",
-    field: "nome",
+    field: "linhagem",
     align: "left",
   },
-  { name: "sexo", label: "Split", field: "sexo", align: "left" },
-  { name: "idade", label: "UT", field: "idade", align: "left" },
+  { name: "sexo", label: "Split", field: "", align: "left" },
+  { name: "idade", label: "UT", field: "2", align: "left" },
   { name: "linhagem", label: "PN", field: "linhagem", align: "center" },
   { name: "linhagem", label: "AN", field: "linhagem", align: "center" },
   { name: "linhagem", label: "M", field: "linhagem", align: "center" },
@@ -110,9 +110,9 @@ export default {
       {
         trap: 1,
         canil: 159,
-        nome: "19.70s",
+        nome: "Coastal Rose",
         sexo: "f",
-        idade: 4.0,
+        idade: 0,
         linhagem: "19.70s",
         treinador: "treinador",
         races: "10",
@@ -120,9 +120,9 @@ export default {
       {
         trap: 2,
         canil: 159,
-        nome: "19.60s",
+        nome: "Hollyoak Vanessa",
         sexo: "m",
-        idade: 4.0,
+        idade: 0,
         linhagem: "19.60s",
         treinador: "treinador",
         races: "10",
@@ -132,10 +132,10 @@ export default {
         canil: 159,
         nome: "2",
         sexo: "f",
-        idade: 4.0,
+        idade: 2,
         linhagem: "2",
         treinador: "treinador",
-        races: "5",
+        races: "2",
       },
       
      
