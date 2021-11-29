@@ -33,6 +33,7 @@ module.exports = {
                 success: '#6FCF97'
             }
         },
+
     },
 
     variants: {
@@ -40,6 +41,7 @@ module.exports = {
             opacity: ['disabled'],
         },
     },
+
 
     plugins: [require('@tailwindcss/forms')],
 };
