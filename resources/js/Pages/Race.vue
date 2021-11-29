@@ -93,8 +93,10 @@
     <table-participantes></table-participantes>
 
     <tabela-comparativa class="mt-6"></tabela-comparativa>
-    <table-math-avb></table-math-avb>
-    <table-comparacao></table-comparacao>
+
+    <table-math-avb class="mt-6" />
+
+    <table-comparacao class="mt-6" />
   </div>
 </template>
 
