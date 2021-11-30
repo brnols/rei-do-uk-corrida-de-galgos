@@ -32,7 +32,7 @@
     </template>
 
     <template v-slot:body-cell-canil="props">
-      <q-td :props="props">
+      <q-td style="background-color: white" :props="props">
         <q-btn size="sm" color="primary" round dense icon="add" />
       </q-td>
     </template>
@@ -42,8 +42,9 @@
         <img v-else src="/images/el_female.png" />
       </q-td>
     </template>
+
     <template v-slot:body-cell-galgo="props">
-      <q-td class="flex justify-center" :props="props">
+      <q-td class="flex justify-center bg-light" :props="props">
         <q-icon name="far fa-eye" />
       </q-td>
     </template>
@@ -190,11 +191,21 @@ export default {
   },
 };
 </script>
-<style>
+<style >
 .tabela {
   background: #eff3f8;
   border-radius: 20px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.tabela td {
+  background: white !important;
+  border-bottom-width: 8px !important;
+  border-color: #eff3f8;
+}
+
+.q-table tr {
+  border-color: #eff3f8;
 }
 </style>
