@@ -97,8 +97,8 @@
 
     <tabela-comparativa-tres class="mt-6"> </tabela-comparativa-tres>
 
-    <!-- <table-math-avb></table-math-avb>
-    <table-comparacao></table-comparacao> -->
+    <table-math-avb></table-math-avb>
+    <table-comparacao></table-comparacao>
     <div class="grid grid-cols-1 sm:grid-cols-2 space-x-4">
       <table-comp-galgo class="mt-6"></table-comp-galgo>
       <table-comp-galgo class="mt-6"></table-comp-galgo>
