@@ -1,8 +1,6 @@
-<?php
+<?php /** @noinspection PhpUndefinedMethodInspection */
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +12,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('/', 'home')
+Route::view('/teste', 'home')
     ->name('home');
 
 Route::view('home', 'home')
@@ -23,9 +21,26 @@ Route::view('home', 'home')
 Route::view('planosevalores', 'planosvalores')
     ->name('planosvalores');
 
-    Route::view('cursos', 'cursos')
+Route::view('cursos', 'cursos')
     ->name('cursos');
 
-require __DIR__.'/app.php';
+Route::inertia('/', 'Welcome')
+    ->name('welcome');
+
+Route::inertia('/planos', 'Planos')
+    ->name('planos');
+
+Route::inertia('/cursos', 'Cursos')
+    ->name('cursos');
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::inertia('/dashboard', 'Dashboard')
+        ->name('dashboard');
+
+    Route::inertia('/race', 'Race')
+        ->name('race');
+
+});
 
 require __DIR__.'/auth.php';

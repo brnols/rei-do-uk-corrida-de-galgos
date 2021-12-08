@@ -1,9 +1,9 @@
 @extends('layouts.page')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <section>
-            <img src="{{ asset('images/Cachorros1.svg') }}" alt="cachorros" class="mt-10 mx-auto">
+            <img src="{{ asset('images/Cachorros1.svg') }}" alt="cachorros" class="mt-10 w-full h-auto
             <div class="flex  justify-center">
                 <img src="{{ asset('images/icons/bandeiracurvada1.svg') }}" alt="bandeiracurvada"
                     class="mt-[-350px] mr-[-56px] relative">

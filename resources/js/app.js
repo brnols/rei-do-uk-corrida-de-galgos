@@ -1,12 +1,11 @@
 require('./bootstrap');
 
+import AppLayout from "@/Layouts/App"
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import { Quasar, Dialog } from 'quasar'
 import iconSet from 'quasar/icon-set/fontawesome-v5'
-
-
 
 const QuasarConfig = {
     plugins: {
@@ -29,8 +28,6 @@ const QuasarConfig = {
         framework: {
             iconSet: iconSet
         }
-
-
     }
 }
 
@@ -38,7 +35,11 @@ const appName = window.document.getElementsByTagName('title')[0]?.innerText || '
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => require(`./Pages/${name}.vue`),
+    resolve: name => {
+        const page = require(`./Pages/${name}`).default
+        page.layout = page.layout || AppLayout
+        return page
+    },
     setup({ el, app, props, plugin }) {
         return createApp({ render: () => h(app, props) })
             .use(plugin)

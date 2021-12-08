@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     important: true,
-    
+
     mode: 'jit',
 
     purge: [
@@ -15,6 +15,16 @@ module.exports = {
     theme: {
         container: {
             center: true,
+            padding: {
+                DEFAULT: '1rem',
+            }
+        },
+
+        /*Breakpoints*/
+        screens: {
+            'sm': '640px',
+            'md': '768px',
+            'lg': '1150px',
         },
 
         extend: {
@@ -22,6 +32,7 @@ module.exports = {
                 sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
             },
 
+            /* Tema */
             colors: {
                 primary: {
                     light: '#0452C7',
@@ -39,7 +50,6 @@ module.exports = {
                 success: '#6FCF97'
             }
         },
-
     },
 
     variants: {
@@ -47,7 +57,6 @@ module.exports = {
             opacity: ['disabled'],
         },
     },
-
 
     plugins: [require('@tailwindcss/forms')],
 };
