@@ -93,10 +93,17 @@
     <table-participantes></table-participantes>
 
     <tabela-comparativa class="mt-6"></tabela-comparativa>
+    <tabela-comparativa-dois class="mt-6"></tabela-comparativa-dois>
 
-    <table-math-avb class="mt-6" />
+    <tabela-comparativa-tres class="mt-6"> </tabela-comparativa-tres>
 
-    <table-comparacao class="mt-6" />
+    <table-math-avb></table-math-avb>
+    <table-comparacao></table-comparacao>
+    <div class="grid grid-cols-1 sm:grid-cols-2 space-x-4">
+      <table-comp-galgo class="mt-6"></table-comp-galgo>
+      <table-comp-galgo class="mt-6"></table-comp-galgo>
+    </div>
+    <table-galgo class="mt-6"></table-galgo>
   </div>
 </template>
 
@@ -106,8 +113,12 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 import TableParticipantes from "@/Components/TableParticipantes.vue";
 import TabelaComparativa from "@/Components/TabelaComparativa.vue";
+import TabelaComparativaDois from "@/Components/TabelaComprativaDois.vue";
+import TabelaComparativaTres from "@/Components/TabelaComparativaTres.vue";
 import TableMathAvb from "@/Components/TableMathAvb.vue";
 import TableComparacao from "@/Components/TableComparacao.vue";
+import TableCompGalgo from "@/Components/TableCompGalgo.vue";
+import TableGalgo from "@/Components/TableGalgo.vue";
 
 export default {
   layout: Guest,
@@ -117,8 +128,12 @@ export default {
     Link,
     TableParticipantes,
     TabelaComparativa,
+    TabelaComparativaDois,
+    TabelaComparativaTres,
     TableMathAvb,
     TableComparacao,
+    TableCompGalgo,
+    TableGalgo,
   },
 
   setup() {

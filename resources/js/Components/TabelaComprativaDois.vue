@@ -23,23 +23,25 @@
         </q-th>
       </q-tr>
     </template>
-    <template v-slot:body-cell-btr="props">
+    <template v-slot:body-cell-semcorrida="props">
+      <q-td class="flex items-center" :props="props">
+        <div>
+          <img :src="`/images/${props.row.number}.png`" />
+        </div>
+        <span class="pl-2"> {{ props.value }} </span>
+      </q-td>
+    </template>
+    <template v-slot:body-cell-tp="props">
       <q-td :props="props">
-        <div class="relative">
-          <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
-          <img class="bg-orange" :src="`/images/${props.row.number}.png`" />
+        <div class="flex space-x-2 space-y-2 sm:space-y-0">
+          <div>
+            <img class="bg-orange" :src="`/images/${props.row.number}.png`" />
+          </div>
+          <span> {{ props.value }} </span>
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-split="props">
-      <q-td :props="props">
-        <div class="relative">
-          <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
-          <img class="bg-orange" :src="`/images/${props.row.number}.png`" />
-        </div>
-      </q-td>
-    </template>
-    <template v-slot:body-cell-bend="props">
+    <template v-slot:body-cell-remarks="props">
       <q-td :props="props">
         <div class="relative">
           <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
@@ -47,7 +49,7 @@
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-ut="props">
+    <template v-slot:body-cell-velocidade="props">
       <q-td :props="props">
         <div class="relative">
           <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
@@ -55,16 +57,7 @@
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-pn="props">
-      <q-td :props="props">
-        <div class="relative">
-          <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
-          <img class="bg-orange" :src="`/images/${6}.png`" />
-        </div>
-      </q-td>
-    </template>
-
-    <template v-slot:body-cell-apn="props">
+    <template v-slot:body-cell-peso="props">
       <q-td :props="props">
         <div class="relative">
           <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
@@ -73,11 +66,24 @@
       </q-td>
     </template>
 
-    <template v-slot:body-cell-media="props">
+    <template v-slot:body-cell-categoria="props">
       <q-td :props="props">
         <div class="relative">
           <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
-          <img class="bg-orange" :src="`/images/${3}.png`" />
+          <img class="bg-orange" :src="`/images/${6}.png`" />
+        </div>
+      </q-td>
+    </template>
+
+    <template v-slot:body-cell-historico="props">
+      <q-td :props="props">
+        <div class="flex space-x-1">
+          <img :src="`/images/${2}.png`" />
+          <img :src="`/images/${3}.png`" />
+          <img :src="`/images/${1}.png`" />
+          <img :src="`/images/${5}.png`" />
+          <img :src="`/images/${6}.png`" />
+          <img :src="`/images/${4}.png`" />
         </div>
       </q-td>
     </template>
@@ -87,27 +93,37 @@
 <script>
 const columns = [
   {
-    name: "btr",
+    name: "semcorrida",
     required: true,
-    label: "BTR",
+    label: "Dias sem correr",
     align: "left",
     field: (row) => row.name,
     format: (val) => `${val}`,
   },
   {
-    name: "split",
+    name: "tp",
     align: "left",
-    label: "Split (380m)",
-    field: "split",
+    label: "TP",
+    field: "tp",
   },
-  { name: "bend", label: "1º Bend", field: "bend", align: "left" },
-  { name: "ut", label: "UT (380m)", field: "ut", align: "left" },
-  { name: "pn", label: "PN (380m)", field: "pn", align: "left" },
-  { name: "apn", label: "APN (380m)", field: "apn", align: "left" },
+  { name: "remarks", label: "Remarks", field: "remarks", align: "left" },
   {
-    name: "media",
-    label: "Média",
-    field: "media",
+    name: "velocidade",
+    label: "Velocidade",
+    field: "velocidade",
+    align: "left",
+  },
+  { name: "peso", label: "Peso", field: "peso", align: "left" },
+  {
+    name: "categoria",
+    label: "Categoria (últims 5)",
+    field: "categoria",
+    align: "left",
+  },
+  {
+    name: "historico",
+    label: "Histótivo Posição",
+    field: "historico",
     align: "left",
   },
 ];
@@ -115,62 +131,62 @@ const columns = [
 const rows = [
   {
     name: 23,
-    split: 159,
-    bend: 6.0,
-    ut: 24,
-    pn: 4.0,
-    apn: 87,
-    media: 35,
+    tp: 159,
+    remarks: 6.0,
+    velocidade: 24,
+    peso: 4.0,
+    categoria: 87,
+    historico: 35,
     number: 1,
   },
   {
     name: 23,
-    split: 159,
-    bend: 6.0,
-    ut: 24,
-    pn: 4.0,
-    apn: 87,
-    media: 35,
+    tp: 159,
+    remarks: 6.0,
+    velocidade: 24,
+    peso: 4.0,
+    categoria: 87,
+    historico: 35,
     number: 4,
   },
   {
     name: 23,
-    split: 159,
-    bend: 6.0,
-    ut: 24,
-    pn: 4.0,
-    apn: 87,
-    media: 35,
+    tp: 159,
+    remarks: 6.0,
+    velocidade: 24,
+    peso: 4.0,
+    categoria: 87,
+    historico: 35,
     number: 1,
   },
   {
     name: 23,
-    split: 159,
-    bend: 6.0,
-    ut: 24,
-    pn: 4.0,
-    apn: 87,
-    media: 35,
+    tp: 159,
+    remarks: 6.0,
+    velocidade: 24,
+    peso: 4.0,
+    categoria: 87,
+    historico: 35,
     number: 1,
   },
   {
     name: 23,
-    split: 159,
-    bend: 6.0,
-    ut: 24,
-    pn: 4.0,
-    apn: 87,
-    media: 35,
+    tp: 159,
+    remarks: 6.0,
+    velocidade: 24,
+    peso: 4.0,
+    categoria: 87,
+    historico: 35,
     number: 1,
   },
   {
     name: 23,
-    split: 159,
-    bend: 6.0,
-    ut: 24,
-    pn: 4.0,
-    apn: 87,
-    media: 35,
+    tp: 159,
+    remarks: 6.0,
+    velocidade: 24,
+    peso: 4.0,
+    categoria: 87,
+    historico: 35,
     number: 1,
   },
 ];

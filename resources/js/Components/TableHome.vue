@@ -88,6 +88,12 @@ const rows = [
     huk: "11:00",
     status: "Liberada",
   },
+  {
+    name: "Race 2",
+    hbr: "06:46",
+    huk: "11:00",
+    status: "Liberada",
+  },
 ];
 
 export default {
