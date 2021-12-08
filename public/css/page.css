@@ -1327,9 +1327,6 @@ select {
 .pl-2 {
 	padding-left: 0.5rem !important;
 }
-.pb-10 {
-	padding-bottom: 2.5rem !important;
-}
 .pt-2 {
 	padding-top: 0.5rem !important;
 }
@@ -1341,6 +1338,9 @@ select {
 }
 .pb-1 {
 	padding-bottom: 0.25rem !important;
+}
+.pb-10 {
+	padding-bottom: 2.5rem !important;
 }
 .text-left {
 	text-align: left !important;
@@ -1776,10 +1776,6 @@ select {
 		margin-left: 5rem !important;
 	}
 
-	.sm\:block {
-		display: block !important;
-	}
-
 	.sm\:flex {
 		display: flex !important;
 	}
@@ -1904,6 +1900,14 @@ select {
 
 	.lg\:ml-0 {
 		margin-left: 0px !important;
+	}
+
+	.lg\:block {
+		display: block !important;
+	}
+
+	.lg\:hidden {
+		display: none !important;
 	}
 
 	.lg\:px-8 {

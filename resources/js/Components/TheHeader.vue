@@ -26,7 +26,7 @@
             </nav>
             <!-- fim menu mobile -->
 
-            <nav class="hidden lg:block">
+            <nav class="desktop-only whitespace-nowrap">
                 <q-btn
                     v-for="item in items"
                     :key="item.name"
