@@ -10,7 +10,7 @@
             <div class="col-12 col-sm-6">
                 <q-img max-width="667" src="/images/dog-galgos.png" alt=""/>
             </div>
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-sm-6 mt-3">
                 <q-card class="card q-pa-lg">
                     <h1>Login</h1>
                     <p class="text-primary">
@@ -65,11 +65,9 @@
 </template>
 
 <script>
-import Guest from "@/Layouts/Guest.vue";
 import {Head, Link} from "@inertiajs/inertia-vue3";
 
 export default {
-    layout: Guest,
 
     components: {
         Head,
