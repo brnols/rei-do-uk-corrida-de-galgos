@@ -1,5 +1,6 @@
 <?php /** @noinspection PhpUndefinedMethodInspection */
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,16 +13,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::view('/teste', 'home')
+
+Route::view('old', 'home')
     ->name('home');
 
-Route::view('home', 'home')
-    ->name('home');
-
-Route::view('planosevalores', 'planosvalores')
+Route::view('old-planos', 'planosvalores')
     ->name('planosvalores');
 
-Route::view('cursos', 'cursos')
+Route::view('old-cursos', 'cursos')
     ->name('cursos');
 
 Route::inertia('/', 'Welcome')
@@ -35,7 +34,7 @@ Route::inertia('/cursos', 'Cursos')
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::inertia('/dashboard', 'Dashboard')
+    Route::get('/dashboard/{pista?}', DashboardController::class)
         ->name('dashboard');
 
     Route::inertia('/race', 'Race')
