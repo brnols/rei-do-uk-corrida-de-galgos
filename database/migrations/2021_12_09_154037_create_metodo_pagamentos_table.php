@@ -24,6 +24,7 @@ class CreateMetodoPagamentosTable extends Migration
             $table->string('cpf_titular');
             $table->boolean('principal');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
