@@ -16,10 +16,10 @@ class CreateContratosTable extends Migration
         Schema::create('contratos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->dateTime('data_ativacao');
-            $table->dateTime('data_cancelamento');
+            $table->dateTime('data_ativacao')->nullable();
+            $table->dateTime('data_cancelamento')->nullable();
             $table->dateTime('data_expiracao');
-            $table->boolean('ativo');
+            $table->boolean('ativo')->default(false);
         });
     }
 
