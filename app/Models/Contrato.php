@@ -16,6 +16,11 @@ class Contrato extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function plano(): BelongsTo
+    {
+        return $this->belongsTo(Plano::class);
+    }
+
     public function faturas(): HasMany
     {
         return $this->HasMany(Fatura::class);
