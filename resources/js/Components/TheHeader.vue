@@ -4,7 +4,7 @@
 
             <q-toolbar>
                 <img class="w-14 sm:w-24" src="/images/logo.png" alt="logo"/>
-                <q-toolbar-title class="sm:hidden font-bold">
+                <q-toolbar-title class="desktop-hide font-bold">
                     Rei do UK
                 </q-toolbar-title>
             </q-toolbar>
@@ -18,6 +18,7 @@
                                 <q-item-section
                                     v-text="item.name"
                                     @click="item.action()"
+                                    :class="{'text-secondary': item.active}"
                                 ></q-item-section>
                             </q-item>
                         </q-list>
@@ -26,17 +27,18 @@
             </nav>
             <!-- fim menu mobile -->
 
-            <nav class="desktop-only whitespace-nowrap">
+            <q-list class="desktop-only whitespace-nowrap">
                 <q-btn
                     v-for="item in items"
                     :key="item.name"
                     v-show="item.show"
-                    class="text-primary normal-case"
+                    class="text-primary-dark normal-case"
                     :label="item.name"
                     @click="item.action()"
                     flat
+                    :class="{'text-secondary': item.active}"
                 />
-            </nav>
+            </q-list>
 
         </q-toolbar>
     </q-header>
@@ -54,49 +56,64 @@ export default {
         items: function () {
             return [
                 {
+                    name  : 'Home',
+                    action: () => this.$inertia.visit(this.route('welcome')),
+                    show  : !this.authenticated,
+                    active: this.route().current('welcome')
+                },
+                {
                     name  : 'Teste Agora os Produtos',
                     action: () => this.$inertia.visit(this.route('dashboard')),
-                    show  : !this.authenticated
+                    show  : !this.authenticated,
+                    active: false
                 },
                 {
                     name  : 'Planos e Valores',
                     action: () => this.$inertia.visit(this.route('planos')),
-                    show  : !this.authenticated
+                    show  : !this.authenticated,
+                    active: this.route().current('planos')
                 },
                 {
                     name  : 'Início',
                     action: () => this.$inertia.visit(this.route('dashboard')),
-                    show  : this.authenticated
+                    show  : this.authenticated,
+                    active: this.route().current('dashboard')
                 },
                 {
                     name  : 'Filtros',
                     action: () => this.$inertia.visit(this.route('dashboard')),
-                    show  : this.authenticated
+                    show  : this.authenticated,
+                    active: this.route().current('filtros')
                 },
                 {
                     name  : 'Área do cliente',
                     action: () => this.$inertia.visit(this.route('dashboard')),
-                    show  : this.authenticated
+                    show  : this.authenticated,
+                    active: this.route().current('perfil')
                 },
                 {
                     name  : 'Meu Canil',
                     action: () => this.$inertia.visit(this.route('dashboard')),
-                    show  : this.authenticated
+                    show  : this.authenticated,
+                    active: this.route().current('canil')
                 },
                 {
                     name  : 'Transmissões ao vivo',
                     action: () => this.$inertia.visit(this.route('dashboard')),
-                    show  : this.authenticated
+                    show  : this.authenticated,
+                    active: true
                 },
                 {
                     name  : 'Curso (Free)',
                     action: () => this.$inertia.visit(this.route('cursos')),
-                    show  : true
+                    show  : true,
+                    active: this.route().current('cursos')
                 },
                 {
                     name  : 'Logout',
                     action: () => this.$inertia.post(this.route('logout')),
-                    show  : this.authenticated
+                    show  : this.authenticated,
+                    active: false
                 },
             ]
         }
