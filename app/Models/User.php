@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contrato::class);
     }
+
+    public function canils(): HasMany
+    {
+        return $this->hasMany(Canil::class);
+    }
 }
