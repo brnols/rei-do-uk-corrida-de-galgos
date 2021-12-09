@@ -1,5 +1,5 @@
 <template>
-    <q-header class="bg-white text-primary" elevated="$q.platform.is.mobile" >
+    <q-header class="bg-white text-primary" :elevated="$q.platform.is.mobile" >
         <q-toolbar class="container q-py-sm flex justify-between">
 
             <q-toolbar>
