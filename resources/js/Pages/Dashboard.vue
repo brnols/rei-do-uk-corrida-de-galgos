@@ -99,6 +99,9 @@
                     </div>
                 </div>
             </div>
+            <span v-if="!races.length" class="small-2">
+                Nenhum resultado encontrado para esta pista.
+            </span>
         </q-card>
     </q-page>
 
