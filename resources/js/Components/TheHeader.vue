@@ -10,7 +10,7 @@
             </q-toolbar>
 
             <!-- menu mobile -->
-            <nav class="lg:hidden">
+            <nav class="desktop-hide">
                 <q-btn flat round color="primary" icon="fas fa-bars">
                     <q-menu>
                         <q-list>
