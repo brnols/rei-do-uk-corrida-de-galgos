@@ -160,8 +160,7 @@ export default {
     },
 
     mounted() {
-        console.log(this.route().params.pista);
-        this.form.pista = this.route().params.pista;
+        this.form.pista = this.pista.tabela;
     }
 };
 </script>
