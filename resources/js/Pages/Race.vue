@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import Guest from "@/Layouts/Guest.vue";
+
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 import TableParticipantes from "@/Components/TableParticipantes.vue";
@@ -121,7 +121,7 @@ import TableCompGalgo from "@/Components/TableCompGalgo.vue";
 import TableGalgo from "@/Components/TableGalgo.vue";
 
 export default {
-  layout: Guest,
+
 
   components: {
     Head,
