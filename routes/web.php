@@ -37,6 +37,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{pista?}', DashboardController::class)
         ->name('dashboard');
 
+    Route::get('/dashboard/{pista?}/{race}', DashboardController::class)
+        ->name('dashboard');
+
     Route::inertia('/race', 'Race')
         ->name('race');
 

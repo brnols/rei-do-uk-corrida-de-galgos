@@ -44,7 +44,7 @@ class DashboardController extends Controller
         $races = $races->map(function ($race) {
             /* Verifica se a hora é P.M ou A.M para conversão*/
             $hora          = (int) strtok($race->Horario, ':');
-            $meridiam      = $hora < 9 || $hora == 12 ? 'PM' : 'AM';
+            $meridiam      = $hora < 6 || $hora == 12 ? 'PM' : 'AM';
             $race->Horario = "$race->Horario $meridiam";
 
             /* Pega o id da Race */

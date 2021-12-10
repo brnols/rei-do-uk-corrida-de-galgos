@@ -99,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <span v-if="!races.length" class="small-2">
+            <span v-if="races.length === 0" class="small-2">
                 Nenhum resultado encontrado para esta pista.
             </span>
         </q-card>
@@ -122,7 +122,7 @@ export default {
         pistas: Array,
         pista : Object,
         races : Array,
-        auth  : Array,
+        auth  : Object,
     },
 
     data() {
@@ -160,6 +160,7 @@ export default {
     },
 
     mounted() {
+        console.log(this.route().params.pista);
         this.form.pista = this.route().params.pista;
     }
 };
