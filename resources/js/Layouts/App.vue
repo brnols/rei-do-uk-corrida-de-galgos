@@ -1,9 +1,7 @@
 <template>
-    <q-layout view="hHh lpR fFf">
+    <q-layout view="hhh lpR fFf">
         <the-header/>
-        <q-page-container class="container pb-6">
-            <slot/>
-        </q-page-container>
+        <slot/>
     </q-layout>
 </template>
 

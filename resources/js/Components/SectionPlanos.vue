@@ -1,57 +1,7 @@
 <template>
-    <Head title="Início"/>
-
-    <!-- Hero -->
-    <section class="c-Hero flex justify-center items-end p-6">
-        <div class="flex h-full justify-center">
-            <q-btn rounded color="secondary normal-case mt-auto">
-                <img
-                    src="/images/icons/uk_flag_curved.svg"
-                    alt="bandeiracurvada"
-                    class="w-10 -mt-8 mr-2"
-                />
-                <div>Acessar corridas de galgos</div>
-            </q-btn>
-        </div>
-    </section>
-
-    <!-- Intro -->
-    <section class="container mt-8">
-        <h3 class="h4 md:h3 text-primary text-center whitespace-nowrap">
-            Nossos Pilares
-        </h3>
-        <h2 class="h5 text-primary text-center">
-            Entre para a realeza!
-        </h2>
-        <p class="body text-primary text-center ">
-            Melhor site de corridas inglesas do Brasil, teste gratuitamente e comece a
-            lucrar hoje mesmo, tenha acesso a tudo que você precisa para dominar esse
-            mercado de galgos.
-        </p>
-    </section>
-
-    <section class="container flex flex-col gap-12 md:gap-24 mt-20">
-        <div v-for="(pilar, index) in pilares" class="flex flex-col md:flex-row gap-8 flex-nowrap justify-center items-start">
-            <span
-                class="c-Numeros self-center p-4 md:mr-10"
-                v-text="index + 1"
-            ></span>
-            <div class="flex flex-col text-center sm:text-left">
-                <h2
-                    class="text-[24px] leading-[24px] sm:text-[32px] text-secondary font-bold"
-                    v-text="pilar.title"
-                ></h2>
-                <p
-                    class="pt-6 text-[16px] sm:text-[21px] text-dark"
-                    v-text="pilar.text"
-                ></p>
-            </div>
-        </div>
-    </section>
-
-    <section class="container my-20">
+    <section class="container">
         <h1 class="text-center h4 md:h3 text-primary font-bold leading-10">
-            Conheça nossos planos
+            {{ title }}
         </h1>
 
         <h2 class="mt-8 text-[24px] sm:text-[32px] text-secondary pb-8 font-bold pl-8">
@@ -147,68 +97,27 @@
             </div>
         </div>
     </section>
-
 </template>
 
 <script>
 import CardPlanos from "@/Components/CardPlanos";
-import {Head, Link} from "@inertiajs/inertia-vue3";
 
 export default {
+    name: "SectionPlanos",
+
     components: {
         CardPlanos,
-        Head,
-        Link,
     },
 
-    data() {
-        return {
-            pilares: [
-                {
-                    title: "Acessível",
-                    text : "Tenha acesso as corridas atualizadas diariamente com todas as informações que você precisa para analisar."
-                },
-                {
-                    title: "Exclusividade",
-                    text : "Obtenha um filtro único que vai te ajudar a trabalhar com top 3, back e placed."
-                },
-                {
-                    title: "Aprendizado",
-                    text : "Você vai receber acesso a um curso completo de como analisar as corridas para AvB, possibilitando a você viver do mercado."
-                }
-            ],
-        }
+    props: {
+        title: {
+            type   : String,
+            default: ""
+        },
     },
-};
+}
 </script>
 
 <style scoped>
-.c-Hero {
-    min-height: 500px;
-    background-image: url("/images/guest/hero.png");
-    background-size: cover;
-    background-position: top;
-}
 
-.c-Numeros {
-    font-size: 13rem;
-    line-height: 7rem;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #484a4e;
-    color: #fff;
-    font-weight: 700;
-    opacity: 0.4;
-    min-width: 150px;
-    text-align: center;
-}
-
-.card {
-    border: 0.2px solid #484a4e44;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.26);
-    border-radius: 30px;
-    padding: 1rem;
-    text-align: center;
-    flex: 1;
-}
 </style>
