@@ -26,22 +26,28 @@ class DashboardController extends Controller
 
         if (Schema::hasTable($pista)) {
 
-            $races = DB::table($pista)->orderBy('Horario', 'asc')->get();
+            $races = DB::table($pista)->get();
 
             $races = $races->map(function ($race) {
+                /* Verifica se a hora é P.M ou A.M par conversão*/
+                $meridiam = strtok($race->Horario, ':') < 10 ? 'PM' : 'AM';
+                $race->Horario = "$race->Horario $meridiam";
+                /* Pega o id da Race */
+                preg_match('/^(Race\s)(\d*)(.*)$/', $race->Race_info, $matches);
+
                 return [
-                    'id'      => 0,
-                    'hora_uk' => $race->Horario,
-                    'hora_br' => Carbon::parse($race->Horario)->subHour(3)->format('H:i'),
-                    'info'    => explode('/', $race->Race_info)[1]
+                    'id'        => $matches[2],
+                    'hora_uk'   => Carbon::createFromFormat('g:i A', $race->Horario)->format('H:i'),
+                    'hora_br'   => Carbon::createFromFormat('g:i A', $race->Horario)->subHour(3)->format('H:i'),
+                    'info'      => explode('/', $race->Race_info)[1],
+                    'assinante' => true,
                 ];
             });
 
             if ($request->input('race')) {
                 $races = $races->filter(function ($race) use ($request) {
-                    $input = trim($request->input('race'), " ");
-                    $value = trim(strtok($race->Race_info, '/'), " ");
-                    return $input === $value;
+                    preg_match('/^(Race\s)(\d*)(.*)$/', $request->input('race'), $matches);
+                    return $matches[2] === $race['id'];
                 });
             }
         }
