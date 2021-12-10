@@ -64,33 +64,39 @@
         </div>
 
         <!-- Table -->
-        <q-card class="rounded-3xl bg-light p-4 mt-7 grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div v-for="race in races" :key="race.Horario" class="p-2 bg-white rounded">
-                <div class="flex gap-1 items-center small-2 text-dark whitespace-nowrap">
+        <q-card class="rounded-3xl bg-light p-4 mt-7">
+            <h6 class="h6 text-primary font-bold mb-4">
+                {{ pista.nome }}
+            </h6>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div v-for="race in races" :key="race.Horario" class="p-2 bg-white rounded">
+                    <div class="flex gap-1 items-center small-2 text-dark whitespace-nowrap">
                     <span class="w-16">
                         Race {{ race.id }}
                     </span>
-                    <span>
+                        <span>
                         -
                     </span>
-                    <img src="/images/flag-br.png" alt="Hora Brasil">
-                    <span class="w-12">
+                        <img src="/images/flag-br.png" alt="Hora Brasil">
+                        <span class="w-12">
                         {{ race.hora_br }}
                     </span>
-                    <img src="/images/flag-uk.png" alt="Hora UK">
-                    <span class="w-12">
+                        <img src="/images/flag-uk.png" alt="Hora UK">
+                        <span class="w-12">
                         {{ race.hora_uk }}
                     </span>
-                    <span>
+                        <span>
                         ({{ race.info }})
                     </span>
-                    <q-btn
-                        rounded
-                        unelevated
-                        color="success"
-                        class="ml-auto"
-                        label="Liberada"
-                    ></q-btn>
+                        <q-btn
+                            rounded
+                            unelevated
+                            :disable="!race.liberada"
+                            :color="race.liberada ? 'success' : 'danger' "
+                            class="ml-auto"
+                            :label="race.liberada ? 'Liberada' : 'Assinante' "
+                        ></q-btn>
+                    </div>
                 </div>
             </div>
         </q-card>
@@ -111,7 +117,9 @@ export default {
 
     props: {
         pistas: Array,
-        races : Array
+        pista : Object,
+        races : Array,
+        auth  : Array,
     },
 
     data() {
@@ -132,7 +140,7 @@ export default {
             }
 
             return options;
-        }
+        },
     },
 
     methods: {
