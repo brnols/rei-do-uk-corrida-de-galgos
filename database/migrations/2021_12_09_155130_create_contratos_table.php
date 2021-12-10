@@ -21,6 +21,7 @@ class CreateContratosTable extends Migration
             $table->dateTime('data_cancelamento')->nullable();
             $table->dateTime('data_expiracao');
             $table->boolean('ativo')->default(false);
+            $table->timestamps();
         });
     }
 

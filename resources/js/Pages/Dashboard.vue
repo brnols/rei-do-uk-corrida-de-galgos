@@ -68,21 +68,21 @@
             <div v-for="race in races" :key="race.Horario" class="p-2 bg-white rounded">
                 <div class="flex gap-1 items-center small-2 text-dark whitespace-nowrap">
                     <span class="w-16">
-                        {{ race.Race_info.split('/')[0] }}
+                        Race {{ race.id }}
                     </span>
                     <span>
                         -
                     </span>
-                    <span class="w-10">
-                        {{ race.Horario }}
-                    </span>
                     <img src="/images/flag-br.png" alt="Hora Brasil">
-                    <span class="w-10">
-                        {{ race.Horario }}
+                    <span class="w-12">
+                        {{ race.hora_br }}
                     </span>
-                    <img src="/images/flag-uk.png" alt="Hora Brasil">
+                    <img src="/images/flag-uk.png" alt="Hora UK">
+                    <span class="w-12">
+                        {{ race.hora_uk }}
+                    </span>
                     <span>
-                        ({{ race.Race_info.split('/')[1] }})
+                        ({{ race.info }})
                     </span>
                     <q-btn
                         rounded

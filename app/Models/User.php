@@ -43,6 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'assinante'
+    ];
+
     public function metodo_pagamentos(): HasMany
     {
         return $this->hasMany(MetodoPagamento::class);
@@ -56,5 +60,11 @@ class User extends Authenticatable
     public function canils(): HasMany
     {
         return $this->hasMany(Canil::class);
+    }
+
+    public function getAssinanteAttribute()
+    {
+        $contrato = $this->contratos()->firstWhere('ativo', 1);
+        return $contrato != null;
     }
 }
