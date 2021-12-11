@@ -36,12 +36,18 @@
             dense
         />
 
-        <q-checkbox
-            class="ml-4 text-primary"
-            v-model="form.remember"
-            label="Lembrar"
-            dense
-        ></q-checkbox>
+        <div class="flex justify-between">
+            <q-checkbox
+                class="ml-4 text-primary"
+                v-model="form.remember"
+                label="Lembrar"
+                dense
+            ></q-checkbox>
+
+            <Link :href="route('password.request')" class="text-primary">
+                Esqueci a Senha
+            </Link>
+        </div>
 
         <q-btn
             type="submit"

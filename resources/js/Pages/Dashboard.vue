@@ -1,7 +1,7 @@
 <template>
     <Head title="Dashboard"/>
 
-    <q-page>
+    <q-page class="container">
 
         <!-- Form -->
         <div class="c-FormWrapper relative rounded-3xl p-2">
@@ -70,7 +70,7 @@
             </h6>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div v-for="race in races" :key="race.Horario" class="p-2 bg-white rounded">
-                    <div class="flex gap-1 items-center small-2 text-dark whitespace-nowrap">
+                    <div class="flex gap-1 items-center small text-dark whitespace-nowrap">
                     <span class="w-16">
                         Race {{ race.id }}
                     </span>

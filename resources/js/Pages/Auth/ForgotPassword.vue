@@ -1,80 +1,77 @@
 <template>
-  <Head title="Forgot Password" />
+    <Head title="Esqueci a senha" />
 
-  <div class="mb-4 text-sm text-gray-600">
-    Forgot your password? No problem. Just let us know your email address and we
-    will email you a password reset link that will allow you to choose a new
-    one.
-  </div>
+    <h1 class="h3 text-primary text-center">
+        Login
+    </h1>
 
-  <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-    {{ status }}
-  </div>
-
-  <BreezeValidationErrors class="mb-4" />
-
-  <form @submit.prevent="submit">
-    <div>
-      <BreezeLabel for="email" value="Email" />
-      <BreezeInput
-        id="email"
-        type="email"
-        class="mt-1 block w-full"
-        v-model="form.email"
-        required
-        autofocus
-        autocomplete="username"
-      />
+    <div class="text-primary mb-4">
+        <strong>Problemas para entrar?</strong><br>
+        Insira seu e-mail que enviaremos um link pra você acessar sua conta.
     </div>
 
-    <div class="flex items-center justify-end mt-4">
-      <BreezeButton
-        :class="{ 'opacity-25': form.processing }"
-        :disabled="form.processing"
-      >
-        Email Password Reset Link
-      </BreezeButton>
+    <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        {{ status }}
     </div>
-  </form>
 
-  <q-btn @click="$inertia.visit(route('dashboard'))"></q-btn>
+
+    <q-form @submit.prevent="submit" class="flex flex-col space-y-6 pb-4">
+
+        <q-input
+            type="email"
+            v-model="form.email"
+            placeholder="E-mail"
+            outlined
+            rounded
+            dense
+        ></q-input>
+
+        <q-btn
+            type="submit"
+            class="mx-auto normal-case w-32"
+            color="primary"
+            rounded
+            label="Enviar"
+            :loading="form.processing"
+            :disabled="form.processing"
+        ></q-btn>
+
+    </q-form>
+
+    <Link :href="route('login')" class="text-center text-primary">
+        Fazer login
+    </Link>
+
 </template>
 
 <script>
-import BreezeButton from "@/Components/Button.vue";
-import BreezeGuestLayout from "@/Layouts/Auth.vue";
-import BreezeInput from "@/Components/Input.vue";
-import BreezeLabel from "@/Components/Label.vue";
-import BreezeValidationErrors from "@/Components/ValidationErrors.vue";
-import { Head } from "@inertiajs/inertia-vue3";
+import Auth from "@/Layouts/Auth.vue";
+import {Head, Link} from "@inertiajs/inertia-vue3";
 
 export default {
-  layout: BreezeGuestLayout,
+    layout: Auth,
 
-  components: {
-    BreezeButton,
-    BreezeInput,
-    BreezeLabel,
-    BreezeValidationErrors,
-    Head,
-  },
-
-  props: {
-    status: String,
-  },
-
-  data() {
-    return {
-      form: this.$inertia.form({
-        email: "",
-      }),
-    };
-  },
-
-  methods: {
-    submit() {
-      this.form.post(this.route("password.email"));
+    components: {
+        Head,
+        Link
     },
-  },
+
+    props: {
+        status: String,
+    },
+
+    data() {
+        return {
+            form: this.$inertia.form({
+                email: "",
+            }),
+        };
+    },
+
+    methods: {
+        submit() {
+            this.form.post(this.route("password.email"));
+        },
+    },
 };
 </script>

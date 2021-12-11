@@ -1,30 +1,59 @@
 <template>
-    <Head title="Reset Password" />
+    <Head title="Reset Password"/>
 
-    <BreezeValidationErrors class="mb-4" />
+    <h1 class="h3 text-primary">
+        Nova Senha
+    </h1>
 
-    <form @submit.prevent="submit">
-        <div>
-            <BreezeLabel for="email" value="Email" />
-            <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
-        </div>
+    <q-form @submit.prevent="submit" class="flex flex-col space-y-6 pb-4">
 
-        <div class="mt-4">
-            <BreezeLabel for="password" value="Password" />
-            <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
-        </div>
+        <q-input
+            label="e-mail"
+            :model-value="form.email"
+            rounded
+            outlined
+            dense
+            readonly
+            :hide-bottom-space="!errors.email"
+            :error="!!errors.email"
+            :error-message="errors.email"
+        ></q-input>
 
-        <div class="mt-4">
-            <BreezeLabel for="password_confirmation" value="Confirm Password" />
-            <BreezeInput id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" required autocomplete="new-password" />
-        </div>
+        <q-input
+            type="password"
+            placeholder="Nova senha"
+            v-model="form.password"
+            rounded
+            outlined
+            dense
+           :hide-bottom-space="!errors.password"
+            :error="!!errors.password"
+            :error-message="errors.password"
+        ></q-input>
 
-        <div class="flex items-center justify-end mt-4">
-            <BreezeButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Reset Password
-            </BreezeButton>
-        </div>
-    </form>
+        <q-input
+            type="password"
+            placeholder="Confirmar Senha"
+            v-model="form.password_confirmation"
+            rounded
+            outlined
+            dense
+           :hide-bottom-space="!errors.password_confirmation"
+            :error="!!errors.password_confirmation"
+            :error-message="errors.password_confirmation"
+        ></q-input>
+
+        <q-btn
+            type="submit"
+            class="mx-auto normal-case"
+            color="primary"
+            rounded
+            label="Resetar senha"
+            :loading="form.processing"
+            :disabled="form.processing"
+        ></q-btn>
+
+    </q-form>
 </template>
 
 <script>
@@ -33,7 +62,7 @@ import BreezeGuestLayout from '@/Layouts/Auth.vue'
 import BreezeInput from '@/Components/Input.vue'
 import BreezeLabel from '@/Components/Label.vue'
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import {Head} from '@inertiajs/inertia-vue3';
 
 export default {
     layout: BreezeGuestLayout,
@@ -47,16 +76,17 @@ export default {
     },
 
     props: {
-        email: String,
-        token: String,
+        email : String,
+        token : String,
+        errors: Object
     },
 
     data() {
         return {
             form: this.$inertia.form({
-                token: this.token,
-                email: this.email,
-                password: '',
+                token                : this.token,
+                email                : this.email,
+                password             : '',
                 password_confirmation: '',
             })
         }
