@@ -1,16 +1,16 @@
 <template>
-    <q-header class="bg-white text-primary" :elevated="$q.platform.is.mobile" >
+    <q-header class="bg-white text-primary relative">
         <q-toolbar class="container q-py-sm flex justify-between">
 
             <q-toolbar>
-                <img class="w-14 sm:w-24" src="/images/logo.png" alt="logo"/>
+                <img class="w-14" src="/images/logo.png" alt="logo"/>
                 <q-toolbar-title class="desktop-hide font-bold">
                     Rei do UK
                 </q-toolbar-title>
             </q-toolbar>
 
             <!-- menu mobile -->
-            <nav class="lg:hidden">
+            <nav class="desktop-hide">
                 <q-btn flat round color="primary" icon="fas fa-bars">
                     <q-menu>
                         <q-list>
