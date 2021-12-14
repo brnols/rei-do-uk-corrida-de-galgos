@@ -18,51 +18,117 @@
         >
           {{ col.label }}
           <span>
-            <q-icon size="xs" name="fas fa-question-circle" />
+            <q-icon
+              class="cursor"
+              @click="open(col.id)"
+              size="xs"
+              name="fas fa-question-circle"
+            />
           </span>
         </q-th>
       </q-tr>
     </template>
     <template v-slot:body-cell-distancia="props">
       <q-td class="flex" :props="props">
-        <div class="flex space-x-2 space-y-1 text-white">
-          <div><img class="bg-orange" :src="`/images/${1}.png`" /></div>
-          <div class="space-x-2 ">
-            <span class="bg-success px-2 rounded-md">256</span>
-            <span class="bg-success px-2 rounded-md">256</span>
-            <span class="bg-success px-2 rounded-md">256</span>
+        <div
+          :class="[
+            disabled & (props.row.ordem == ordem)
+              ? 'bg-red-400'
+              : 'bg-transparent',
+          ]"
+          class="flex items-center space-x-2 space-y-1 text-white"
+        >
+          <div>
+            <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          </div>
+          <div class="space-x-2">
+            <template
+              v-for="(dist, index) in props.row.metricas.historico_distancia"
+              :key="index"
+            >
+              <span class="bg-success px-2 rounded-md">{{
+                dist
+              }}</span></template
+            >
           </div>
         </div>
       </q-td>
     </template>
     <template v-slot:body-cell-comportamento="props">
       <q-td :props="props">
-        <div class="relative">
+        <div
+          :class="[
+            disabled & (props.row.ordem == ordem)
+              ? 'bg-red-400'
+              : 'bg-transparent',
+          ]"
+          class="relative"
+        >
           <div class="absolute bottom-0 left-6">
-            {{ props.value }}, {{ props.value }}, {{ props.value }},
-            {{ props.value }}
+            {{ props.row.metricas.historico_bends }}
           </div>
-          <img class="bg-orange" :src="`/images/${3}.png`" />
+          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>
       </q-td>
     </template>
     <template v-slot:body-cell-split="props">
       <q-td :props="props">
-        <div class="relative">
-          <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
-          <img class="bg-orange" :src="`/images/${2}.png`" />
+        <div
+          :class="[
+            disabled & (props.row.ordem == ordem)
+              ? 'bg-red-400'
+              : 'bg-transparent',
+          ]"
+          class="relative"
+        >
+          <span class="absolute bottom-0 left-6"> {{}} </span>
+          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>
       </q-td>
     </template>
     <template v-slot:body-cell-rec="props">
       <q-td :props="props">
-        <div class="relative">
-          <span class="absolute bottom-0 left-6"> {{ props.value }} </span>
-          <img class="bg-orange" :src="`/images/${6}.png`" />
+        <div
+          :class="[
+            disabled & (props.row.ordem == ordem)
+              ? 'bg-red-400'
+              : 'bg-transparent',
+          ]"
+          class="relative"
+        >
+          <span class="absolute bottom-0 left-6">
+            {{ props.row.metricas.red_cansa }}
+          </span>
+          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>
       </q-td>
     </template>
   </q-table>
+
+  <q-dialog
+    v-if="card.title != ''"
+    v-model="dialog"
+    persistent
+    transition-show="scale"
+    transition-hide="scale"
+  >
+    <q-card class="card-dialog">
+      <q-card-section class="row items-center q-py-none">
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+      <q-card-section class="q-py-none">
+        <h2 class="font-bold text-h6 text-primary">{{ card.title }}</h2>
+      </q-card-section>
+
+      <q-card-section>
+        <p class="text-primary">{{ card.text }}</p>
+      </q-card-section>
+      <q-card-section align="center">
+        <img src="/images/img-card.png" alt="cavalos" />
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -72,6 +138,7 @@ const columns = [
     required: true,
     label: "Distância",
     align: "left",
+    id: 0,
     field: (row) => row.name,
     format: (val) => `${val}`,
   },
@@ -80,69 +147,72 @@ const columns = [
     align: "left",
     label: "Comprtamento(Bends)",
     field: "comportamento",
+    id: 1,
   },
-  { name: "split", label: "Split Final", field: "split", align: "left" },
+  { name: "split", label: "Split Final", field: "split", align: "left", id: 2 },
   {
     name: "rec",
     label: "Rec/Cansa",
     field: "rec",
     align: "left",
-  },
-];
-
-const rows = [
-  {
-    name: 23,
-    tp: 159,
-    comportamento: 6.0,
-    split: 24,
-    rec: 4.0,
-  },
-  {
-    name: 23,
-    tp: 159,
-    comportamento: 6.0,
-    rec: 24,
-    split: 24,
-
-    number: 4,
-  },
-  {
-    name: 23,
-    tp: 159,
-    comportamento: 6.0,
-    rec: 24,
-    split: 24,
-  },
-  {
-    name: 23,
-    tp: 159,
-    comportamento: 144,
-    rec: 24,
-    split: 24,
-  },
-  {
-    name: 23,
-    tp: 159,
-    comportamento: 6.0,
-    rec: 24,
-    split: 24,
-  },
-  {
-    name: 23,
-    tp: 159,
-    comportamento: 6.0,
-    rec: 24,
-    split: 24,
+    id: 3,
   },
 ];
 
 export default {
+  props: {
+    disabled: Boolean,
+    ordem: Number,
+  },
+
+  data: () => ({
+    dialog: false,
+    rows: [],
+    card: {},
+    cards: [
+      {
+        title: "Última distancias corridas",
+        text: `Últimas 3 distancias percorridas pelo galgo. Importante observar para
+          caso em que o galgo é lançado pela primeira vez em uma distancia para
+          correr. Quando em vemelhor significa que é dif da distancia atual da
+          corrida.`,
+      },
+      {
+        title: "",
+        text: ``,
+      },
+      {
+        title: "Split Final(Posições)",
+        text: `Split Final é a representação média da quantidade de posições média que ele recupera após última curva, ou seja, disputa final da corrida. Quando positivo ele recupera, quando negativo ele perde.`,
+      },
+      {
+        title: "Rec/Perde Posições",
+        text: `Rec/Perde Posições é a quantidade de posições que o galgo recupera ou perde durante a corrida. Quando positivo ele recupera, quando negativo ele perde.`,
+      },
+    ],
+  }),
+
   setup() {
     return {
       columns,
-      rows,
     };
+  },
+
+  methods: {
+    open(i) {
+      this.card = this.cards[i];
+      this.dialog = true;
+    },
+  },
+
+  mounted() {
+    this.rows = this.$page.props.indicadores.map((e) => {
+      let el = e.metricas.historico_distancia.split("-").map((e) => {
+        return e;
+      });
+      e.metricas.historico_distancia = el;
+      return e;
+    });
   },
 };
 </script>

@@ -8,7 +8,6 @@
     rows-per-page-options="6"
     hide-pagination
   >
-
     <template v-slot:header="props">
       <q-tr :props="props">
         <q-th
@@ -58,7 +57,7 @@ import { ref } from "vue";
 const columns = [
   {
     name: "nome",
-    label: "Trap / Galgo /Sexo" ,
+    label: "Trap / Galgo /Sexo",
     align: "left",
     field: "nome",
   },
@@ -88,9 +87,9 @@ const columns = [
   { name: "linhagem", label: "R", field: "linhagem", align: "center" },
   { name: "linhagem", label: "SF", field: "linhagem", align: "center" },
   { name: "linhagem", label: "Cat", field: "linhagem", align: "center" },
-   { name: "linhagem", label: "VM", field: "linhagem", align: "center" },
-    { name: "linhagem", label: "FM", field: "linhagem", align: "center" },
-  
+  { name: "linhagem", label: "VM", field: "linhagem", align: "center" },
+  { name: "linhagem", label: "FM", field: "linhagem", align: "center" },
+
   {
     name: "races",
     label: "O.TP",
@@ -101,7 +100,6 @@ const columns = [
     label: "Over",
     field: "races",
   },
-  
 ];
 
 export default {
@@ -137,8 +135,6 @@ export default {
         treinador: "treinador",
         races: "2",
       },
-      
-     
     ],
   }),
 
