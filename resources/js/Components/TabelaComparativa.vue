@@ -56,7 +56,7 @@
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.split }} {{ disabled }}
+            {{ props.row.metricas.split }}
           </span>
           <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>
