@@ -1,6 +1,7 @@
 <?php /** @noinspection PhpUndefinedMethodInspection */
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RaceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/{pista?}', DashboardController::class)
         ->name('dashboard');
 
-    Route::get('/dashboard/{pista?}/{race}', DashboardController::class)
+    Route::get('/dashboard/{pista?}/{race}', RaceController::class)
         ->name('race');
 
 });
