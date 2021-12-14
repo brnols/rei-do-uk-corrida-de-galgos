@@ -89,6 +89,10 @@
                         ({{ race.info }})
                     </span>
                         <q-btn
+                            @click="$inertia.visit( route('race', {
+                                pista: pista.tabela,
+                                race: race.horario
+                            }))"
                             rounded
                             unelevated
                             :disable="!race.liberada"
