@@ -4,7 +4,7 @@
   <!-- Hero -->
   <section class="c-Hero flex justify-center items-end p-6">
     <div class="flex h-full justify-center">
-      <q-btn rounded color="secondary normal-case mt-auto">
+      <q-btn rounded color="secondary normal-case mt-auto"  @click="$inertia.visit(route('dashboard'))">
         <img
           src="/images/icons/uk_flag_curved.svg"
           alt="bandeiracurvada"
