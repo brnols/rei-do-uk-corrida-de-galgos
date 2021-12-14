@@ -122,7 +122,6 @@ import TableGalgo from "@/Components/TableGalgo.vue";
 
 export default {
 
-
   components: {
     Head,
     Link,
