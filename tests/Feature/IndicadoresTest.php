@@ -17,9 +17,9 @@ class IndicadoresTest extends TestCase
         $this->assertTrue(count($retorno) == 0);
     }
 
-    public function test_table_centralpark()
+    public function test_table_harlow()
     {
-        $service = new Indicadores("centralpark", '10:46');
+        $service = new Indicadores("harlow", '10:46');
         $retorno = $service->all();
         $this->assertTrue(count($retorno) == 6);
         
@@ -28,7 +28,7 @@ class IndicadoresTest extends TestCase
             $this->assertTrue(array_key_exists( "ordem", $retorno[$i]));
             $this->assertTrue(array_key_exists( "metricas", $retorno[$i]));
             $this->assertTrue(array_key_exists( "brt", $retorno[$i]["metricas"]));
-            $this->assertTrue(array_key_exists( "red_cansa", $retorno[$i]["metricas"]));
+            $this->assertTrue(array_key_exists( "rec_cansa", $retorno[$i]["metricas"]));
             $this->assertTrue(array_key_exists( "historico_posicao", $retorno[$i]["metricas"]));
         }
     }
@@ -44,7 +44,7 @@ class IndicadoresTest extends TestCase
             $this->assertTrue(array_key_exists( "ordem", $retorno[$i]));
             $this->assertTrue(array_key_exists( "metricas", $retorno[$i]));
             $this->assertTrue(array_key_exists( "brt", $retorno[$i]["metricas"]));
-            $this->assertTrue(array_key_exists( "red_cansa", $retorno[$i]["metricas"]));
+            $this->assertTrue(array_key_exists( "rec_cansa", $retorno[$i]["metricas"]));
             $this->assertTrue(array_key_exists( "historico_posicao", $retorno[$i]["metricas"]));
         }
     }
