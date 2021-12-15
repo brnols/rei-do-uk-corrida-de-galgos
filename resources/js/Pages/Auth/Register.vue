@@ -1,5 +1,5 @@
 <template>
-    <Head title="Cadastro" />
+    <Head title="Cadastro"/>
 
     <h1 class="h3 text-primary text-center">
         Cadastro
@@ -25,6 +25,19 @@
             :error-message="errors.email"
             v-model="form.email"
             placeholder="E-mail"
+            dense
+            outlined
+            rounded
+        ></q-input>
+
+        <q-input
+            type="tel"
+            mask="(##) #####-####"
+            :hide-bottom-space="!errors.telefone"
+            :error="!!errors.telefone"
+            :error-message="errors.telefone"
+            v-model="form.telefone"
+            placeholder="Telefone"
             dense
             outlined
             rounded
@@ -73,7 +86,7 @@
 
 <script>
 import Auth from '@/Layouts/Auth.vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import {Head, Link} from '@inertiajs/inertia-vue3';
 
 export default {
     layout: Auth,
@@ -90,11 +103,12 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                name: '',
-                email: '',
-                password: '',
+                name                 : '',
+                email                : '',
+                telefone             : '',
+                password             : '',
                 password_confirmation: '',
-                terms: false,
+                terms                : false,
             })
         }
     },

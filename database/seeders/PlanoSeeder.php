@@ -13,6 +13,12 @@ class PlanoSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Plano::create([
+            'nome' => "Padrão",
+            'valor' => 0,
+            'dias' => 0,
+            'vip' => 1,
+            'max_parcelamento' => 0
+        ]);
     }
 }

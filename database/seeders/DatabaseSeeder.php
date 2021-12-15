@@ -14,9 +14,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::create([
-            'email' => 'dev@dev.com',
-            'name' => 'dev',
-            'password' => bcrypt('dev')
+            'email'    => 'dev@dev.com',
+            'name'     => 'dev',
+            'password' => bcrypt('dev'),
+            'telefone' => "21212121"
+        ]);
+
+        $this->call([
+            PistaSeeder::class
         ]);
     }
 }

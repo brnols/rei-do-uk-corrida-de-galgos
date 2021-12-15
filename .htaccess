@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+    
+    #RewriteCond %{SERVER_PORT} 80
+    #RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
+
+    ReWriteCond %{REQUEST_URI} !^public/
+    ReWriteRule ^(.*)$ public/$1 [L]
+
+</IfModule>
