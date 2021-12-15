@@ -43,6 +43,6 @@ class PistaSeeder extends Seeder
         ];
 
         foreach($pistas as $pista)
-            Pista::create(["nome" => $pista, "tabela" => strtolower($pista) ]);
+            Pista::create(["nome" => $pista, "tabela" => $pista ]);
     }
 }
