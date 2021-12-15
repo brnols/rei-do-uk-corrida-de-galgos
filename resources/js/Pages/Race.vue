@@ -120,7 +120,12 @@
       <table-comp-galgo class="mt-6"></table-comp-galgo>
       <table-comp-galgo class="mt-6"></table-comp-galgo>
     </div>
-    <table-galgo class="mt-6"></table-galgo>
+    <table-galgo
+      v-for="galgo in $page.props.indicadores"
+      :key="galgo"
+      :galgo="galgo"
+      class="mt-6"
+    ></table-galgo>
   </div>
 </template>
 
