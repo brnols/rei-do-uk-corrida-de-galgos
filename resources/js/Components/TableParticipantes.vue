@@ -52,7 +52,22 @@
 
     <template v-slot:body-cell-galgo="props">
       <q-td class="flex justify-center bg-light" :props="props">
-        <q-icon @click="ativar(props.row.ordem)" name="far fa-eye" />
+        <q-icon
+          :class="[
+            props.row.ordem == icone_show ? 'text-secondary' : 'text-dark',
+          ]"
+          class="cursor"
+          @click="ativar(props.row.ordem)"
+          name="far fa-eye"
+        />
+        <q-icon
+          :class="[
+            props.row.ordem == currentItem ? 'text-secondary' : 'text-dark',
+          ]"
+          class="cursor ml-2"
+          @click="ocultar(props.row.ordem)"
+          name="far fa-eye-slash"
+        />
       </q-td>
     </template>
 
@@ -170,6 +185,10 @@ export default {
       nome: "",
       comentario: "",
     },
+    items: [],
+    icone_show: null,
+    active: false,
+    currentItem: null,
   }),
 
   methods: {
@@ -190,7 +209,23 @@ export default {
       }
     },
     ativar(i) {
-      this.$emit("enviar", { disabled: true, index: i });
+      this.icone_show = i;
+
+      let index = this.items.indexOf(i);
+      if (index != -1) {
+        this.items.splice(index, 1);
+        this.currentItem = null;
+      }
+      this.$emit("enviar", { disabled: true, index: i, items: this.items });
+    },
+    ocultar(i) {
+      this.currentItem = i;
+      if (this.items.indexOf(i) == -1) {
+        this.items.push(i);
+        this.icone_show = null;
+      }
+
+      this.$emit("enviar", { disabled: false, index: i, items: this.items });
     },
   },
 

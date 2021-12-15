@@ -1,6 +1,6 @@
 <template>
   <q-table
-    class="px-4 py-8 shadow-xl tabela-1"
+    class="px-4 py-8 mt-6 shadow-xl tabela-1"
     table-header-class="text-primary"
     :rows="rows"
     :columns="columns"
@@ -29,7 +29,11 @@
       </q-tr>
     </template>
     <template v-slot:body-cell-semcorrida="props">
-      <q-td class="flex items-center" :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        class="flex items-center"
+        :props="props"
+      >
         <div>
           <img :src="`/images/${props.row.ordem}.png`" />
         </div>
@@ -46,7 +50,10 @@
       </q-td>
     </template>
     <template v-slot:body-cell-tp="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -62,8 +69,11 @@
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-remarks="props">
-      <q-td :props="props">
+    <!-- <template v-slot:body-cell-remarks="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -76,9 +86,12 @@
           <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>
       </q-td>
-    </template>
+    </template> -->
     <template v-slot:body-cell-velocidade="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -93,7 +106,10 @@
       </q-td>
     </template>
     <template v-slot:body-cell-peso="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -111,7 +127,10 @@
     </template>
 
     <template v-slot:body-cell-categoria="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -129,7 +148,10 @@
     </template>
 
     <template v-slot:body-cell-historico="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -192,7 +214,7 @@ const columns = [
     field: "tp",
     id: 1,
   },
-  { name: "remarks", label: "Remarks", field: "remarks", align: "left", id: 2 },
+  // { name: "remarks", label: "Remarks", field: "remarks", align: "left", id: 2 },
   {
     name: "velocidade",
     label: "Velocidade",
@@ -221,6 +243,10 @@ export default {
   props: {
     disabled: Boolean,
     ordem: Number,
+    items: {
+      type: Array,
+      default: [],
+    },
   },
 
   data: () => ({

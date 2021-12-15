@@ -28,8 +28,12 @@
         </q-th>
       </q-tr>
     </template>
+
     <template v-slot:body-cell-brt="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -46,7 +50,10 @@
       </q-td>
     </template>
     <template v-slot:body-cell-split="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -63,7 +70,10 @@
       </q-td>
     </template>
     <template v-slot:body-cell-bend="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -80,7 +90,10 @@
       </q-td>
     </template>
     <template v-slot:body-cell-ut="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -97,7 +110,10 @@
       </q-td>
     </template>
     <template v-slot:body-cell-pn="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -115,7 +131,10 @@
     </template>
 
     <template v-slot:body-cell-apn="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -133,7 +152,10 @@
     </template>
 
     <template v-slot:body-cell-media="props">
-      <q-td :props="props">
+      <q-td
+        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
+        :props="props"
+      >
         <div
           :class="[
             disabled & (props.row.ordem == ordem)
@@ -212,6 +234,10 @@ export default {
   props: {
     disabled: Boolean,
     ordem: Number,
+    items: {
+      type: Array,
+      default: [],
+    },
   },
 
   data: () => ({
@@ -259,14 +285,24 @@ export default {
       columns,
     };
   },
+
   methods: {
     open(i) {
       this.card = this.cards[i];
       this.dialog = true;
     },
+    show(i) {
+      console.log(this.items);
+      let valores = [];
+      let idx = valores.indexOf(i);
+
+      console.log(i, "show", valores.indexOf(i) == -1);
+      return true;
+    },
   },
   mounted() {
     this.rows = this.$page.props.indicadores;
+    this.show();
   },
 };
 </script>

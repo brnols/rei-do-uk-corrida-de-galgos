@@ -93,18 +93,21 @@
     <table-participantes @enviar="enviar = $event"></table-participantes>
 
     <tabela-comparativa
+      :items="enviar.items"
       :ordem="enviar.index"
       :disabled="enviar.disabled"
       class="mt-6"
     ></tabela-comparativa>
 
     <tabela-comparativa-dois
+      :items="enviar.items"
       :ordem="enviar.index"
       :disabled="enviar.disabled"
       class="mt-6"
     ></tabela-comparativa-dois>
 
     <tabela-comparativa-tres
+      :items="enviar.items"
       :ordem="enviar.index"
       :disabled="enviar.disabled"
       class="mt-6"
@@ -164,6 +167,7 @@ export default {
         "Doncaster (BR: 19:24 I UK: 19:24)",
       ],
       enviar: {},
+      ocultar: {},
     };
   },
 
