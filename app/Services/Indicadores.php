@@ -30,7 +30,7 @@ class Indicadores
         if( $this->tables_exist() == false ) return [];
         $this->query_ultimos();
         $this->query_ultimos_tres_com_mesma_distancia();
-        $this->query_ultimos_dez();
+        $this->query_all_historico();
         return $this->race["galgos"];
     }
 
@@ -44,7 +44,7 @@ class Indicadores
         $race["galgos"] = [];
 
         for ($i=1; $i <= 6; $i++)
-            array_push($race["galgos"], ['nome' => $race[$i."_Runner"], 'ordem' => $i, 'metricas' => []] );
+            array_push($race["galgos"], ['nome' => $race[$i."_Runner"], 'ordem' => $i, 'metricas' => ['distancia' => $race["distancia"], 'split_final' => null, 'tp' => null, 'velocidade' => null ]] );
         
         return $race;
 
@@ -57,8 +57,12 @@ class Indicadores
         foreach($this->race['galgos'] as $galgo_index => $galgo){
             $item = (array) DB::table( $this->tb_tabela )->where('nome', $galgo['nome'])->first();  
             $this->brt($galgo_index, $item)
+                ->treinador($galgo_index, $item)
+                ->idade($galgo_index, $item)
                 ->dias_sem_correr($galgo_index, $item)
-                ->peso($galgo_index, $item);
+                ->peso($galgo_index, $item)
+                ->sexo($galgo_index, $item)
+                ->pedigree($galgo_index, $item);
         }
     }
 
@@ -76,18 +80,19 @@ class Indicadores
         }
     }
 
-    public function query_ultimos_dez()
+    public function query_all_historico()
     {
         if( $this->tables_exist() == false ) return $this;
 
         foreach($this->race['galgos'] as $galgo_index => $galgo){
-            $ultimos = DB::table( $this->tb_tabela )->where('nome', $galgo)->take(10)->get()->toArray();  
+            $ultimos = DB::table( $this->tb_tabela )->where('nome', $galgo)->get()->toArray();  
             $this->primeira_bend($galgo_index, $ultimos)
                 ->categorias($galgo_index, $ultimos)
                 ->historico_distancia($galgo_index, $ultimos)
                 ->historico_posicao($galgo_index, $ultimos)
                 ->historico_bends($galgo_index, $ultimos)
-                ->red_cansa($galgo_index, $ultimos);
+                ->red_cansa($galgo_index, $ultimos)
+                ->qtde_corridas($galgo_index, $ultimos);
         }
     }
     
@@ -113,6 +118,42 @@ class Indicadores
     }
 
     /**
+     * Indicador Nome do Treinador - Ultimo registro do Galgo no campo idade_treinador
+     * Exemplo do Campo: "BRT: 16.66 D1 (2Dec21) Tnr: K Dodington"
+     * @regex retorno exemplo : K Dodington
+     */
+    public function treinador(int $galgo_index, array $item)
+    {
+        $this->race['galgos'][$galgo_index]['metricas']['treinador'] = '';
+
+        if( array_key_exists('idade_treinador', $item) )
+            $this->race['galgos'][$galgo_index]['metricas']['treinador'] = $this->regex("/(Tnr:\s)(.*)/", $item['idade_treinador'], 2);
+
+        return $this;
+    }
+
+    /**
+     * Indicador Idade - Ultimo registro do Galgo no campo idade_treinador
+     * Exemplo do Campo: "BRT: 16.66 D1 (2Dec21) Tnr: K Dodington"
+     * @regex retorno exemplo : 2Dec21
+     */
+    public function idade(int $galgo_index, array $item)
+    {
+        $this->race['galgos'][$galgo_index]['metricas']['idade'] = 0;
+
+        try {
+            if( array_key_exists('idade_treinador', $item) ){
+                $date = $this->regex("/(\d+\w{3}\d{2})/", $item['idade_treinador'], 0);
+                $this->race['galgos'][$galgo_index]['metricas']['idade'] = Carbon::now()->diffInDays(Carbon::createFromFormat('dMy', $date));
+            }
+        } catch (\Throwable $th) {
+            //Se der erro na conversão do carbon então deixar zerado
+        }
+            
+        return $this;
+    }
+    
+    /**
      * Indicador Split - Ultimo registro do Galgo no campo split
      * Exemplo do Campo: "3.33"
      */
@@ -122,6 +163,34 @@ class Indicadores
 
         if( array_key_exists('Split', $item) )
             $this->race['galgos'][$galgo_index]['metricas']['split'] = $item['Split'];
+
+        return $this;
+    }
+
+    /**
+     * Indicador Sexo - Ultimo registro do Galgo no campo Sexo
+     * Exemplo do Campo: "Macho"
+     */
+    public function sexo(int $galgo_index, array $item)
+    {
+        $this->race['galgos'][$galgo_index]['metricas']['sexo'] = '';
+
+        if( array_key_exists('sexo', $item) )
+            $this->race['galgos'][$galgo_index]['metricas']['sexo'] = $item['sexo'];
+
+        return $this;
+    }
+
+    /**
+     * Indicador Pedigree/Linhagem - Ultimo registro do Galgo no campo pedigree
+     * Exemplo do Campo: "Sire Superior Product Dam Sevenofnine Black bitch 24Jul19"
+     */
+    public function pedigree(int $galgo_index, array $item)
+    {
+        $this->race['galgos'][$galgo_index]['metricas']['pedigree'] = '';
+
+        if( array_key_exists('pedigree', $item) )
+            $this->race['galgos'][$galgo_index]['metricas']['pedigree'] = $item['pedigree'];
 
         return $this;
     }
@@ -188,7 +257,7 @@ class Indicadores
         }
 
         if($count > 0)
-            $this->race['galgos'][$galgo_index]['metricas']['media'] = $soma/$count;
+            $this->race['galgos'][$galgo_index]['metricas']['media'] = round($soma/$count,2);
         
         return $this;
     }
@@ -249,7 +318,7 @@ class Indicadores
             }
 
             if($count > 0)
-                $this->race['galgos'][$galgo_index]['metricas']['primeira_bend'] = $soma/$count;
+                $this->race['galgos'][$galgo_index]['metricas']['primeira_bend'] = round($soma/$count,2);
 
         } catch (\Throwable $th) {
             throw $th;
@@ -281,7 +350,7 @@ class Indicadores
             }
 
             if($count > 0)
-                $this->race['galgos'][$galgo_index]['metricas']['tp'] = $soma/$count;
+                $this->race['galgos'][$galgo_index]['metricas']['tp'] = round($soma/$count,2);
 
         } catch (\Throwable $th) {
             throw $th;
@@ -386,6 +455,15 @@ class Indicadores
     }
 
     /**
+     * Indicador Qtde de Corridas - Count de Corridas no Banco
+     */
+    public function qtde_corridas(int $galgo_index, array $items)
+    {
+        $this->race['galgos'][$galgo_index]['metricas']['qtde_corridas'] = count($items);
+        return $this;
+    }
+
+    /**
      * Indicador Red/Cansa - Calculo do campo Bends
      * Exemplos do Campo: "3-2-" / "3234"
      */
@@ -411,7 +489,7 @@ class Indicadores
             }
             
             if($count > 0)
-                $this->race['galgos'][$galgo_index]['metricas']['red_cansa'] = $soma/$count;
+                $this->race['galgos'][$galgo_index]['metricas']['red_cansa'] = round($soma/$count,2);
 
         } catch (\Throwable $th) {
             //se der erro na conversão para int deixar zerado
