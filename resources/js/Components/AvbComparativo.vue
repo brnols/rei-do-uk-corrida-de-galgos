@@ -14,9 +14,12 @@
 
             <template v-if="galgos.length">
 
-                <tr class="bg-white rounded-3xl" v-for="galgo in galgos" :key="galgo.ordem">
-                    <td class="p-2 text-primary text-center rounded-l-md">
-                        {{ galgo.nome }}
+                <tr class="bg-white" v-for="galgo in galgos" :key="galgo.ordem">
+                    <td class=" p-2 text-primary rounded-l-md">
+                        <div class="inline-flex items-center gap-1 whitespace-nowrap">
+                            {{ galgo.nome }}
+                            <img :src="`/images/${galgo.metricas.sexo}.png`" alt="" class="w-3 h-3">
+                        </div>
                     </td>
                     <td v-for="field in fields"
                         class="p-2 text-center"
@@ -31,8 +34,13 @@
                     <td class="p-2 text-primary font-bold text-center rounded-l-md">
                         Comparação
                     </td>
-                    <td class="p-2 text-center" v-for="field in fields" :key="field">
-                        <img :src="`/images/${comparativo[field]}.png`" alt="" class="mx-auto">
+                    <td
+                        v-for="(field, index) in fields"
+                        :key="field"
+                        class="p-2 text-center"
+                        :class="{'rounded-r-md': index === fields.length}"
+                    >
+                        <img :src="`/images/${comparativo[field]}.png`" alt="" class="mx-auto" v-if="!!comparativo[field]">
                     </td>
                 </tr>
 
@@ -57,7 +65,8 @@ export default {
     name: "AvbComparativo",
 
     props: {
-        galgos: Array,
+        galgos     : Array,
+        comparativo: Object
     },
 
     data: function () {
@@ -107,37 +116,14 @@ export default {
         }
     },
 
-    computed: {
-        comparativo() {
-            const galgo1 = this.galgos[0];
-            const galgo2 = this.galgos[1];
-
-            let resultado = {};
-
-            for (let metrica in galgo1.metricas) {
-                if(galgo1.metricas[metrica] === galgo2.metricas[metrica]) {
-                    resultado[metrica] = null
-                }
-                else if (galgo1.metricas[metrica] > galgo2.metricas[metrica]) {
-                    resultado[metrica] = galgo1.ordem
-                }
-                else {
-                    resultado[metrica] = galgo2.ordem
-                }
-            }
-
-            return resultado;
-        }
-    },
-
     methods: {
         corMetrica(metrica, galgo) {
 
-            if(!metrica) {
+            if (!metrica) {
                 return 'text-yellow-600';
             }
 
-            if(metrica !== galgo.ordem) {
+            if (metrica !== galgo.ordem) {
                 return 'text-red-600'
             }
 

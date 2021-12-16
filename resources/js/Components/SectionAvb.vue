@@ -9,8 +9,8 @@
 
         <avb-comparativo
             class="mt-4"
-            :galgos="selectedAvb"
-            :avb="avb"
+            :galgos="selectedGalgos"
+            :comparativo="comparativo"
         ></avb-comparativo>
 
     </section>
@@ -39,11 +39,35 @@ export default {
     },
 
     computed: {
-        selectedAvb() {
+        selectedGalgos() {
             return this.indicadores.filter(item => {
                 return this.avb.includes(item.ordem)
             })
         },
+
+        comparativo() {
+            if(!this.selectedGalgos.length) {
+                return {}
+            }
+
+            const galgo1 = this.selectedGalgos[0];
+            const galgo2 = this.selectedGalgos[1];
+
+            let resultado = {};
+
+            for (let metrica in galgo1.metricas) {
+                if (galgo1.metricas[metrica] === galgo2.metricas[metrica]) {
+                    resultado[metrica] = null
+                } else if (galgo1.metricas[metrica] < galgo2.metricas[metrica]) {
+                    resultado[metrica] = galgo1.ordem
+                } else {
+                    resultado[metrica] = galgo2.ordem
+                }
+            }
+
+            return resultado;
+        },
+
     },
 }
 </script>
