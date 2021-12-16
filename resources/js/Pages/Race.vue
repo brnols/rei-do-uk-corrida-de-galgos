@@ -124,7 +124,7 @@
       v-for="galgo in $page.props.indicadores"
       :key="galgo"
       :galgo="galgo"
-      class="mt-6"
+      class="mt-6 mb-10"
     ></table-galgo>
   </div>
 </template>
