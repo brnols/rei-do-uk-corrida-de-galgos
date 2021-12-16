@@ -44,14 +44,16 @@
                 <span>{{ galgo.metricas.brt }} </span>
               </div>
               <div class="col-12 col-sm-6">
-                <span class="font-bold">Idade:</span> <span></span>
+                <span class="font-bold">Idade:</span>
+                <span> {{ galgo.metricas.idade }}</span>
               </div>
               <div class="col-12 col-sm-6">
-                <span class="font-bold">To Speed:</span> <span></span>
+                <span class="font-bold">To Speed:</span>
+                <span> </span>
               </div>
               <div class="col-12 col-sm-6">
                 <span class="font-bold">Local treinamento:</span>
-                <span></span>
+                <span> {{ galgo.metricas.idade }}</span>
               </div>
             </div>
           </div>
