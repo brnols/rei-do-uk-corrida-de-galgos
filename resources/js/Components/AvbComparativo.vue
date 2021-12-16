@@ -17,6 +17,7 @@
                 <tr class="bg-white" v-for="galgo in galgos" :key="galgo.ordem">
                     <td class=" p-2 text-primary rounded-l-md">
                         <div class="inline-flex justify-center items-center gap-1 whitespace-nowrap">
+                            <img :src="`/images/${galgo.ordem}.png`" alt="" class="mx-auto">
                             {{ galgo.nome }}
                             <img :src="`/images/${galgo.metricas.sexo}.png`" alt="" class="w-3 h-3">
                         </div>
@@ -31,7 +32,7 @@
 
                 <!-- Row comparativa -->
                 <tr class="bg-white rounded-3xl">
-                    <td class="p-2 text-primary font-bold text-center rounded-l-md">
+                    <td class="p-2 text-primary font-bold rounded-l-md">
                         Comparação
                     </td>
                     <td
@@ -102,7 +103,7 @@ export default {
                 "dias_sem_correr",
                 "rec_cansa",
                 "rec_final",
-                "cat",
+                "ultima_categoria",
                 "fm",
             ]
         }
