@@ -40,10 +40,16 @@ class Indicadores
         $race = (array) DB::table( $this->tb )->where('Horario', $this->horario)->first();
                 
         $race["distancia"] = $this->regex("/\d{3}m/", $race["Race_info"]);
+        $race["pick"] = $this->regex("/PICK:\s+\d/", $race["Race_info"]);
         $race["galgos"] = [];
 
         for ($i=1; $i <= 6; $i++)
-            array_push($race["galgos"], ['nome' => $race[$i."_Runner"], 'ordem' => $i, 'metricas' => ['distancia' => $race["distancia"], 'rec_final' => 0 ], 'historico' => [] ] );
+            array_push($race["galgos"], [
+                'nome' => $race[$i."_Runner"], 
+                'ordem' => $i, 
+                'metricas' => ['distancia' => $race["distancia"], 'pick' => $race["pick"], 'rec_final' => 0, 'fm' => 0 ], 
+                'historico' => [] 
+            ]);
         
         return $race;
 
@@ -93,7 +99,8 @@ class Indicadores
                     ->rec_cansa($galgo_index, $historico)
                     ->qtde_corridas($galgo_index, $historico)
                     ->tp($galgo_index, $historico)
-                    ->historico_galgo($galgo_index, $historico);
+                    ->historico_galgo($galgo_index, $historico)
+                    ->ultima_categoria($galgo_index, $historico);
             }
         }
     }
@@ -345,6 +352,22 @@ class Indicadores
 
         if( isset($item['Rec/Cansa']) )
             $this->race['galgos'][$galgo_index]['metricas']['rec_cansa'] = round($item['Rec/Cansa'], 2);
+
+        return $this;
+    }
+
+     /**
+     * Indicador Ultima Categoria - Ultimo valor do campo Categoria como Número
+     * Exemplos do Campo: "D3" Resultado "3"
+     */
+    public function ultima_categoria(int $galgo_index, array $items)
+    {
+        $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
+
+        $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = 0;
+
+        if( isset($item['Grade']) )
+            $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = round($this->regex("/\d+/", $item['Grade']), 2);
 
         return $this;
     }
