@@ -23,7 +23,7 @@
                         </div>
                     </td>
                     <td v-for="field in fields"
-                        class="p-2 text-center"
+                        class="p-2 text-center last:rounded-r-md"
                         :class="[corMetrica(comparativo[field], galgo)]"
                     >
                         {{ galgo.metricas[field] }}
@@ -39,7 +39,7 @@
                         v-for="(field, index) in fields"
                         :key="field"
                         class="p-2 text-center"
-                        :class="{'rounded-r-md': index === fields.length}"
+                        :class="{'rounded-r-md': index + 1 === fields.length }"
                     >
                         <img :src="`/images/${comparativo[field]}.png`" alt="" class="mx-auto" v-if="!!comparativo[field]">
                     </td>
