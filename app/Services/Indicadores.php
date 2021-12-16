@@ -43,7 +43,7 @@ class Indicadores
         $race["galgos"] = [];
 
         for ($i=1; $i <= 6; $i++)
-            array_push($race["galgos"], ['nome' => $race[$i."_Runner"], 'ordem' => $i, 'metricas' => ['distancia' => $race["distancia"], 'rec_final' => 0 ]] );
+            array_push($race["galgos"], ['nome' => $race[$i."_Runner"], 'ordem' => $i, 'metricas' => ['distancia' => $race["distancia"], 'rec_final' => 0 ], 'historico' => [] ] );
         
         return $race;
 
@@ -92,7 +92,8 @@ class Indicadores
                     ->historico_bends($galgo_index, $historico)
                     ->rec_cansa($galgo_index, $historico)
                     ->qtde_corridas($galgo_index, $historico)
-                    ->tp($galgo_index, $historico);
+                    ->tp($galgo_index, $historico)
+                    ->historico_galgo($galgo_index, $historico);
             }
         }
     }
@@ -483,6 +484,46 @@ class Indicadores
     public function qtde_corridas(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['qtde_corridas'] = count($items);
+        return $this;
+    }
+
+    /**
+     * Historico Galgo - Ultimas 5 Concatenadas do campo grade
+     * Exemplos do Campo: "D1"
+     */
+    public function historico_galgo(int $galgo_index, array $items)
+    {
+        $this->race['galgos'][$galgo_index]['historico'] = [];
+        
+        $map = [
+            'trap' => 'Trp',
+            'grade' => 'Grade',
+            'data' => 'Date',
+            'cp' => 'Gng',
+            'pista' => 'Track',
+            'distancia' => 'Dis',
+            'peso' => 'Wght',
+            'split' => 'Split',
+            'bends' => 'Bends',
+            'tempo' => 'WnTm',
+            'tempo_real' => 'WnTm',
+            'final' => 'Fin'
+        ];
+                
+        for ($i=0; $i < 10 ; $i++) { 
+
+            if( isset($items[$i]) ){
+
+                $item = (array)$items[$i];
+                $row = [];
+
+                foreach($map as $key => $column)    
+                    $row[$key] = isset($item[$column]) ? $item[$column] : null;
+                
+                array_push($this->race['galgos'][$galgo_index]['historico'], $row );
+            }
+        }
+
         return $this;
     }
 
