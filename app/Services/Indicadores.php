@@ -368,7 +368,7 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = 0;
 
         if( isset($item['Grade']) )
-            $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = round($this->regex("/\d+/", $item['Grade']), 2);
+            $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = round($this->regex("/\d+/", $item['Grade']), $index = 2, $default = 0);
 
         return $this;
     }
@@ -413,7 +413,7 @@ class Indicadores
         for ($i=0; $i < count($items) ; $i++) {             
             if( array_key_exists('Fin', (array)$items[$i]) ){
                 if( $items[$i]->Fin != null ){
-                    $soma += round($this->regex("/\d+/", $items[$i]->Fin),2);
+                    $soma += round($this->regex("/\d+/", $items[$i]->Fin, $index = 0, $default = 0),2);
                     $count++;
                 }
             }
@@ -597,9 +597,9 @@ class Indicadores
             && Schema::hasTable($this->tb_tabela);
     }
 
-    private function regex($pattern, $value, $index = 0)
+    private function regex($pattern, $value, $index = 0, $default = '')
     {
         preg_match_all($pattern, $value, $matches);
-        return ( count($matches[$index]) ) ? $matches[$index][0] : '';
+        return ( count($matches[$index]) ) ? $matches[$index][0] : $default;
     }
 }
