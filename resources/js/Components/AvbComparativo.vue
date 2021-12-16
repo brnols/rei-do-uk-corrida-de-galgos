@@ -16,7 +16,7 @@
 
                 <tr class="bg-white" v-for="galgo in galgos" :key="galgo.ordem">
                     <td class=" p-2 text-primary rounded-l-md">
-                        <div class="inline-flex items-center gap-1 whitespace-nowrap">
+                        <div class="inline-flex justify-center items-center gap-1 whitespace-nowrap">
                             {{ galgo.nome }}
                             <img :src="`/images/${galgo.metricas.sexo}.png`" alt="" class="w-3 h-3">
                         </div>
@@ -78,19 +78,15 @@ export default {
                 "Split",
                 "UT",
                 "PN",
-                "AN",
+                "APN",
                 "M",
                 "Peso",
                 "idade",
                 "S.C.",
-                "A",
                 "R",
-                "SF",
+                "RF",
                 "Cat",
-                "VM",
                 "FM",
-                "O.TP",
-                "Over",
             ],
 
             fields: [
@@ -99,19 +95,15 @@ export default {
                 "split",
                 "ut",
                 "pn",
-                "an",
-                "m",
+                "apn",
+                "media",
                 "peso",
                 "idade",
-                "sc",
-                "a",
-                "r",
-                "sf",
+                "dias_sem_correr",
+                "rec_cansa",
+                "rec_final",
                 "cat",
-                "vm",
                 "fm",
-                "otp",
-                "over"
             ]
         }
     },
