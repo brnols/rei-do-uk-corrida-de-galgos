@@ -11,10 +11,13 @@
     <template v-slot:top>
       <div class="text-primary">
         <div class="flex">
-          <img style="height: 50px; width: 50px" src="/images/img-1.png" />
+          <img
+            style="height: 50px; width: 50px"
+            :src="`/images/img-${galgo.ordem}.png`"
+          />
 
           <div class="flex items-center space-x-2 ml-2">
-            <h2 class="text-lg">Coastal Rose</h2>
+            <h2 class="text-lg">{{ galgo.nome }}</h2>
             <div>
               <img src="/images/el_female.png" />
             </div>
@@ -25,25 +28,30 @@
       <q-space />
       <div class="flex flex-col sm:px-4">
         <div class="flex justify-end">
-          <img style="max-width: 150px" src="/images/galgo-1.png" />
+          <img
+            style="max-width: 150px"
+            :src="`/images/galgo-${galgo.ordem}.png`"
+          />
         </div>
-        <div class="flex md:space-x-2">
+        <div class="flex md:space-x-2 flex-nowrap items-end">
           <div
-            style="max-width: 280px; width: 100%"
+            style="max-width: 420px; width: 100%"
             class="container rounded-md mt-2 py-4 px-4 bg-white text-primary"
           >
             <div class="row justify-between">
               <div class="col-12 col-sm-6">
-                <span class="font-bold">Brt:</span> <span>24,05</span>
+                <span class="font-bold">Brt:</span>
+                <span>{{ galgo.metricas.brt }} </span>
               </div>
               <div class="col-12 col-sm-6">
-                <span class="font-bold">Idade:</span> <span>3,6 anos</span>
+                <span class="font-bold">Idade:</span> <span></span>
               </div>
               <div class="col-12 col-sm-6">
-                <span class="font-bold">Idade:</span> <span>3,6 anos</span>
+                <span class="font-bold">To Speed:</span> <span></span>
               </div>
               <div class="col-12 col-sm-6">
-                <span class="font-bold">Idade:</span> <span>3,6 anos</span>
+                <span class="font-bold">Local treinamento:</span>
+                <span></span>
               </div>
             </div>
           </div>
@@ -81,6 +89,10 @@
               <div v-for="vitoria in vitorias" :key="vitoria" class="col-1">
                 {{ vitoria }}
               </div>
+              <div class="col-2 font-bold">%:</div>
+              <div v-for="vitoria in vitorias" :key="vitoria" class="col-1">
+                {{ vitoria }}%
+              </div>
             </div>
           </div>
         </div>
@@ -102,7 +114,7 @@
 
     <template v-slot:body-cell-trap="props">
       <q-td :props="props">
-        <img :src="getTrap(props.value)" />
+        <img :src="getTrap(galgo.ordem)" />
       </q-td>
     </template>
 
@@ -122,14 +134,14 @@
       </q-td>
     </template>
 
-    <template v-slot:body-cell-remarks="props">
+    <!-- <template v-slot:body-cell-remarks="props">
       <q-td style="background-color: white" class="space-x-1" :props="props">
         <span class="px-2 py-1 rounded-md bg-secondary-dark"> mid </span>
         <span class="px-2 py-1 rounded-md bg-danger text-white"
           >{{ props.value }}
         </span>
       </q-td>
-    </template>
+    </template> -->
   </q-table>
 </template>
 
@@ -171,12 +183,12 @@ const columns = [
     label: "Fin Rec",
     field: "fin",
   },
-  {
-    name: "remarks",
-    label: "Remarks",
-    field: "remarks",
-    align: "center",
-  },
+  // {
+  //   name: "remarks",
+  //   label: "Remarks",
+  //   field: "remarks",
+  //   align: "center",
+  // },
   {
     name: "tempo",
     label: "Tempo",
@@ -192,6 +204,10 @@ const columns = [
 ];
 
 export default {
+  props: {
+    galgo: Object,
+  },
+
   data: () => ({
     rows: [
       {
