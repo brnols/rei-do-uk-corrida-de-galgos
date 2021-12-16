@@ -43,7 +43,7 @@ class Indicadores
         $race["galgos"] = [];
 
         for ($i=1; $i <= 6; $i++)
-            array_push($race["galgos"], ['nome' => $race[$i."_Runner"], 'ordem' => $i, 'metricas' => ['distancia' => $race["distancia"], 'rec_final' => 0 ]] );
+            array_push($race["galgos"], ['nome' => $race[$i."_Runner"], 'ordem' => $i, 'metricas' => ['distancia' => $race["distancia"], 'rec_final' => 0 ], 'historico' => [] ] );
         
         return $race;
 
@@ -92,7 +92,8 @@ class Indicadores
                     ->historico_bends($galgo_index, $historico)
                     ->rec_cansa($galgo_index, $historico)
                     ->qtde_corridas($galgo_index, $historico)
-                    ->tp($galgo_index, $historico);
+                    ->tp($galgo_index, $historico)
+                    ->historico_galgo($galgo_index, $historico);
             }
         }
     }
@@ -483,6 +484,57 @@ class Indicadores
     public function qtde_corridas(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['qtde_corridas'] = count($items);
+        return $this;
+    }
+
+    /**
+     * Historico Galgo - Ultimas 5 Concatenadas do campo grade
+     * Exemplos do Campo: "D1"
+     */
+    public function historico_galgo(int $galgo_index, array $items)
+    {
+        $this->race['galgos'][$galgo_index]['historico'] = [];
+        
+        $maps = [
+            ['key' => 'trap',       'column' => 'Trp', 'regex'=> ['pattern' => "/\d+/", 'index' => 0] ],
+            ['key' => 'grade',      'column' => 'Grade', 'regex'=> null ],
+            ['key' => 'data',       'column' => 'Date', 'regex'=> null ],
+            ['key' => 'cp',         'column' => 'Gng', 'regex'=> null ],
+            ['key' => 'pista',      'column' => 'Track', 'regex'=> null ],
+            ['key' => 'distancia',  'column' => 'Dis', 'regex'=> null ],
+            ['key' => 'peso',       'column' => 'Wght', 'regex'=> null ],
+            ['key' => 'split',      'column' => 'Split', 'regex'=> null ],
+            ['key' => 'bends',      'column' => 'Bends', 'regex'=> null ],
+            ['key' => 'tempo',      'column' => 'WnTm', 'regex'=> null ],
+            ['key' => 'tempo_real', 'column' => 'WnTm', 'regex'=> null ],
+            ['key' => 'vitoria',    'column' => 'Fin',  'regex'=> ['pattern' => "/\d+/", 'index' => 0], 'fn' => function($value){  return $value == "1"; }],
+        ];
+                
+        for ($i=0; $i < 10 ; $i++) { 
+
+            if( isset($items[$i]) ){
+
+                $item = (array)$items[$i];
+                $row = [];
+
+                foreach($maps as $map){
+
+                    $row[$map['key']] = null;
+
+                    if( isset($item[$map['column']]) ) {
+                        $row[$map['key']] = isset($map['regex']) ? $this->regex($map['regex']['pattern'], $item[$map['column']],$map['regex']['index'])  : $item[$map['column']];
+                    }else{
+                        $row[$map['key']] = null;
+                    }
+
+                    if( isset($map['fn']) )
+                        $row[$map['key']] = $map['fn']($row[$map['key']]);
+                }
+
+                array_push($this->race['galgos'][$galgo_index]['historico'], $row );
+            }
+        }
+
         return $this;
     }
 
