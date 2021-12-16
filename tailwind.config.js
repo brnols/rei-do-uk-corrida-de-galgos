@@ -47,7 +47,7 @@ module.exports = {
                 dark: '#484A4E',
                 light: '#EFF3F8',
                 danger: '#F09F9F',
-                success: '#6FCF97'
+                success: '#6FCF97',
             }
         },
     },
