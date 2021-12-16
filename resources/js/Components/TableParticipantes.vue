@@ -43,26 +43,54 @@
         />
       </q-td>
     </template>
+
     <template v-slot:body-cell-sexo="props">
       <q-td :props="props">
-        <img v-if="props.value == 'm'" src="/images/el_male.png" />
+        <img
+          v-if="props.row.metricas.sexo == 'Macho'"
+          src="/images/el_male.png"
+        />
         <img v-else src="/images/el_female.png" />
+      </q-td>
+    </template>
+
+    <template v-slot:body-cell-idade="props">
+      <q-td :props="props">
+        {{ props.row.metricas.idade }}
+      </q-td>
+    </template>
+
+    <template v-slot:body-cell-linhagem="props">
+      <q-td :props="props">
+        {{ props.row.metricas.pedigree }}
+      </q-td>
+    </template>
+
+    <template v-slot:body-cell-treinador="props">
+      <q-td :props="props">
+        {{ props.row.metricas.treinador }}
+      </q-td>
+    </template>
+
+    <template v-slot:body-cell-races="props">
+      <q-td :props="props">
+        {{ props.row.metricas.qtde_corridas }}
       </q-td>
     </template>
 
     <template v-slot:body-cell-galgo="props">
       <q-td class="flex justify-center bg-light" :props="props">
         <q-icon
-          :class="[
-            props.row.ordem == icone_show ? 'text-secondary' : 'text-dark',
-          ]"
+          :class="[props.row.ordem == icone_show ? color : 'text-dark']"
           class="cursor"
           @click="ativar(props.row.ordem)"
           name="far fa-eye"
         />
         <q-icon
           :class="[
-            props.row.ordem == currentItem ? 'text-secondary' : 'text-dark',
+            this.items.indexOf(props.row.ordem) == -1
+              ? 'text-dark'
+              : 'text-red',
           ]"
           class="cursor ml-2"
           @click="ocultar(props.row.ordem)"
@@ -187,8 +215,9 @@ export default {
     },
     items: [],
     icone_show: null,
-    active: false,
+    color: "",
     currentItem: null,
+    disabled: false,
   }),
 
   methods: {
@@ -209,20 +238,32 @@ export default {
       }
     },
     ativar(i) {
-      this.icone_show = i;
-
-      let index = this.items.indexOf(i);
-      if (index != -1) {
-        this.items.splice(index, 1);
-        this.currentItem = null;
+      if (this.icone_show != i) {
+        this.color = "text-red";
+        this.$emit("enviar", {
+          disabled: true,
+          index: i,
+          items: this.items,
+        });
+      } else {
+        this.color = "text-dark";
+        this.$emit("enviar", {
+          disabled: false,
+          index: i,
+          items: this.items,
+        });
       }
-      this.$emit("enviar", { disabled: true, index: i, items: this.items });
+      this.icone_show = i;
     },
     ocultar(i) {
+      let index = this.items.indexOf(i);
       this.currentItem = i;
       if (this.items.indexOf(i) == -1) {
         this.items.push(i);
         this.icone_show = null;
+      } else {
+        this.items.splice(index, 1);
+        this.currentItem = null;
       }
 
       this.$emit("enviar", { disabled: false, index: i, items: this.items });

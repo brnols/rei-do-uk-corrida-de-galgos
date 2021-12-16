@@ -91,7 +91,9 @@
           ]"
           class="relative"
         >
-          <span class="absolute bottom-0 left-6"> {{}} </span>
+          <span class="absolute bottom-0 left-6">
+            {{ props.row.metricas.rec_final }}
+          </span>
           <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>
       </q-td>
@@ -110,7 +112,7 @@
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.red_cansa }}
+            {{ props.row.metricas.rec_cansa }}
           </span>
           <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>

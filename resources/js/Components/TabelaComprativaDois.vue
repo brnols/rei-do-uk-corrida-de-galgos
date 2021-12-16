@@ -65,7 +65,7 @@
           <div>
             <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
           </div>
-          <span> {{ props.row.metricas.pt }} </span>
+          <span> {{ props.row.metricas.tp }} </span>
         </div>
       </q-td>
     </template>
@@ -87,7 +87,7 @@
         </div>
       </q-td>
     </template> -->
-    <template v-slot:body-cell-velocidade="props">
+    <!-- <template v-slot:body-cell-velocidade="props">
       <q-td
         v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
@@ -104,7 +104,7 @@
           <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>
       </q-td>
-    </template>
+    </template> -->
     <template v-slot:body-cell-peso="props">
       <q-td
         v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
@@ -215,13 +215,13 @@ const columns = [
     id: 1,
   },
   // { name: "remarks", label: "Remarks", field: "remarks", align: "left", id: 2 },
-  {
-    name: "velocidade",
-    label: "Velocidade",
-    field: "velocidade",
-    align: "left",
-    id: 3,
-  },
+  // {
+  //   name: "velocidade",
+  //   label: "Velocidade",
+  //   field: "velocidade",
+  //   align: "left",
+  //   id: 3,
+  // },
   { name: "peso", label: "Peso", field: "peso", align: "left", id: 4 },
   {
     name: "categoria",
