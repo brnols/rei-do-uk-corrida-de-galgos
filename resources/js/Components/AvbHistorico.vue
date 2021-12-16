@@ -17,7 +17,7 @@
             <!-- Info -->
             <div class="text-primary font-bold my-2">
                 <span>BRT: {{ galgo.metricas.brt }}</span> |
-                <span>MÊS / ANO NASCIMENTO: </span>
+                <span>MÊS / ANO NASCIMENTO: {{ galgo.metricas.data_nascimento }}</span>
             </div>
 
             <!-- Table -->
