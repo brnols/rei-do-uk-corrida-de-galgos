@@ -13,19 +13,26 @@
             :comparativo="comparativo"
         ></avb-comparativo>
 
+        <avb-historico
+            class="mt-4"
+            :galgos="selectedGalgos"
+        ></avb-historico>
+
     </section>
 </template>
 
 <script>
 import AvbOptions from "@/Components/AvbOptions";
 import AvbComparativo from "@/Components/AvbComparativo";
+import AvbHistorico from "@/Components/AvbHistorico";
 
 export default {
     name: "SectionAvb",
 
     components: {
         AvbOptions,
-        AvbComparativo
+        AvbComparativo,
+        AvbHistorico
     },
 
     props: {
