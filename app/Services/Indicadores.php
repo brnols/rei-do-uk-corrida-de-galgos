@@ -47,7 +47,7 @@ class Indicadores
             array_push($race["galgos"], [
                 'nome' => $race[$i."_Runner"], 
                 'ordem' => $i, 
-                'metricas' => ['distancia' => $race["distancia"], 'pick' => $race["pick"], 'rec_final' => 0], 
+                'metricas' => ['distancia' => $race["distancia"], 'pick' => $race["pick"], 'rec_final' => 0, 'top_speed' => 0, 'local_treinamento' => '', 'lar' => '', 'fin_rec' => ''], 
                 'historico' => [] 
             ]);
         
@@ -101,7 +101,8 @@ class Indicadores
                     ->tp($galgo_index, $historico)
                     ->historico_galgo($galgo_index, $historico)
                     ->ultima_categoria($galgo_index, $historico)
-                    ->fm($galgo_index, $historico);
+                    ->fm($galgo_index, $historico)
+                    ->data_nascimento($galgo_index, $historico);
             }
         }
     }
@@ -161,6 +162,29 @@ class Indicadores
             if( isset($item['idade_treinador']) ){
                 $date = $this->regex("/(\d+\w{3}\d{2})/", $item['idade_treinador'], 0);
                 $this->race['galgos'][$galgo_index]['metricas']['idade'] = Carbon::now()->diffInDays(Carbon::createFromFormat('dMy', $date));
+            }
+        } catch (\Throwable $th) {
+            //Se der erro na conversão do carbon então deixar zerado
+        }
+            
+        return $this;
+    }
+
+    /**
+     * Indicador Data Nascimento - Ultimo registro do Galgo no campo idade_treinador
+     * Exemplo do Campo: "BRT: 16.66 D1 (2Dec21) Tnr: K Dodington"
+     * @regex retorno exemplo : 2Dec21
+     */
+    public function data_nascimento(int $galgo_index, array $items)
+    {
+        $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
+
+        $this->race['galgos'][$galgo_index]['metricas']['data_nascimento'] = 0;
+
+        try {
+            if( isset($item['idade_treinador']) ){
+                $date = $this->regex("/(\d+\w{3}\d{2})/", $item['idade_treinador'], 0);
+                $this->race['galgos'][$galgo_index]['metricas']['data_nascimento'] = Carbon::createFromFormat('dMy', $date)->toDateString();
             }
         } catch (\Throwable $th) {
             //Se der erro na conversão do carbon então deixar zerado
