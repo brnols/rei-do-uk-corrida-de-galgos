@@ -19,5 +19,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('dev'),
             'telefone' => "21212121"
         ]);
+
+        $this->call([
+            PistaSeeder::class
+        ]);
     }
 }

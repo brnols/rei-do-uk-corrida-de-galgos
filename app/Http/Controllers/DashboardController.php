@@ -40,7 +40,7 @@ class DashboardController extends Controller
 
         $races = DB::table($pista)->get();
 
-        $races = $races->map(function ($race) {
+        $races = $races->map(function ($race, $index) {
             /* Verifica se a hora é P.M ou A.M para conversão*/
             $hora     = (int) strtok($race->Horario, ':');
             $meridiam = $hora < 6 || $hora == 12 ? 'PM' : 'AM';
@@ -48,7 +48,7 @@ class DashboardController extends Controller
 
             /* Pega o id da Race */
             preg_match('/^(Race\s)(\d*)(.*)$/', $race->Race_info, $matches);
-            $id = $matches[2];
+            $id = (count($matches) > 2 )? $matches[2] : ($index+1);
 
             return [
                 'id'       => $id,
@@ -61,9 +61,10 @@ class DashboardController extends Controller
         });
 
         if ($filteredRace) {
-            $races = $races->filter(function ($race) use ($filteredRace) {
+            $races = $races->filter(function ($race, $index) use ($filteredRace) {
                 preg_match('/^(Race\s)(\d*)(.*)$/', $filteredRace, $matches);
-                return $matches[2] === $race['id'];
+                $id = (count($matches) > 2 )? $matches[2] : null;
+                return $id === $race['id'];
             });
         }
 

@@ -86,12 +86,6 @@ export default {
                     active: this.route().current('filtros')
                 },
                 {
-                    name  : 'Área do cliente',
-                    action: () => this.$inertia.visit(this.route('dashboard')),
-                    show  : this.authenticated,
-                    active: this.route().current('perfil')
-                },
-                {
                     name  : 'Meu Canil',
                     action: () => this.$inertia.visit(this.route('dashboard')),
                     show  : this.authenticated,
