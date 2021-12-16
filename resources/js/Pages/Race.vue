@@ -90,12 +90,29 @@
       </div>
     </div>
 
-    <table-participantes></table-participantes>
+    <table-participantes @enviar="enviar = $event"></table-participantes>
 
-    <tabela-comparativa class="mt-6"></tabela-comparativa>
-    <tabela-comparativa-dois class="mt-6"></tabela-comparativa-dois>
+    <tabela-comparativa
+      :items="enviar.items"
+      :ordem="enviar.index"
+      :disabled="enviar.disabled"
+      class="mt-6"
+    ></tabela-comparativa>
 
-    <tabela-comparativa-tres class="mt-6"> </tabela-comparativa-tres>
+    <tabela-comparativa-dois
+      :items="enviar.items"
+      :ordem="enviar.index"
+      :disabled="enviar.disabled"
+      class="mt-6"
+    ></tabela-comparativa-dois>
+
+    <tabela-comparativa-tres
+      :items="enviar.items"
+      :ordem="enviar.index"
+      :disabled="enviar.disabled"
+      class="mt-6"
+    >
+    </tabela-comparativa-tres>
 
     <table-math-avb></table-math-avb>
     <table-comparacao></table-comparacao>
@@ -103,12 +120,16 @@
       <table-comp-galgo class="mt-6"></table-comp-galgo>
       <table-comp-galgo class="mt-6"></table-comp-galgo>
     </div>
-    <table-galgo class="mt-6"></table-galgo>
+    <table-galgo
+      v-for="galgo in $page.props.indicadores"
+      :key="galgo"
+      :galgo="galgo"
+      class="mt-6 mb-10"
+    ></table-galgo>
   </div>
 </template>
 
 <script>
-
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 import TableParticipantes from "@/Components/TableParticipantes.vue";
@@ -121,6 +142,9 @@ import TableCompGalgo from "@/Components/TableCompGalgo.vue";
 import TableGalgo from "@/Components/TableGalgo.vue";
 
 export default {
+  props: {
+    indicadores: Array,
+  },
 
   components: {
     Head,
@@ -135,10 +159,11 @@ export default {
     TableGalgo,
   },
 
-  setup() {
+  /* 4 espaços! */
+  data() {
     return {
-      model: ref(null),
-      model2: ref(null),
+      model: null,
+      model2: null,
       options: [
         "Towcester (BR: 15:24 I UK: 19:24)",
         "Yarmouth (BR: 15:26 I UK: 19:26)",
@@ -146,7 +171,13 @@ export default {
         "Nothingham (BR: 19:24 I UK: 19:24)",
         "Doncaster (BR: 19:24 I UK: 19:24)",
       ],
+      enviar: {},
+      ocultar: {},
     };
+  },
+
+  mounted() {
+    console.log(this.indicadores);
   },
 };
 </script>

@@ -1,57 +1,54 @@
 <template>
-  <div class="container">
+  <div class="container pb-20">
     <section>
-      <div class="grid grid-curso">
-        <h1 class="text-[48px] text-primary font-bold">Navegando no site</h1>
-        <button class="flex text-light p-4 items-center justify-between">
-          <div class="flex flex-col items-start">
-            <span>Curso de</span>
-            <span class="text-[22px] block text-light font-bold"
-              >Galgo vencedor</span
-            >
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <h1 class="text-[28px] sm:text-[48px] text-primary font-bold">
+          Navegando no site
+        </h1>
+
+        <div
+          class="
+            shadow-2xl
+            py-8
+            px-4
+            bg-secondary
+            sm:justify-center
+            md:justify-around
+            text-white
+            flex
+            lg:flex-nowrap
+            rounded-md
+          "
+        >
+          <div>
+            Faça seu cruso de
+            <h2 class="text-5xl font-bold">Galgo Vencedor</h2>
           </div>
-          <img src="/images/casa.svg" alt="casa" />
-        </button>
-        <div class="card">
-          <iframe
-            class="w-[100%] h-[100%]"
-            src="https://www.youtube.com/embed/m8QESxCjUH4"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+
+          <q-img style="width: 151px" src="/images/casa.svg" />
         </div>
-        <div class="card">
-          <iframe
-            class="w-[100%] h-[100%]"
-            src="https://www.youtube.com/embed/dYHeotRsBxQ"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="card">
-          <iframe
-            class="w-[100%] h-[100%]"
-            src="https://www.youtube.com/embed/9dc6258Jgtk"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="card">
-          <iframe
-            class="w-[100%] h-[100%]"
-            src="https://www.youtube.com/embed/QXw3dJRHyMY"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+        <template v-for="(video, index) in videos" :key="index">
+          <div class="card rounded-3xl pb-8">
+            <div class="card-frame">
+              <iframe
+                class="w-[100%] h-[100%] rounded-t-3xl"
+                :src="video.url"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <h3
+              class="text-[20px] text-center px-1 leading-normal text-primary"
+            >
+              {{ video.title }}
+            </h3>
+          </div>
+        </template>
       </div>
     </section>
   </div>
@@ -60,23 +57,39 @@
 <script>
 export default {
   name: "Cursos",
+  data() {
+    return {
+      videos: [
+        {
+          url: "https://www.youtube.com/embed/m8QESxCjUH4",
+          title: "Navegando no site - Navegação Básica no TK Galgos",
+        },
+        {
+          url: "https://www.youtube.com/embed/dYHeotRsBxQ",
+          title: "Aula 01 - Mercado US - Análise com TK Galgos",
+        },
+        {
+          url: "https://www.youtube.com/embed/9dc6258Jgtk",
+          title: "Aula 02 - Mercado Us (Palm 1 18/06/2020)",
+        },
+        {
+          url: "https://www.youtube.com/embed/QXw3dJRHyMY",
+          title: "Navegando no site - Navegação Básica no TK Galgos",
+        },
+      ],
+    };
+  },
 };
 </script>
 
 <style scoped>
 .card {
-  height: 21rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
-  overflow: hidden;
+  background: #eff3f8;
 }
-
-.container-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
-  justify-content: center;
-  border-radius: 20px 20px 0px 0px;
+.card-frame {
+  height: 21rem;
 }
 
 .grid-curso {
