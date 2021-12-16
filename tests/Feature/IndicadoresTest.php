@@ -21,6 +21,7 @@ class IndicadoresTest extends TestCase
     {
         $service = new Indicadores("harlow", '10:46');
         $retorno = $service->all();
+        //dd($retorno);
         $this->assertTrue(count($retorno) == 6);
         
         for ($i=0; $i < 5 ; $i++) { 

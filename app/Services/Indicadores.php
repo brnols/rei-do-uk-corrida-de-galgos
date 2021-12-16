@@ -495,19 +495,19 @@ class Indicadores
     {
         $this->race['galgos'][$galgo_index]['historico'] = [];
         
-        $map = [
-            'trap' => 'Trp',
-            'grade' => 'Grade',
-            'data' => 'Date',
-            'cp' => 'Gng',
-            'pista' => 'Track',
-            'distancia' => 'Dis',
-            'peso' => 'Wght',
-            'split' => 'Split',
-            'bends' => 'Bends',
-            'tempo' => 'WnTm',
-            'tempo_real' => 'WnTm',
-            'final' => 'Fin'
+        $maps = [
+            ['key' => 'trap',       'column' => 'Trp', 'regex'=> ['pattern' => "/\d+/", 'index' => 0] ],
+            ['key' => 'grade',      'column' => 'Grade', 'regex'=> null ],
+            ['key' => 'data',       'column' => 'Date', 'regex'=> null ],
+            ['key' => 'cp',         'column' => 'Gng', 'regex'=> null ],
+            ['key' => 'pista',      'column' => 'Track', 'regex'=> null ],
+            ['key' => 'distancia',  'column' => 'Dis', 'regex'=> null ],
+            ['key' => 'peso',       'column' => 'Wght', 'regex'=> null ],
+            ['key' => 'split',      'column' => 'Split', 'regex'=> null ],
+            ['key' => 'bends',      'column' => 'Bends', 'regex'=> null ],
+            ['key' => 'tempo',      'column' => 'WnTm', 'regex'=> null ],
+            ['key' => 'tempo_real', 'column' => 'WnTm', 'regex'=> null ],
+            ['key' => 'vitoria',    'column' => 'Fin',  'regex'=> ['pattern' => "/\d+/", 'index' => 0], 'fn' => function($value){  return $value == "1"; }],
         ];
                 
         for ($i=0; $i < 10 ; $i++) { 
@@ -517,9 +517,20 @@ class Indicadores
                 $item = (array)$items[$i];
                 $row = [];
 
-                foreach($map as $key => $column)    
-                    $row[$key] = isset($item[$column]) ? $item[$column] : null;
-                
+                foreach($maps as $map){
+
+                    $row[$map['key']] = null;
+
+                    if( isset($item[$map['column']]) ) {
+                        $row[$map['key']] = isset($map['regex']) ? $this->regex($map['regex']['pattern'], $item[$map['column']],$map['regex']['index'])  : $item[$map['column']];
+                    }else{
+                        $row[$map['key']] = null;
+                    }
+
+                    if( isset($map['fn']) )
+                        $row[$map['key']] = $map['fn']($row[$map['key']]);
+                }
+
                 array_push($this->race['galgos'][$galgo_index]['historico'], $row );
             }
         }
