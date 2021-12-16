@@ -40,10 +40,16 @@ class Indicadores
         $race = (array) DB::table( $this->tb )->where('Horario', $this->horario)->first();
                 
         $race["distancia"] = $this->regex("/\d{3}m/", $race["Race_info"]);
+        $race["pick"] = $this->regex("/PICK:\s+\d/", $race["Race_info"]);
         $race["galgos"] = [];
 
         for ($i=1; $i <= 6; $i++)
-            array_push($race["galgos"], ['nome' => $race[$i."_Runner"], 'ordem' => $i, 'metricas' => ['distancia' => $race["distancia"], 'rec_final' => 0 ], 'historico' => [] ] );
+            array_push($race["galgos"], [
+                'nome' => $race[$i."_Runner"], 
+                'ordem' => $i, 
+                'metricas' => ['distancia' => $race["distancia"], 'pick' => $race["pick"], 'rec_final' => 0], 
+                'historico' => [] 
+            ]);
         
         return $race;
 
@@ -93,7 +99,9 @@ class Indicadores
                     ->rec_cansa($galgo_index, $historico)
                     ->qtde_corridas($galgo_index, $historico)
                     ->tp($galgo_index, $historico)
-                    ->historico_galgo($galgo_index, $historico);
+                    ->historico_galgo($galgo_index, $historico)
+                    ->ultima_categoria($galgo_index, $historico)
+                    ->fm($galgo_index, $historico);
             }
         }
     }
@@ -349,6 +357,22 @@ class Indicadores
         return $this;
     }
 
+     /**
+     * Indicador Ultima Categoria - Ultimo valor do campo Categoria como Número
+     * Exemplos do Campo: "D3" Resultado "3"
+     */
+    public function ultima_categoria(int $galgo_index, array $items)
+    {
+        $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
+
+        $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = 0;
+
+        if( isset($item['Grade']) )
+            $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = round($this->regex("/\d+/", $item['Grade']), 2);
+
+        return $this;
+    }
+
     /**
      * Indicador Média - Média tempo dos ultimos nessa distancia pelo campo CalTm
      * Exemplo do Campo: "29.92"
@@ -372,6 +396,31 @@ class Indicadores
 
         if($count > 0)
             $this->race['galgos'][$galgo_index]['metricas']['media'] = round($soma/$count,2);
+        
+        return $this;
+    }
+
+    /**
+     * Indicador Final Média - Média Chegada Final pelo campo Fin
+     * Exemplo do Campo: "1st"
+     */
+    public function fm(int $galgo_index, array $items)
+    {
+        $this->race['galgos'][$galgo_index]['metricas']['fm'] = 0;
+        $soma = 0;
+        $count = 0;
+
+        for ($i=0; $i < count($items) ; $i++) {             
+            if( array_key_exists('Fin', (array)$items[$i]) ){
+                if( $items[$i]->Fin != null ){
+                    $soma += round($this->regex("/\d+/", $items[$i]->Fin),2);
+                    $count++;
+                }
+            }
+        }
+
+        if($count > 0)
+            $this->race['galgos'][$galgo_index]['metricas']['fm'] = round($soma/$count,2);
         
         return $this;
     }
