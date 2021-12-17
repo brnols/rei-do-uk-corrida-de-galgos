@@ -1,4 +1,6 @@
 <template>
+  <Head title="Curso" />
+
   <div class="container pb-20">
     <section>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -55,8 +57,14 @@
 </template>
 
 <script>
+import { Head } from "@inertiajs/inertia-vue3";
 export default {
   name: "Cursos",
+
+  components: {
+    Head,
+  },
+
   data() {
     return {
       videos: [

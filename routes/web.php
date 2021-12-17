@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUndefinedMethodInspection */
+<?php
+
+/** @noinspection PhpUndefinedMethodInspection */
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RaceController;
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::webhooks('hotmart-events');
 
 Route::view('old', 'home')
@@ -34,6 +37,9 @@ Route::inertia('/planos', 'Planos')
 Route::inertia('/cursos', 'Cursos')
     ->name('cursos');
 
+Route::inertia('/canil', 'Canil')
+    ->name('canil');
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard/{pista?}', DashboardController::class)
@@ -41,7 +47,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard/{pista?}/{race}', RaceController::class)
         ->name('race');
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
