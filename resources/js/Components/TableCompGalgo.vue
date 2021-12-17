@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { ref } from "vue";
 const columns = [
   {
@@ -221,6 +222,11 @@ export default {
     ],
   }),
 
+  computed: {
+    dataFormatada() {
+      return moment(this.galgo.matricas.data_nascimento).format("MM/yy");
+    },
+  },
   methods: {
     getTrap(e) {
       switch (e) {

@@ -57,7 +57,7 @@
               </div>
               <div class="col-12 col-sm-6">
                 <span class="font-bold">Local treinamento: </span>
-                <span> {{ galgo.metricas.idade }}</span>
+                <span> {{ galgo.metricas.local_treinamento }}</span>
               </div>
             </div>
           </div>
@@ -124,6 +124,12 @@
       </q-td>
     </template>
 
+    <template v-slot:body-cell-data="props">
+      <q-td style="background-color: white" :props="props">
+        {{ dataFormatada }}
+      </q-td>
+    </template>
+
     <template v-slot:body-cell-lar="props">
       <q-td style="background-color: white" :props="props">
         <span class="px-2 py-1 rounded-md bg-danger text-white"
@@ -152,6 +158,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { ref } from "vue";
 const columns = [
   {
@@ -175,7 +182,7 @@ const columns = [
   },
   { name: "cp", label: "CP", field: "cp", align: "left" },
   { name: "pista", label: "Pista", field: "pista", align: "left" },
-  { name: "dias", label: "Dias", field: "dias", align: "left" },
+  { name: "dis", label: "Dis", field: "distancia", align: "left" },
   { name: "peso", label: "Peso", field: "peso", align: "left" },
   { name: "split", label: "Split", field: "split", align: "center" },
   // { name: "lar", label: "Lar", field: "lar" },
@@ -228,57 +235,66 @@ export default {
     };
   },
 
-  methods: {},
+  computed: {
+    dataFormatada() {
+      return moment(this.galgo.historico.data).format("DD/MM");
+    },
+  },
+
+  methods: {
+    get_dados_corrida() {
+      var qtd = 0;
+      let vitoria = 0;
+      let porcentagem = 0;
+
+      for (let index = 1; index < 7; index++) {
+        qtd = this.galgo.historico.reduce((total, valor) => {
+          if (valor.trap == index) {
+            return total + 1;
+          }
+          return total;
+        }, 0);
+
+        vitoria = this.galgo.historico.reduce((total, valor) => {
+          if (valor.vitoria == true && valor.trap == index) {
+            return total + 1;
+          }
+          return total;
+        }, 0);
+
+        if (qtd == 0) {
+          porcentagem = 0;
+        } else {
+          porcentagem = (vitoria / qtd) * 100;
+        }
+        this.porcentagem.push(porcentagem);
+        this.corridas.push(qtd);
+        this.vitorias.push(vitoria);
+      }
+
+      let total_vitorias = this.vitorias.reduce(
+        (total, valor) => total + valor,
+        0
+      );
+
+      let total_corridas = this.corridas.reduce(
+        (total, valor) => total + valor,
+        0
+      );
+
+      let total_porcentagem = this.porcentagem.reduce(
+        (total, valor) => total + valor,
+        0
+      );
+
+      this.corridas.push(total_corridas);
+      this.vitorias.push(total_vitorias);
+      this.porcentagem.push(total_porcentagem);
+    },
+  },
   mounted() {
     this.rows = this.galgo.historico;
-
-    var qtd = 0;
-    let vitoria = 0;
-    let porcentagem = 0;
-
-    for (let index = 1; index < 7; index++) {
-      qtd = this.galgo.historico.reduce((total, valor) => {
-        if (valor.trap == index) {
-          return total + 1;
-        }
-        return total;
-      }, 0);
-
-      vitoria = this.galgo.historico.reduce((total, valor) => {
-        if (valor.vitoria == true && valor.trap == index) {
-          return total + 1;
-        }
-        return total;
-      }, 0);
-
-      if (qtd == 0) {
-        porcentagem = 0;
-      } else {
-        porcentagem = (vitoria / qtd) * 100;
-      }
-      this.porcentagem.push(porcentagem);
-      this.corridas.push(qtd);
-      this.vitorias.push(vitoria);
-    }
-
-    let total_vitorias = this.vitorias.reduce(
-      (total, valor) => total + valor,
-      0
-    );
-
-    let total_corridas = this.corridas.reduce(
-      (total, valor) => total + valor,
-      0
-    );
-
-    let total_porcentagem = this.porcentagem.reduce(
-      (total, valor) => total + valor,
-      0
-    );
-
-    this.corridas.push(total_corridas);
-    this.vitorias.push(total_vitorias);
-    this.porcentagem.push(total_porcentagem);
+    this.get_dados_corrida();
   },
 };
 </script>
