@@ -70,7 +70,7 @@ export default {
                 {
                     name  : 'Planos e Valores',
                     action: () => this.$inertia.visit(this.route('planos')),
-                    show  : !this.authenticated,
+                    show  : this.authenticated,
                     active: this.route().current('planos')
                 },
                 {
@@ -81,9 +81,9 @@ export default {
                 },
                 {
                     name  : 'Filtros',
-                    action: () => this.$inertia.visit(this.route('dashboard')),
+                    action: () => this.$inertia.visit(this.route('filtros.index')),
                     show  : this.authenticated,
-                    active: this.route().current('filtros')
+                    active: this.route().current('filtros.index')
                 },
                 {
                     name  : 'Meu Canil',

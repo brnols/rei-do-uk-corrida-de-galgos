@@ -1,6 +1,7 @@
 <?php /** @noinspection PhpUndefinedMethodInspection */
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FiltroController;
 use App\Http\Controllers\RaceController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,20 +17,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::webhooks('hotmart-events');
 
-Route::view('old', 'home')
-    ->name('home');
-
-Route::view('old-planos', 'planosvalores')
-    ->name('planosvalores');
-
-Route::view('old-cursos', 'cursos')
-    ->name('cursos');
-
 Route::inertia('/', 'Welcome')
     ->name('welcome');
-
-Route::inertia('/planos', 'Planos')
-    ->name('planos');
 
 Route::inertia('/cursos', 'Cursos')
     ->name('cursos');
@@ -41,6 +30,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard/{pista?}/{race}', RaceController::class)
         ->name('race');
+
+    Route::inertia('/planos', 'Planos')
+        ->name('planos');
+
+    Route::resource('/filtros', FiltroController::class)
+        ->only(['index', 'store']);
 
 });
 
