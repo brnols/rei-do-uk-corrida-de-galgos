@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::webhooks('hotmart-events');
 
 Route::inertia('/', 'Welcome')
@@ -22,6 +23,9 @@ Route::inertia('/', 'Welcome')
 
 Route::inertia('/cursos', 'Cursos')
     ->name('cursos');
+
+Route::inertia('/canil', 'Canil')
+    ->name('canil');
 
 Route::middleware(['auth'])->group(function () {
 
@@ -39,4 +43,4 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
