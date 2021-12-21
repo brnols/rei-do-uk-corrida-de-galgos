@@ -392,7 +392,7 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = 0;
 
         if( isset($item['Grade']) )
-            $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = round($this->regex("/\d+/", $item['Grade']), $index = 2, $default = 0);
+            $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = round($this->regex("/\d+/", $item['Grade'], $index = 2, $default = 0), 2);
 
         return $this;
     }
@@ -624,6 +624,11 @@ class Indicadores
     private function regex($pattern, $value, $index = 0, $default = '')
     {
         preg_match_all($pattern, $value, $matches);
-        return ( count($matches[$index]) ) ? $matches[$index][0] : $default;
+        
+        if( isset($matches[$index]) )
+            if( count($matches[$index]) )
+                return $matches[$index][0];
+
+        return $default;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Plano;
 use Illuminate\Database\Seeder;
 
 class PlanoSeeder extends Seeder
