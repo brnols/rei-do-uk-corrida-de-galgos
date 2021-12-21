@@ -29,10 +29,10 @@ Route::inertia('/canil', 'Canil')
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard/{pista?}', DashboardController::class)
+    Route::get('/corridas/{pista?}', DashboardController::class)
         ->name('dashboard');
 
-    Route::get('/dashboard/{pista?}/{race}', RaceController::class)
+    Route::get('/corridas/{pista?}/{race}', RaceController::class)
         ->name('race');
 
     Route::inertia('/planos', 'Planos')
