@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use DB;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 
@@ -20,6 +21,8 @@ class Indicadores
         $this->tb           = $tabela;
         $this->tb_tabela    = $tabela . "_tabela";
         $this->tb_results   = $tabela . "_results";
+        
+        $this->filtros = Auth::user()->filtros;
 
         $this->horario = $horario;
         $this->race = $this->race_info();
@@ -28,8 +31,11 @@ class Indicadores
     public function all()
     {
         if( $this->tables_exist() == false ) return [];
+
         $this->query_ultimos_tres_com_mesma_distancia();
         $this->query_all_historico();
+        $this->aplicar_filtros_usuario();
+
         return $this->race["galgos"];
     }
 
@@ -53,6 +59,60 @@ class Indicadores
         
         return $race;
 
+    }
+
+    public function aplicar_filtros_usuario()
+    {        
+        if( count($this->filtros) )
+            foreach($this->filtros as $filtro)
+                $this->aplicar_filtro($filtro->coluna, $filtro->operador, $filtro->valor);
+    }
+
+    private function aplicar_filtro($coluna, $operador, $valor_comparacao)
+    {
+        $filtered = $this->race["galgos"];
+
+        foreach($this->race["galgos"] as $key => $galgo)
+            if( isset($galgo['metricas'][$coluna]) )
+                if( $this->check_operador( $operador, $galgo['metricas'][$coluna], $valor_comparacao) == false )
+                    unset($filtered[$key]);
+        
+        $this->race["galgos"] = $filtered;
+
+    }
+
+    private function check_operador( $operador, $valor_calculado, $valor_comparacao)
+    {
+        try {
+            switch ($operador) {
+                case ">":
+                    return $valor_calculado > $valor_comparacao;
+                    break;
+                case ">=":
+                    return $valor_calculado >= $valor_comparacao;
+                    break;
+                case "=":
+                    return $valor_calculado == $valor_comparacao;
+                    break;
+                case "<":
+                    return $valor_calculado < $valor_comparacao;
+                    break;
+                case "<=":
+                    return $valor_calculado <= $valor_comparacao;
+                    break;
+                case "!=":
+                    return $valor_calculado != $valor_comparacao;
+                    break;
+            }
+        } catch (\Throwable $th) {
+            //do nothing
+        }
+
+        /**
+         *  Caso de errado ou não encontro o operador.. 
+         *  Padrão é deixar como true para não remover o galgo da lista
+         **/
+        return true;
     }
 
     public function query_ultimos_tres_com_mesma_distancia()

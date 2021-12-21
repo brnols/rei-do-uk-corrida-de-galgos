@@ -33,12 +33,18 @@ class HotmartPayment extends SpatieProcessWebhookJob implements ShouldQueue
     {
         $model = $this->webhookCall;
         $payload = $model->payload;
-        
-        if( $payload->event == "PURCHASE_COMPLETE" && $payload->purchase->status == "APPROVED")
-            $this->ativar($payload->buyer->email);
-        
-        if( $payload->event == "SUBSCRIPTION_CANCELLATION" )
-            $this->cancelar($payload->data->subscriber->email);
+
+        try {
+
+            if( $payload['event'] == "PURCHASE_APPROVED" )
+                $this->ativar($payload['data']['buyer']['email']);
+            
+            if( $payload['event'] == "SUBSCRIPTION_CANCELLATION" )
+                $this->cancelar($payload['data']['subscriber']['email']);
+
+        } catch (\Throwable $th) {
+            //do nothing
+        }
 
     }
 
