@@ -68,4 +68,9 @@ class User extends Authenticatable
         $contrato = $this->contratos()->firstWhere('ativo', 1);
         return $contrato != null;
     }
+
+    public function filtros(): HasMany
+    {
+        return $this->hasMany(Filtro::class);
+    }
 }
