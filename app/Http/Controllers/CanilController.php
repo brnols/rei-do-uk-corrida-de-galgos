@@ -5,82 +5,66 @@ namespace App\Http\Controllers;
 use App\Models\Canil;
 use App\Http\Requests\StoreCanilRequest;
 use App\Http\Requests\UpdateCanilRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class CanilController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Inertia::render('Canil', [
+            'galgos' => Auth::user()->canils
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCanilRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreCanilRequest  $request
+     * @return RedirectResponse
      */
-    public function store(StoreCanilRequest $request)
+    public function store(StoreCanilRequest $request): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Canil  $canil
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Canil $canil)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Canil  $canil
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Canil $canil)
-    {
-        //
+        try {
+            Auth::user()->canils()->create($request->validated());
+            return back()->with("success");
+        } catch (\Throwable $throwable) {
+            dd($throwable);
+            return back()->with("error");
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCanilRequest  $request
-     * @param  \App\Models\Canil  $canil
-     * @return \Illuminate\Http\Response
+     * @param  UpdateCanilRequest  $request
+     * @param  Canil  $canil
+     * @return RedirectResponse
      */
-    public function update(UpdateCanilRequest $request, Canil $canil)
+    public function update(UpdateCanilRequest $request, Canil $canil): RedirectResponse
     {
-        //
+        $canil->update($request->validated());
+
+        return back()->with("success");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Canil  $canil
-     * @return \Illuminate\Http\Response
+     * @param  Canil  $canil
+     * @return RedirectResponse
      */
-    public function destroy(Canil $canil)
+    public function destroy(Canil $canil): RedirectResponse
     {
-        //
+        $canil->delete();
+
+        return back()->with("success");
     }
 }

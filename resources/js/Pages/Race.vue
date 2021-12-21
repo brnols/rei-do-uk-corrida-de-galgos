@@ -3,8 +3,10 @@
 
     <div class="container">
         <div class="row justify-between">
+
             <!-- search -->
             <div class="col-12 col-sm-3 space-y-4 flex flex-col justify-end">
+
                 <q-select
                     class="bg-light"
                     dense
@@ -12,8 +14,8 @@
                     label="Próximas Corridas"
                     v-model="model"
                     :options="options"
-                >
-                </q-select>
+                ></q-select>
+
                 <q-select
                     class="bg-light"
                     dense
@@ -21,27 +23,18 @@
                     filled
                     v-model="model2"
                     :options="options"
-                >
-                </q-select>
+                ></q-select>
+
             </div>
+
             <!-- card -->
             <div class="col-12 col-sm-8 pt-4 sm:pt-0">
-                <Link href="">
+                <Link :href="route('cursos')">
                     <div
-                        class="
-              shadow-2xl
-              py-8
-              px-4
-              bg-secondary
-              sm:justify-center
-              md:justify-around
-              text-white
-              flex
-              rounded-md
-            "
-                    >
+                        class="shadow-2xl py-8 px-4 bg-secondary sm:justify-center md:justify-around text-white flex rounded-md">
+
                         <div>
-                            Faça seu cruso de
+                            Faça seu curso de
                             <h2 class="text-5xl font-bold">Galgo Vencedor</h2>
                         </div>
 
@@ -56,41 +49,33 @@
         </div>
 
         <div class="row py-6">
-            <div
-                class="
-          col-12
-          p-6
-          rounded-3xl
-          shadow-xl
-          bg-light
-          text-primary text-bold
-          flex
-          space-x-8
-        "
-            >
+            <div class="col-12 p-6 rounded-3xl shadow-xl bg-light text-primary text-bold flex space-x-8">
+
                 <div>
-                    Racing Post
-                    <span class="flex">
-            <img src="/images/1.png"/>
-            <img src="/images/5.png"/>
-            <img src="/images/6.png"/>
-          </span>
+                    <span>Racing Post</span>
+                    <div class="flex">
+                        <img src="/images/1.png"/>
+                        <img src="/images/5.png"/>
+                        <img src="/images/6.png"/>
+                    </div>
                 </div>
+
                 <div>
-                    Resultado
-                    <span class="flex">
-            <img src="/images/1.png"/>
-            <img src="/images/5.png"/>
-            <img src="/images/6.png"/>
-            <img src="/images/2.png"/>
-            <img src="/images/4.png"/>
-            <img src="/images/3.png"/>
-          </span>
+                    <span>Resultado</span>
+                    <div class="flex">
+                        <img src="/images/1.png"/>
+                        <img src="/images/5.png"/>
+                        <img src="/images/6.png"/>
+                        <img src="/images/2.png"/>
+                        <img src="/images/4.png"/>
+                        <img src="/images/3.png"/>
+                    </div>
                 </div>
+
             </div>
         </div>
 
-        <table-participantes @enviar="enviar = $event"></table-participantes>
+        <table-participantes @enviar="enviar = $event"/>
 
         <tabela-comparativa
             :items="enviar.items"
@@ -111,10 +96,9 @@
             :ordem="enviar.index"
             :disabled="enviar.disabled"
             class="mt-6"
-        >
-        </tabela-comparativa-tres>
+        ></tabela-comparativa-tres>
 
-        <section-avb :indicadores="indicadores" />
+        <section-avb :indicadores="indicadores"/>
 
         <table-galgo
             v-for="galgo in $page.props.indicadores"
@@ -122,6 +106,7 @@
             :galgo="galgo"
             class="mt-6"
         ></table-galgo>
+
     </div>
 </template>
 
@@ -137,6 +122,7 @@ import TableGalgo from "@/Components/TableGalgo.vue";
 export default {
     props: {
         indicadores: Array,
+        pista      : Object
     },
 
     components: {

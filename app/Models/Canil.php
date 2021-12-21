@@ -10,6 +10,13 @@ class Canil extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'galgo',
+        'observacao',
+        'pista',
+        'tabela'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

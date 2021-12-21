@@ -6,8 +6,10 @@ use App\Models\Pista;
 use App\Services\Indicadores;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
 class RaceController extends Controller
@@ -21,27 +23,27 @@ class RaceController extends Controller
      */
     public function __invoke(string $pista, string $race): \Inertia\Response
     {
-        /* Pista existe */
-        Pista::where('tabela', $pista)->firstOrFail();
-
-        /* Tabela existe */
-        if(Schema::hasTable($pista) === false) {
+        /* Tabela e corrida existem? */
+        if (!Schema::hasTable($pista) && !DB::table($pista)->where('Horario', $race)->exists()) {
             abort(404);
         }
 
-        /* Corrida existe */
-        $raceExists = DB::table($pista)->where('Horario', $race)->exists();
+        $pistaAtual = Pista::query()
+            ->where('tabela', $pista)
+            ->firstOrFail();
 
-        if(!$raceExists) {
-            abort(404);
-        }
-
-
-        $service = new Indicadores($pista, $race);
+        $service     = new Indicadores($pista, $race);
         $indicadores = $service->all();
 
+        $canil = Auth::user()
+            ->canils()
+            ->where('pista', $pista)
+            ->get();
+
         return Inertia::render('Race', [
+            'pista'       => $pistaAtual,
             'indicadores' => $indicadores,
+            'canil'       => $canil,
         ]);
     }
 }

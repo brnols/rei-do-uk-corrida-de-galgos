@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateCanilRequest extends FormRequest
 {
@@ -11,9 +12,10 @@ class UpdateCanilRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return Auth::check()
+            && Auth::user()->id === $this->canil->user_id;
     }
 
     /**
@@ -21,10 +23,11 @@ class UpdateCanilRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'galgo'      => 'required|string|max:255',
+            'observacao' => 'nullable|string',
         ];
     }
 }

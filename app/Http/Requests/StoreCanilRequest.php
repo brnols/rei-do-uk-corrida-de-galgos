@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCanilRequest extends FormRequest
 {
@@ -11,9 +12,9 @@ class StoreCanilRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -21,10 +22,13 @@ class StoreCanilRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'galgo'      => 'required|string|max:255',
+            'pista'      => 'required|string|max:255',
+            'tabela'     => 'required|string|max:255',
+            'observacao' => 'nullable|string',
         ];
     }
 }

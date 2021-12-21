@@ -91,9 +91,9 @@ export default {
         },
         {
           name: "Meu Canil",
-          action: () => this.$inertia.visit(this.route("canil")),
+          action: () => this.$inertia.visit(this.route("canil.index")),
           show: this.authenticated,
-          active: this.route().current("canil"),
+          active: this.route().current("canil.index"),
         },
         {
           name: "Transmissões ao vivo",
