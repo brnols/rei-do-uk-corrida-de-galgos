@@ -14,33 +14,26 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function __invoke(Request $request, string $pista = 'centralpark'): Response
+    public function __invoke(string $pista = 'centralpark'): Response
     {
-        $races      = [];
-        $pistaAtual = Pista::firstWhere('tabela', $pista);
-
-        if (!$pistaAtual) {
-            abort(404);
-        }
+        $track = Pista::query()
+            ->where('tabela', $pista)
+            ->firstOrFail();
 
         return Inertia::render('Dashboard', [
             'pistas' => Pista::all(),
-            'pista'  => $pistaAtual,
-            'races'  => $this->getData($pista, $request->input('race'))
+            'pista'  => $track,
+            'races'  => $this->getRacesfromTrack($pista)
         ]);
     }
 
-    private function getData($pista, $filteredRace = null)
+    private function getRacesfromTrack($pista)
     {
-        $races = [];
-
-        if (!Schema::hasTable($pista)) {
-            return $races;
-        }
+        if (!Schema::hasTable($pista)) return [];
 
         $races = DB::table($pista)->get();
 
-        $races = $races->map(function ($race, $index) {
+        return $races->map(function ($race, $index) {
             /* Verifica se a hora é P.M ou A.M para conversão*/
             $hora     = (int) strtok($race->Horario, ':');
             $meridiam = $hora < 6 || $hora == 12 ? 'PM' : 'AM';
@@ -59,15 +52,5 @@ class DashboardController extends Controller
                 'liberada' => $id == 1 || Auth::user()->assinante,
             ];
         });
-
-        if ($filteredRace) {
-            $races = $races->filter(function ($race, $index) use ($filteredRace) {
-                preg_match('/^(Race\s)(\d*)(.*)$/', $filteredRace, $matches);
-                $id = (count($matches) > 2 )? $matches[2] : null;
-                return $id === $race['id'];
-            });
-        }
-
-        return $races;
     }
 }
