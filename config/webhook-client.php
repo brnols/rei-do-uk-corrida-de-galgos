@@ -18,7 +18,7 @@ return [
             /*
              * The name of the header containing the signature.
              */
-            'signature_header_name' => 'X-HOTMART-HOTTOK',
+            'signature_header_name' => 'x-hotmart-hottok',
 
             /*
              *  This class will verify that the content of the signature header is valid.
