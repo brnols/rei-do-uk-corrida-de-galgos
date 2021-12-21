@@ -34,6 +34,7 @@
     <template v-slot:body-cell-canil="props">
       <q-td style="background-color: white" :props="props">
         <q-btn
+            v-if="false"
           @click="dialog = true"
           size="sm"
           color="primary"

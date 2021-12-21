@@ -24,7 +24,7 @@ Route::inertia('/', 'Welcome')
 Route::inertia('/cursos', 'Cursos')
     ->name('cursos');
 
-Route::inertia('/canil', 'Canil')
+Route::inertia('/canil', 'WIP')
     ->name('canil');
 
 Route::middleware(['auth'])->group(function () {
