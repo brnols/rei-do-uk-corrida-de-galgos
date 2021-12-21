@@ -84,7 +84,7 @@ export default {
           active: this.route().current("dashboard"),
         },
         {
-          name: "Filtros",
+          name: "Filtros (Em breve)",
           action: () => this.$inertia.visit(this.route("dashboard")),
           show: this.authenticated,
           active: this.route().current("filtros"),
