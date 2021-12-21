@@ -12,6 +12,7 @@ class Canil extends Model
 
     protected $fillable = [
         'galgo',
+        'nome',
         'observacao',
         'pista',
         'tabela'

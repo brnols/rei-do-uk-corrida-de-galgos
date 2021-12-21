@@ -20,7 +20,7 @@ class CreateCanilsTable extends Migration
             $table->string('nome');
             $table->string('pista');
             $table->string('tabela');
-            $table->text('observacao');
+            $table->text('observacao')->nullable();
             $table->timestamps();
         });
     }

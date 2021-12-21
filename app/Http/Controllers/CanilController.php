@@ -34,10 +34,10 @@ class CanilController extends Controller
     {
         try {
             Auth::user()->canils()->create($request->validated());
-            return back()->with("success");
+            return back()->with("success", "Galgo adicionado com sucesso.");
         } catch (\Throwable $throwable) {
             dd($throwable);
-            return back()->with("error");
+            return back()->with("error", "Falha ao adicionar galgo.");
         }
     }
 

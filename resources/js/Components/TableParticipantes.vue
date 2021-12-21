@@ -117,6 +117,12 @@
                 <q-space/>
                 <q-btn icon="close" flat round dense v-close-popup/>
             </q-card-section>
+            <q-banner v-if="$page.props.flash.success" class="bg-success">
+                {{ $page.props.flash.success }}
+            </q-banner>
+            <q-banner v-if="$page.props.flash.error" class="bg-error">
+                {{ $page.props.flash.error }}
+            </q-banner>
             <q-card-section>
                 <h2 class="font-bold text-h6 text-primary">Adicionar ao Canil</h2>
                 <p class="text-dark">Adicionar galgo ao seu canil</p>
@@ -132,7 +138,7 @@
                     class="bg-light"
                     dense
                     filled
-                    label="Escreva o nome do Galgo"
+                    placeholder="Escreva o nome do Galgo"
                     :error="!!errors.galgo"
                     :error-message="errors.galgo"
                     @input="errors.galgo = null"
@@ -149,7 +155,7 @@
                     class="bg-light"
                     dense
                     filled
-                    label="Escreva o comentário sobre o Galgo"
+                    placeholder="Escreva o comentário sobre o Galgo"
                 >
                 </q-input>
             </q-card-section>
@@ -247,6 +253,7 @@ export default {
             form       : this.$inertia.form({
                 pista     : this.$page.props.pista.nome,
                 tabela    : this.$page.props.pista.tabela,
+                nome      : "",
                 galgo     : "",
                 observacao: "",
             }),

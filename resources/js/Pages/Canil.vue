@@ -3,9 +3,11 @@
 
     <q-page class="container">
 
-        <h1 class="text-primary text-[21px] leading-normal mt-6">Seu Canil</h1>
+        <h1 class="text-primary text-[21px] leading-normal mt-6">
+            Seu Canil
+        </h1>
 
-        <p class="text-primary text-[12px font-semibold">
+        <p class="text-primary text-[12px] font-semibold">
             Esse é o seu canil, onde você encontrará seus galgos.
         </p>
 
@@ -20,7 +22,7 @@
                     <p class="text-dark">{{ new Date(galgo.created_at).toLocaleString("pt-BR") }}</p>
 
                     <span>
-                        <a @click="remover()" class="cursor text-danger">
+                        <a @click="destroy(galgo.id)" class="cursor text-danger">
                                 Remover
                         </a>
                         |
@@ -105,6 +107,10 @@ export default {
             this.nome = el.galgo;
             this.informacao = el.observacao;
         },
+
+        destroy(id) {
+            this.$inertia.post(this.route('canil.destroy', id))
+        }
     },
 };
 </script>
