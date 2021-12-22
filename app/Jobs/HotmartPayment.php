@@ -77,13 +77,16 @@ class HotmartPayment extends SpatieProcessWebhookJob
 
             $user = User::where("email", $email)->firstOrFail();
 
-            $contrato = $user->assinante; 
-            $contrato->data_cancelamento = now();
-            $contrato->ativo = 0;
-            $contrato->save();
+            $contrato =  $user->contratos()->firstWhere('ativo', 1); 
+
+            if( $contrato ){
+                $contrato->data_cancelamento = now();
+                $contrato->ativo = 0;
+                $contrato->save();
+            }
 
         } catch (\Throwable $th) {
-            throw $th;
+            // do nothing
         }
 
     }

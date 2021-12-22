@@ -19,7 +19,7 @@ class CreateContratosTable extends Migration
             $table->foreignId('plano_id')->constrained();
             $table->dateTime('data_ativacao')->nullable();
             $table->dateTime('data_cancelamento')->nullable();
-            $table->dateTime('data_expiracao');
+            $table->dateTime('data_expiracao')->nullable();
             $table->boolean('ativo')->default(false);
             $table->timestamps();
         });
