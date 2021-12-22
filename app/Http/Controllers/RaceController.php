@@ -22,25 +22,27 @@ class RaceController extends Controller
     public function __invoke(string $pista, string $race): \Inertia\Response
     {
         /* Pista existe */
-        Pista::where('tabela', $pista)->firstOrFail();
+        $pistaAtual = Pista::where('tabela', $pista)->firstOrFail();
 
         /* Tabela existe */
-        if(Schema::hasTable($pista) === false) {
+        if (Schema::hasTable($pista) === false) {
             abort(404);
         }
 
         /* Corrida existe */
         $raceExists = DB::table($pista)->where('Horario', $race)->exists();
 
-        if(!$raceExists) {
+        if (!$raceExists) {
             abort(404);
         }
 
-        $service = new Indicadores($pista, $race);
+        $service     = new Indicadores($pista, $race);
         $indicadores = $service->all();
 
         return Inertia::render('Race', [
-            'indicadores' => $indicadores,
+            'pista'               => $pistaAtual,
+            'indicadores'         => $indicadores,
+            'prox_corridas_pista' => DB::table($pista)->where("Horario", ">", $race)->get()
         ]);
     }
 }

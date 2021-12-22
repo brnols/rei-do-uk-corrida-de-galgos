@@ -12,15 +12,21 @@
                     label="Próximas Corridas"
                     v-model="model"
                     :options="options"
+                    :disable="true"
                 >
                 </q-select>
                 <q-select
                     class="bg-light"
                     dense
                     label="Próximas Corridas Nessa Pista"
+                    option-value="Horario"
+                    option-label="Horario"
                     filled
                     v-model="model2"
-                    :options="options"
+                    :options="prox_corridas_pista"
+                    @update:model-value="$inertia.visit(route('race', { pista: pista.tabela, race: model2 }))"
+                    emit-value
+                    :disable="!prox_corridas_pista.length"
                 >
                 </q-select>
             </div>
@@ -114,7 +120,7 @@
         >
         </tabela-comparativa-tres>
 
-        <section-avb :indicadores="indicadores" />
+        <section-avb :indicadores="indicadores"/>
 
         <table-galgo
             v-for="galgo in $page.props.indicadores"
@@ -136,7 +142,9 @@ import TableGalgo from "@/Components/TableGalgo.vue";
 
 export default {
     props: {
-        indicadores: Array,
+        pista              : Object,
+        indicadores        : Array,
+        prox_corridas_pista: Array
     },
 
     components: {
@@ -165,10 +173,6 @@ export default {
             enviar : {},
             ocultar: {},
         };
-    },
-
-    mounted() {
-        console.log(this.indicadores);
     },
 };
 </script>
