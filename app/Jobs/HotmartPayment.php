@@ -2,12 +2,9 @@
 
 namespace App\Jobs;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Models\User;
+use App\Models\Plano;
+use App\Models\Contrato;
 use Spatie\WebhookClient\ProcessWebhookJob as SpatieProcessWebhookJob;
 
 class HotmartPayment extends SpatieProcessWebhookJob
@@ -32,7 +29,7 @@ class HotmartPayment extends SpatieProcessWebhookJob
                 $this->cancelar($payload['data']['subscriber']['email']);
 
         } catch (\Throwable $th) {
-            //do nothing
+            throw $th;
         }
 
     }
@@ -65,6 +62,7 @@ class HotmartPayment extends SpatieProcessWebhookJob
                 ]);
 
         } catch (\Throwable $th) {
+            throw $th;
         }
 
     }
@@ -85,6 +83,7 @@ class HotmartPayment extends SpatieProcessWebhookJob
             $contrato->save();
 
         } catch (\Throwable $th) {
+            throw $th;
         }
 
     }
