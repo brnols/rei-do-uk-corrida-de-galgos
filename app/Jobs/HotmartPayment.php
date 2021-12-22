@@ -51,7 +51,7 @@ class HotmartPayment extends SpatieProcessWebhookJob
                 ]
             );
             
-            if( $user->assinante == null )
+            if( $user->assinante == false )
                 Contrato::create([
                     'user_id' => $user->id,
                     'plano_id' => Plano::first()->id,
