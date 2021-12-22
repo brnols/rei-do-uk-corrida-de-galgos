@@ -113,25 +113,18 @@
     persistent
     transition-show="scale"
     transition-hide="scale"
+    maximized
+    class="p-6"
   >
-    <q-card class="card-dialog">
-      <q-card-section>
-        <div class="row items-center">
-          <q-img class="col-2" width="57px" src="/images/logo.png" alt="logo" />
-          <h2 class="col-10 text-center text-h6 text-primary">
-            Realizar pagamento
-          </h2>
-        </div>
-      </q-card-section>
+      <div class="w-full h-full bg-white">
+          <q-btn @click="dialog = false">voltar</q-btn>
+          <iframe :src="this.url"
+                  allow="payment"
+                  style="overflow: hidden; height: 100%;
+        width: 100%;"
+          ></iframe>
 
-      <!-- <q-card-section class="bg-card"> Clique aqui para pagar </q-card-section> -->
-
-      <q-card-actions align="center" class="bg-card">
-        <a @click="dialog = false" :href="url" target="_blank"
-          >Clique aqui para pagar</a
-        >
-      </q-card-actions>
-    </q-card>
+      </div>
   </q-dialog>
 </template>
 

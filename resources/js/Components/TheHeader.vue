@@ -74,7 +74,7 @@ export default {
         {
           name: "Planos e Valores",
           action: () => this.$inertia.visit(this.route("planos")),
-          show: !this.authenticated,
+          show: true,
           active: this.route().current("planos"),
         },
         {
