@@ -11,6 +11,15 @@ class Contrato extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'plano_id',
+        'data_ativacao',
+        'data_cancelamento',
+        'data_expiracao',
+        'ativo',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
