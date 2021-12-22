@@ -21,11 +21,11 @@ class IndicadoresTest extends TestCase
         $this->assertTrue(count($retorno) == 0);
     }
 
-    public function test_table_harlow()
+    public function test_table()
     {
         $this->set_auth_user();
 
-        $service = new Indicadores("harlow", '10:46');
+        $service = new Indicadores("monmore", '14:09:00');
         $retorno = $service->all();
         //dd($retorno);
         $this->assertTrue(count($retorno) == 6);
@@ -40,7 +40,7 @@ class IndicadoresTest extends TestCase
         }
     }
 
-    public function test_table_harlow_com_filtros()
+    public function test_table_com_filtros()
     {
         
         $this->set_auth_user();
@@ -56,24 +56,6 @@ class IndicadoresTest extends TestCase
         $retorno = $service->all();
         $this->assertTrue(count($retorno) == 1);
             
-    }
-
-    public function test_table_nottingham()
-    {
-        $this->set_auth_user();
-
-        $service = new Indicadores("nottingham", '11:06');
-        $retorno = $service->all();
-        $this->assertTrue(count($retorno) == 6);
-        
-        for ($i=0; $i < 5 ; $i++) { 
-            $this->assertTrue(array_key_exists( "nome", $retorno[$i]));
-            $this->assertTrue(array_key_exists( "ordem", $retorno[$i]));
-            $this->assertTrue(array_key_exists( "metricas", $retorno[$i]));
-            $this->assertTrue(array_key_exists( "brt", $retorno[$i]["metricas"]));
-            $this->assertTrue(array_key_exists( "rec_cansa", $retorno[$i]["metricas"]));
-            $this->assertTrue(array_key_exists( "historico_posicao", $retorno[$i]["metricas"]));
-        }
     }
 
     private function set_auth_user()
