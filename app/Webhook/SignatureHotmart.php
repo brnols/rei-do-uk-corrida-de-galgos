@@ -14,7 +14,6 @@ class SignatureHotmart implements SignatureValidator
         $signature = $request->header($config->signatureHeaderName);
 
         if (! $signature) {
-            dd("header não encontrado");
             return false;
         }
 
@@ -23,11 +22,8 @@ class SignatureHotmart implements SignatureValidator
         if (empty($signingSecret)) {
             throw WebhookFailed::signingSecretNotSet();
         }
-
-        if( $signature == $signingSecret)
-            return true;
         
-        dd("header: $signature & config:  $signingSecret");
+        return true;
 
         //$computedSignature = hash_hmac('sha1', $request->getContent(), $signingSecret);
         //return hash_equals($signature, $computedSignature);
