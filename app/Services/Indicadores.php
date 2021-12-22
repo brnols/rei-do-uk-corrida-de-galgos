@@ -123,14 +123,11 @@ class Indicadores
 
             $ultimos = DB::table( $this->tb_tabela )->where('nome', $galgo)->where('dis', $this->race['distancia'])->orderBy("Date", "DESC")->take(3)->get()->toArray();
 
-            if( count($ultimos) ){
-
-                $this->split($galgo_index, $ultimos)
-                    ->ut($galgo_index, $ultimos)
-                    ->pn($galgo_index, $ultimos)
-                    ->apn($galgo_index, $ultimos)
-                    ->media($galgo_index, $ultimos);
-            }
+            $this->split($galgo_index, $ultimos)
+                ->ut($galgo_index, $ultimos)
+                ->pn($galgo_index, $ultimos)
+                ->apn($galgo_index, $ultimos)
+                ->media($galgo_index, $ultimos);
         }
     }
 
@@ -139,9 +136,9 @@ class Indicadores
         if( $this->tables_exist() == false ) return $this;
 
         foreach($this->race['galgos'] as $galgo_index => $galgo){
-           
-            $historico = DB::table( $this->tb_tabela )->where('nome', $galgo)->orderBy("Date", "DESC")->get()->toArray();  
-            
+
+            $historico = DB::table( $this->tb_tabela )->where('nome', $galgo)->orderBy("Date", "DESC")->get()->toArray();
+
             $this->brt($galgo_index, $historico)
                 ->treinador($galgo_index, $historico)
                 ->idade($galgo_index, $historico)
@@ -161,7 +158,7 @@ class Indicadores
                 ->ultima_categoria($galgo_index, $historico)
                 ->fm($galgo_index, $historico)
                 ->data_nascimento($galgo_index, $historico);
-        
+
         }
     }
 
@@ -179,11 +176,11 @@ class Indicadores
     public function brt(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['brt'] = 0;
-        
+
         try {
-            
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-    
+
             if( isset($item['idade_treinador']) )
                 $this->race['galgos'][$galgo_index]['metricas']['brt'] = $this->regex("/(BRT:\s)(\d+.?\d+)(.*)/", $item['idade_treinador'], 2);
 
@@ -202,7 +199,7 @@ class Indicadores
     public function treinador(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['treinador'] = '';
-        
+
         try {
 
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
@@ -225,9 +222,9 @@ class Indicadores
     public function idade(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['idade'] = 0;
-        
+
         try {
-            
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
 
             if( isset($item['idade_treinador']) ){
@@ -249,9 +246,9 @@ class Indicadores
     public function data_nascimento(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['data_nascimento'] = 0;
-        
+
         try {
-            
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
 
             if( isset($item['idade_treinador']) ){
@@ -272,11 +269,11 @@ class Indicadores
     public function split(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['split'] = 0;
-        
+
         try {
-        
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-        
+
             if( isset($item['Split']) )
                 $this->race['galgos'][$galgo_index]['metricas']['split'] = $item['Split'];
 
@@ -294,11 +291,11 @@ class Indicadores
     public function sexo(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['sexo'] = '';
-        
+
         try {
-        
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-    
+
             if( isset($item['sexo']) )
                 $this->race['galgos'][$galgo_index]['metricas']['sexo'] = $item['sexo'];
 
@@ -315,13 +312,13 @@ class Indicadores
      */
     public function pedigree(int $galgo_index, array $items)
     {
-        
+
         $this->race['galgos'][$galgo_index]['metricas']['pedigree'] = '';
-    
+
         try {
 
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-    
+
             if( isset($item['pedigree']) )
                 $this->race['galgos'][$galgo_index]['metricas']['pedigree'] = $item['pedigree'];
 
@@ -338,16 +335,16 @@ class Indicadores
      */
     public function ut(int $galgo_index, array $items)
     {
-        
+
         $this->race['galgos'][$galgo_index]['metricas']['ut'] = 0;
-        
+
         try {
-            
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-    
+
             if( isset($item['CalTm']) )
                 $this->race['galgos'][$galgo_index]['metricas']['ut'] = $item['CalTm'];
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -361,9 +358,9 @@ class Indicadores
      */
     public function pn(int $galgo_index, array $items)
     {
-        
+
         $this->race['galgos'][$galgo_index]['metricas']['pn'] = 0;
-        
+
         try {
 
             if( count($items) < 2 ) return $this;
@@ -386,22 +383,22 @@ class Indicadores
      */
     public function apn(int $galgo_index, array $items)
     {
-        
+
         $this->race['galgos'][$galgo_index]['metricas']['apn'] = 0;
-        
+
         try {
-            
+
             if( count($items) < 3 ) return $this;
-    
+
             $item = (array) $items[2]; // Pegar Antepenultimo pois a query está ordenada pela data
-    
+
             if( isset($item['CalTm']) )
                 $this->race['galgos'][$galgo_index]['metricas']['apn'] = $item['CalTm'];
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
+
         return $this;
     }
 
@@ -413,9 +410,9 @@ class Indicadores
     public function dias_sem_correr(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['dias_sem_correr'] = 0;
-        
+
         try {
-     
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
 
             if( isset($item['Date']) )
@@ -435,18 +432,18 @@ class Indicadores
     public function peso(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['metricas']['peso'] = 0;
-        
+
         try {
-            
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-    
+
             if( isset($item['Wght']) )
                 $this->race['galgos'][$galgo_index]['metricas']['peso'] = $item['Wght'];
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
+
         return $this;
     }
 
@@ -462,7 +459,7 @@ class Indicadores
         try {
 
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-    
+
             if( isset($item['1_Bend']) )
                 $this->race['galgos'][$galgo_index]['metricas']['primeira_bend'] = round($item['1_Bend'],2);
 
@@ -484,12 +481,12 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['tp'] = 0;
 
         try {
-            
-            $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data    
-    
+
+            $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
+
             if( isset($item['Tempo_Medio']) )
                 $this->race['galgos'][$galgo_index]['metricas']['tp'] = round($item['Tempo_Medio'],2);
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -506,16 +503,16 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['rec_cansa'] = 0;
 
         try {
-            
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-    
+
             if( isset($item['Rec/Cansa']) )
                 $this->race['galgos'][$galgo_index]['metricas']['rec_cansa'] = round($item['Rec/Cansa'], 2);
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
+
         return $this;
     }
 
@@ -528,12 +525,12 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = 0;
 
         try {
-            
+
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-    
+
             if( isset($item['Grade']) )
                 $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = round($this->regex("/\d+/", $item['Grade'], $index = 2, $default = 0), 2);
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -550,11 +547,11 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['media'] = 0;
 
         try {
-            
+
             $soma = 0;
             $count = 0;
-    
-            for ($i=0; $i < 3 ; $i++) { 
+
+            for ($i=0; $i < 3 ; $i++) {
                 if( isset($items[$i]) ){
                     if( array_key_exists('CalTm', (array)$items[$i]) ){
                         if( $items[$i]->CalTm != null ){
@@ -564,14 +561,14 @@ class Indicadores
                     }
                 }
             }
-    
+
             if($count > 0)
                 $this->race['galgos'][$galgo_index]['metricas']['media'] = round($soma/$count,2);
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
+
         return $this;
     }
 
@@ -584,11 +581,11 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['fm'] = 0;
 
         try {
-            
+
             $soma = 0;
             $count = 0;
-    
-            for ($i=0; $i < count($items) ; $i++) {             
+
+            for ($i=0; $i < count($items) ; $i++) {
                 if( array_key_exists('Fin', (array)$items[$i]) ){
                     if( $items[$i]->Fin != null ){
                         $soma += round($this->regex("/\d+/", $items[$i]->Fin, $index = 0, $default = 0),2);
@@ -596,14 +593,14 @@ class Indicadores
                     }
                 }
             }
-    
+
             if($count > 0)
                 $this->race['galgos'][$galgo_index]['metricas']['fm'] = round($soma/$count,2);
 
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
+
         return $this;
     }
 
@@ -616,10 +613,10 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['categorias'] = '';
 
         try {
-            
+
             $categorias = [];
-            
-            for ($i=0; $i < 5 ; $i++) { 
+
+            for ($i=0; $i < 5 ; $i++) {
                 if( isset($items[$i]) ){
                     if( array_key_exists('Grade', (array)$items[$i]) ){
                         if( $items[$i]->Grade != null ){
@@ -628,10 +625,10 @@ class Indicadores
                     }
                 }
             }
-    
+
             if(count($categorias))
                 $this->race['galgos'][$galgo_index]['metricas']['categorias'] = implode("-", $categorias);
-        
+
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -648,10 +645,10 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['historico_posicao'] = '';
 
         try {
-            
+
             $historico_posicao = [];
-    
-            for ($i=0; $i < 5 ; $i++) { 
+
+            for ($i=0; $i < 5 ; $i++) {
                 if( isset($items[$i]) ){
                     if( array_key_exists('Fin', (array)$items[$i]) ){
                         if( $items[$i]->Fin != null ){
@@ -660,10 +657,10 @@ class Indicadores
                     }
                 }
             }
-    
+
             if(count($historico_posicao))
                 $this->race['galgos'][$galgo_index]['metricas']['historico_posicao'] = implode("-", $historico_posicao);
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -681,8 +678,8 @@ class Indicadores
 
         try {
             $historico_distancia = [];
-    
-            for ($i=0; $i < 5 ; $i++) { 
+
+            for ($i=0; $i < 5 ; $i++) {
                 if( isset($items[$i]) ){
                     if( array_key_exists('Dis', (array)$items[$i]) ){
                         if( $items[$i]->Dis != null ){
@@ -691,10 +688,10 @@ class Indicadores
                     }
                 }
             }
-    
+
             if(count($historico_distancia))
                 $this->race['galgos'][$galgo_index]['metricas']['historico_distancia'] = implode("-", $historico_distancia);
-            
+
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -713,8 +710,8 @@ class Indicadores
         try {
 
             $historico_bends = [];
-            
-            for ($i=0; $i < 5 ; $i++) { 
+
+            for ($i=0; $i < 5 ; $i++) {
                 if( isset($items[$i]) ){
                     if( array_key_exists('Bends', (array)$items[$i]) ){
                         if( $items[$i]->Bends != null ){
@@ -723,7 +720,7 @@ class Indicadores
                     }
                 }
             }
-    
+
             if(count($historico_bends))
                 $this->race['galgos'][$galgo_index]['metricas']['historico_bends'] = implode("-", $historico_bends);
 
@@ -787,12 +784,12 @@ class Indicadores
     {
 
         try {
-            
+
             $value = null;
 
             if( isset($item[$map['column']]) )
                 $value = isset($map['regex']) ? $this->regex($map['regex']['pattern'], $item[$map['column']],$map['regex']['index'])  : $item[$map['column']];
-            
+
             if( isset($map['fn']) )
                 $value = $map['fn']($value);
 
@@ -808,7 +805,7 @@ class Indicadores
      */
     private function tables_exist()
     {
-        return Schema::hasTable($this->tb) 
+        return Schema::hasTable($this->tb)
             && Schema::hasTable($this->tb_tabela);
     }
 
