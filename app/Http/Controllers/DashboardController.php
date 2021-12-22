@@ -34,10 +34,6 @@ class DashboardController extends Controller
         $races = DB::table($pista)->get();
 
         return $races->map(function ($race, $index) {
-            /* Verifica se a hora é P.M ou A.M para conversão*/
-            $hora     = (int) strtok($race->Horario, ':');
-            $meridiam = $hora < 6 || $hora == 12 ? 'PM' : 'AM';
-            $hora     = "$race->Horario $meridiam";
 
             /* Pega o id da Race */
             preg_match('/^(Race\s)(\d*)(.*)$/', $race->Race_info, $matches);
@@ -45,8 +41,8 @@ class DashboardController extends Controller
 
             return [
                 'id'       => $id,
-                'hora_uk'  => Carbon::createFromFormat('g:i A', $hora)->format('H:i'),
-                'hora_br'  => Carbon::createFromFormat('g:i A', $hora)->subHour(3)->format('H:i'),
+                'hora_uk'  => Carbon::createFromFormat('H:i:s', $race->Horario)->format('H:i'),
+                'hora_br'  => Carbon::createFromFormat('H:i:s', $race->Horario)->subHour(3)->format('H:i'),
                 'horario'  => $race->Horario,
                 'info'     => explode('/', $race->Race_info)[1],
                 'liberada' => $id == 1 || Auth::user()->assinante,

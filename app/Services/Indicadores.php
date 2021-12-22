@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Schema;
 class Indicadores
 {
     protected $tb;
-    protected $tb_tabela;    
-    protected $tb_results;    
-    protected $horario; 
+    protected $tb_tabela;
+    protected $tb_results;
+    protected $horario;
     protected $race;
     protected $metricas;
 
@@ -21,7 +21,7 @@ class Indicadores
         $this->tb           = $tabela;
         $this->tb_tabela    = $tabela . "_tabela";
         $this->tb_results   = $tabela . "_results";
-        
+
         $this->filtros = Auth::user()->filtros;
 
         $this->horario = $horario;
@@ -44,25 +44,25 @@ class Indicadores
         if( $this->tables_exist() == false ) return [];
 
         $race = (array) DB::table( $this->tb )->where('Horario', $this->horario)->first();
-                
+
         $race["distancia"] = $this->regex("/\d{3}m/", $race["Race_info"]);
         $race["pick"] = $this->regex("/PICK:\s+\d/", $race["Race_info"]);
         $race["galgos"] = [];
 
         for ($i=1; $i <= 6; $i++)
             array_push($race["galgos"], [
-                'nome' => $race[$i."_Runner"], 
-                'ordem' => $i, 
-                'metricas' => ['distancia' => $race["distancia"], 'pick' => $race["pick"], 'rec_final' => 0, 'top_speed' => 0, 'local_treinamento' => '', 'lar' => '', 'fin_rec' => ''], 
-                'historico' => [] 
+                'nome' => $race[$i."_Runner"],
+                'ordem' => $i,
+                'metricas' => ['distancia' => $race["distancia"], 'pick' => $race["pick"], 'rec_final' => 0, 'top_speed' => 0, 'local_treinamento' => '', 'lar' => '', 'fin_rec' => ''],
+                'historico' => []
             ]);
-        
+
         return $race;
 
     }
 
     public function aplicar_filtros_usuario()
-    {        
+    {
         if( count($this->filtros) )
             foreach($this->filtros as $filtro)
                 $this->aplicar_filtro($filtro->coluna, $filtro->operador, $filtro->valor);
@@ -76,7 +76,7 @@ class Indicadores
             if( isset($galgo['metricas'][$coluna]) )
                 if( $this->check_operador( $operador, $galgo['metricas'][$coluna], $valor_comparacao) == false )
                     unset($filtered[$key]);
-        
+
         $this->race["galgos"] = $filtered;
 
     }
@@ -109,7 +109,7 @@ class Indicadores
         }
 
         /**
-         *  Caso de errado ou não encontro o operador.. 
+         *  Caso de errado ou não encontro o operador..
          *  Padrão é deixar como true para não remover o galgo da lista
          **/
         return true;
@@ -121,8 +121,8 @@ class Indicadores
 
         foreach($this->race['galgos'] as $galgo_index => $galgo){
 
-            $ultimos = DB::table( $this->tb_tabela )->where('nome', $galgo)->where('dis', $this->race['distancia'])->orderBy("Date", "DESC")->take(3)->get()->toArray();  
-            
+            $ultimos = DB::table( $this->tb_tabela )->where('nome', $galgo)->where('dis', $this->race['distancia'])->orderBy("Date", "DESC")->take(3)->get()->toArray();
+
             if( count($ultimos) ){
 
                 $this->split($galgo_index, $ultimos)
@@ -139,9 +139,9 @@ class Indicadores
         if( $this->tables_exist() == false ) return $this;
 
         foreach($this->race['galgos'] as $galgo_index => $galgo){
-           
-            $historico = DB::table( $this->tb_tabela )->where('nome', $galgo)->orderBy("Date", "DESC")->get()->toArray();  
-            
+
+            $historico = DB::table( $this->tb_tabela )->where('nome', $galgo)->orderBy("Date", "DESC")->get()->toArray();
+
             if( count($historico) ){
 
                 $this->brt($galgo_index, $historico)
@@ -166,7 +166,7 @@ class Indicadores
             }
         }
     }
-    
+
     /**
      * -----------------------------------
      *          INDICADORES
@@ -226,7 +226,7 @@ class Indicadores
         } catch (\Throwable $th) {
             //Se der erro na conversão do carbon então deixar zerado
         }
-            
+
         return $this;
     }
 
@@ -249,10 +249,10 @@ class Indicadores
         } catch (\Throwable $th) {
             //Se der erro na conversão do carbon então deixar zerado
         }
-            
+
         return $this;
     }
-    
+
     /**
      * Indicador Split - Ultimo registro do Galgo no campo split
      * Exemplo do Campo: "3.33"
@@ -416,7 +416,7 @@ class Indicadores
     public function tp(int $galgo_index, array $items)
     {
         $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-        
+
         $this->race['galgos'][$galgo_index]['metricas']['tp'] = 0;
 
         if( isset($item['Tempo_Medio']) )
@@ -467,7 +467,7 @@ class Indicadores
         $soma = 0;
         $count = 0;
 
-        for ($i=0; $i < 3 ; $i++) { 
+        for ($i=0; $i < 3 ; $i++) {
             if( isset($items[$i]) ){
                 if( array_key_exists('CalTm', (array)$items[$i]) ){
                     if( $items[$i]->CalTm != null ){
@@ -480,7 +480,7 @@ class Indicadores
 
         if($count > 0)
             $this->race['galgos'][$galgo_index]['metricas']['media'] = round($soma/$count,2);
-        
+
         return $this;
     }
 
@@ -494,7 +494,7 @@ class Indicadores
         $soma = 0;
         $count = 0;
 
-        for ($i=0; $i < count($items) ; $i++) {             
+        for ($i=0; $i < count($items) ; $i++) {
             if( array_key_exists('Fin', (array)$items[$i]) ){
                 if( $items[$i]->Fin != null ){
                     $soma += round($this->regex("/\d+/", $items[$i]->Fin, $index = 0, $default = 0),2);
@@ -505,7 +505,7 @@ class Indicadores
 
         if($count > 0)
             $this->race['galgos'][$galgo_index]['metricas']['fm'] = round($soma/$count,2);
-        
+
         return $this;
     }
 
@@ -517,8 +517,8 @@ class Indicadores
     {
         $this->race['galgos'][$galgo_index]['metricas']['categorias'] = '';
         $categorias = [];
-        
-        for ($i=0; $i < 5 ; $i++) { 
+
+        for ($i=0; $i < 5 ; $i++) {
             if( isset($items[$i]) ){
                 if( array_key_exists('Grade', (array)$items[$i]) ){
                     if( $items[$i]->Grade != null ){
@@ -544,7 +544,7 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['historico_posicao'] = '';
         $historico_posicao = [];
 
-        for ($i=0; $i < 5 ; $i++) { 
+        for ($i=0; $i < 5 ; $i++) {
             if( isset($items[$i]) ){
                 if( array_key_exists('Fin', (array)$items[$i]) ){
                     if( $items[$i]->Fin != null ){
@@ -570,7 +570,7 @@ class Indicadores
         $this->race['galgos'][$galgo_index]['metricas']['historico_distancia'] = '';
         $historico_distancia = [];
 
-        for ($i=0; $i < 5 ; $i++) { 
+        for ($i=0; $i < 5 ; $i++) {
             if( isset($items[$i]) ){
                 if( array_key_exists('Dis', (array)$items[$i]) ){
                     if( $items[$i]->Dis != null ){
@@ -594,8 +594,8 @@ class Indicadores
     {
         $this->race['galgos'][$galgo_index]['metricas']['historico_bends'] = '';
         $historico_bends = [];
-        
-        for ($i=0; $i < 5 ; $i++) { 
+
+        for ($i=0; $i < 5 ; $i++) {
             if( isset($items[$i]) ){
                 if( array_key_exists('Bends', (array)$items[$i]) ){
                     if( $items[$i]->Bends != null ){
@@ -627,7 +627,7 @@ class Indicadores
     public function historico_galgo(int $galgo_index, array $items)
     {
         $this->race['galgos'][$galgo_index]['historico'] = [];
-        
+
         $maps = [
             ['key' => 'trap',       'column' => 'Trp', 'regex'=> ['pattern' => "/\d+/", 'index' => 0] ],
             ['key' => 'grade',      'column' => 'Grade', 'regex'=> null ],
@@ -642,8 +642,8 @@ class Indicadores
             ['key' => 'tempo_real', 'column' => 'WnTm', 'regex'=> null ],
             ['key' => 'vitoria',    'column' => 'Fin',  'regex'=> ['pattern' => "/\d+/", 'index' => 0], 'fn' => function($value){  return $value == "1"; }],
         ];
-                
-        for ($i=0; $i < 10 ; $i++) { 
+
+        for ($i=0; $i < 10 ; $i++) {
 
             if( isset($items[$i]) ){
 
@@ -676,15 +676,14 @@ class Indicadores
      */
     private function tables_exist()
     {
-        return Schema::hasTable($this->tb) 
-            && Schema::hasTable($this->tb_results)
+        return Schema::hasTable($this->tb)
             && Schema::hasTable($this->tb_tabela);
     }
 
     private function regex($pattern, $value, $index = 0, $default = '')
     {
         preg_match_all($pattern, $value, $matches);
-        
+
         if( isset($matches[$index]) )
             if( count($matches[$index]) )
                 return $matches[$index][0];

@@ -36,7 +36,6 @@ class RaceController extends Controller
             abort(404);
         }
 
-
         $service = new Indicadores($pista, $race);
         $indicadores = $service->all();
 

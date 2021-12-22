@@ -85,20 +85,20 @@ export default {
         },
         {
           name: "Filtros (Em breve)",
-          action: () => this.$inertia.visit(this.route("dashboard")),
+          action: () => this.$inertia.visit(this.route("filtros.index")),
           show: this.authenticated,
           active: this.route().current("filtros"),
         },
         {
-          name: "Meu Canil",
+          name: "Meu Canil (Em breve)",
           action: () => this.$inertia.visit(this.route("canil")),
           show: this.authenticated,
           active: this.route().current("canil"),
         },
         {
-          name: "Transmissões ao vivo",
+          name: "Transmissões ao vivo (Em breve)",
           action: () => this.$inertia.visit(this.route("dashboard")),
-          show: this.authenticated,
+          show: false,
           active: true,
         },
         {
