@@ -36,7 +36,6 @@ class CanilController extends Controller
             Auth::user()->canils()->create($request->validated());
             return back()->with("success", "Galgo adicionado com sucesso.");
         } catch (\Throwable $throwable) {
-            dd($throwable);
             return back()->with("error", "Falha ao adicionar galgo.");
         }
     }
@@ -50,9 +49,12 @@ class CanilController extends Controller
      */
     public function update(UpdateCanilRequest $request, Canil $canil): RedirectResponse
     {
-        $canil->update($request->validated());
-
-        return back()->with("success");
+        try {
+            $canil->update($request->validated());
+            return back()->with("success", "Galgo atualizado.");
+        } catch (\Throwable $throwable) {
+            return back()->with("error", "Falha ao atualizar galgo.");
+        }
     }
 
     /**
@@ -63,8 +65,11 @@ class CanilController extends Controller
      */
     public function destroy(Canil $canil): RedirectResponse
     {
-        $canil->delete();
-
-        return back()->with("success");
+        try {
+            $canil->delete();
+            return back()->with("success", "Galgo deletado.");
+        } catch (\Throwable $throwable) {
+            return back()->with("error", "Falha ao deletar galgo.");
+        }
     }
 }
