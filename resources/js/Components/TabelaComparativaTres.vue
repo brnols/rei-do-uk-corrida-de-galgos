@@ -6,7 +6,8 @@
     :columns="columns"
     row-key="name"
     hide-pagination
-    rows-per-page-options="6"
+    :rows-per-page-options="[6]"
+    v-bind="$attrs"
   >
     <template v-slot:header="props">
       <q-tr :props="props">
@@ -30,16 +31,15 @@
     </template>
     <template v-slot:body-cell-distancia="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         class="flex"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="flex items-center space-x-2 space-y-1 text-white"
         >
           <div>
@@ -60,15 +60,14 @@
     </template>
     <template v-slot:body-cell-comportamento="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="relative"
         >
           <div class="absolute bottom-0 left-6">
@@ -80,15 +79,14 @@
     </template>
     <template v-slot:body-cell-split="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
@@ -100,15 +98,14 @@
     </template>
     <template v-slot:body-cell-rec="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
@@ -175,9 +172,17 @@ const columns = [
 ];
 
 export default {
+  emits: ["enviar"],
+
   props: {
-    disabled: Boolean,
-    ordem: Number,
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    ordem: {
+      type: Array,
+      default: [],
+    },
     items: {
       type: Array,
       default: [],

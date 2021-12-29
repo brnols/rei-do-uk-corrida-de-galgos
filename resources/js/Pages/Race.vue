@@ -47,7 +47,7 @@
             "
                     >
                         <div>
-                            Faça seu cruso de
+                            Faça seu curso de
                             <h2 class="text-5xl font-bold">Galgo Vencedor</h2>
                         </div>
 
@@ -100,21 +100,21 @@
 
         <tabela-comparativa
             :items="enviar.items"
-            :ordem="enviar.index"
+            :ordem="enviar.ordem"
             :disabled="enviar.disabled"
             class="mt-6"
         ></tabela-comparativa>
 
         <tabela-comparativa-dois
             :items="enviar.items"
-            :ordem="enviar.index"
+            :ordem="enviar.ordem"
             :disabled="enviar.disabled"
             class="mt-6"
         ></tabela-comparativa-dois>
 
         <tabela-comparativa-tres
             :items="enviar.items"
-            :ordem="enviar.index"
+            :ordem="enviar.ordem"
             :disabled="enviar.disabled"
             class="mt-6"
         >
@@ -141,6 +141,8 @@ import SectionAvb from "@/Components/SectionAvb";
 import TableGalgo from "@/Components/TableGalgo.vue";
 
 export default {
+    emits: ["enviar"],
+
     props: {
         pista              : Object,
         indicadores        : Array,
@@ -170,7 +172,11 @@ export default {
                 "Nothingham (BR: 19:24 I UK: 19:24)",
                 "Doncaster (BR: 19:24 I UK: 19:24)",
             ],
-            enviar : {},
+            enviar : {
+                disabled: false,
+                ordem: [],
+                items: [],
+            },
             ocultar: {},
         };
     },

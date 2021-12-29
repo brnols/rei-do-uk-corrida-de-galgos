@@ -5,7 +5,7 @@
     :rows="rows"
     :columns="columns"
     row-key="name"
-    rows-per-page-options="6"
+    :rows-per-page-options="[6]"
     hide-pagination
   >
     <template v-slot:top>
@@ -82,19 +82,15 @@
     <template v-slot:body-cell-galgo="props">
       <q-td class="flex justify-center bg-light" :props="props">
         <q-icon
-          :class="[props.row.ordem == icone_show ? color : 'text-dark']"
+          :class="{ 'text-red-500':destaques.indexOf(props.row.ordem) != -1,  'text-dark': destaques.indexOf(props.row.ordem) == -1 }"
           class="cursor"
           @click="ativar(props.row.ordem)"
           name="far fa-eye"
         />
         <q-icon
-          :class="[
-            this.items.indexOf(props.row.ordem) == -1
-              ? 'text-dark'
-              : 'text-red',
-          ]"
+         :class="{ 'text-red-500':destaques.indexOf(props.row.ordem) == -1,  'text-dark': destaques.indexOf(props.row.ordem) != -1 }"
           class="cursor ml-2"
-          @click="ocultar(props.row.ordem)"
+          @click="desativar(props.row.ordem)" 
           name="far fa-eye-slash"
         />
       </q-td>
@@ -207,6 +203,7 @@ const columns = [
 ];
 
 export default {
+  emits: ["enviar"],
   data: () => ({
     rows: [],
     dialog: false,
@@ -215,8 +212,8 @@ export default {
       comentario: "",
     },
     items: [],
+    destaques: [],
     icone_show: null,
-    color: "",
     currentItem: null,
     disabled: false,
   }),
@@ -239,36 +236,47 @@ export default {
       }
     },
     ativar(i) {
-      if (this.icone_show != i) {
-        this.color = "text-red";
+     
+      if (this.destaques.indexOf(i) == -1) {
+        
+        this.destaques.push(i);
         this.$emit("enviar", {
           disabled: true,
-          index: i,
+          ordem: this.destaques,
           items: this.items,
         });
-      } else {
-        this.color = "text-dark";
+
+      } 
+      
+    },
+    desativar(i){
+
+      if (this.destaques.indexOf(i) > -1) {
+                
+        this.destaques = this.destaques.filter((ordem) => { return ordem != i }); // remover
+        
         this.$emit("enviar", {
           disabled: false,
-          index: i,
+          ordem: this.destaques,
           items: this.items,
         });
-      }
-      this.icone_show = i;
-    },
-    ocultar(i) {
-      let index = this.items.indexOf(i);
-      this.currentItem = i;
-      if (this.items.indexOf(i) == -1) {
-        this.items.push(i);
-        this.icone_show = null;
-      } else {
-        this.items.splice(index, 1);
-        this.currentItem = null;
+
       }
 
-      this.$emit("enviar", { disabled: false, index: i, items: this.items });
-    },
+    }
+    // ocultar(i) {
+    //   let index = this.items.indexOf(i);
+    //   this.currentItem = i;
+    //   if (this.items.indexOf(i) == -1) {
+    //     this.items.push(i);
+    //     this.icone_show = null;
+    //   } else {
+    //     this.items.splice(index, 1);
+    //     this.currentItem = null;
+    //   }
+
+    //   this.$emit("enviar", { disabled: false, index: i, items: this.items });
+    // },
   },
 
   setup() {

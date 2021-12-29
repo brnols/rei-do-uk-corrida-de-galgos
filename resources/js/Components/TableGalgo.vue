@@ -5,7 +5,7 @@
     :rows="rows"
     :columns="columns"
     row-key="name"
-    rows-per-page-options="9"
+    :rows-per-page-options="[9]"
     hide-pagination
   >
     <template v-slot:top>

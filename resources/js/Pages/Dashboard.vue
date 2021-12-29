@@ -1,5 +1,7 @@
 <template>
     <Head title="Dashboard"/>
+    
+    <Loader v-if="loading"/>
 
     <q-page class="container">
         <!-- Form -->
@@ -54,14 +56,14 @@
         </div>
 
         <!-- Table -->
-        <q-card class="rounded-3xl bg-light p-4 mt-7">
+        <q-card class="rounded-3xl bg-light p-4 mt-7" v-for="pistaItem in pistasWithRaces()" v-bind:key="pistaItem.id">
 
             <h6 class="h6 text-primary font-bold mb-4">
-                {{ pista.nome }}
+                {{ pistaItem.nome }}
             </h6>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div v-for="race in races" :key="race.Horario" class="p-2 bg-white rounded">
+                <div v-for="race in racesByPistaId(pistaItem.id)" :key="race.horario" class="p-2 bg-white rounded">
                     <div class="flex gap-1 items-center small text-dark whitespace-nowrap">
                         <span class="w-16"> Race {{ race.id }} </span>
                         <span> - </span>
@@ -77,7 +79,10 @@
                             ({{ race.info }})
                         </span>
                         <q-btn
-                            @click="$inertia.visit(route('race', { pista: pista.tabela, race: race.horario }))"
+                            @click="$inertia.visit(
+                                    route('race', { pista: pistaItem.tabela, race: race.horario }), 
+                                    { onStart: visit => { this.loaderOn() },  onFinish: visit => { this.loaderOff() }}
+                                )"
                             rounded
                             unelevated
                             :disable="!race.liberada"
@@ -99,11 +104,13 @@
 
 <script>
 import {Head} from "@inertiajs/inertia-vue3";
+import Loader from "@/Components/Loader.vue";
 
 export default {
 
     components: {
         Head,
+        Loader
     },
 
     props: {
@@ -119,6 +126,7 @@ export default {
                 pista: null,
                 race : null
             },
+            loading: false
         };
     },
 
@@ -147,6 +155,31 @@ export default {
                 })
             );
         },
+
+        racesByPistaId: function(id){
+            let filtered = this.races.filter(function(item){ return item[0]['pista_id'] == id; });
+            return ( filtered.length > 0)? filtered[0] : [];
+        },
+
+        pistasWithRaces: function(){
+
+            let arr_pista_id = this.races.reduce(function(previous, item){ 
+                previous.push(item[0]['pista_id']); 
+                return previous; }
+            , []);
+
+            return this.pistas.filter((pista) => arr_pista_id.indexOf(pista.id) > -1);
+        },
+
+        loaderOn(){
+            console.log('loaderOn');
+            this.loading = true;
+        },    
+
+        loaderOff(){
+            console.log('loaderOff');
+            this.loading = false;
+        }    
     },
 
     mounted() {

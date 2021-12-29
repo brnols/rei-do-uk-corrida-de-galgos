@@ -6,7 +6,8 @@
     :columns="columns"
     row-key="name"
     hide-pagination
-    rows-per-page-options="6"
+    :rows-per-page-options="[6]"
+    v-bind="$attrs"
   >
     <template v-slot:header="props">
       <q-tr :props="props">
@@ -29,18 +30,16 @@
       </q-tr>
     </template>
 
-    <template v-slot:body-cell-brt="props">
+    <template v-slot:body-cell-brt="props" >
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
-          class="relative"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
         >
           <span class="absolute bottom-0 left-6">
             {{ props.row.metricas.brt }}
@@ -49,18 +48,16 @@
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-split="props">
+    <template v-slot:body-cell-split="props" >
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
-          class="relative"
+         :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
         >
           <span class="absolute bottom-0 left-6">
             {{ props.row.metricas.split }}
@@ -69,18 +66,16 @@
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-bend="props">
+    <template v-slot:body-cell-bend="props" > 
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
-          class="relative"
+         :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
         >
           <span class="absolute bottom-0 left-6">
             {{ props.row.metricas.primeira_bend.toFixed(2) }}
@@ -89,18 +84,16 @@
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-ut="props">
+    <template v-slot:body-cell-ut="props" >
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
-          class="relative"
+         :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
         >
           <span class="absolute bottom-0 left-6">
             {{ props.row.metricas.ut }}
@@ -109,18 +102,16 @@
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-pn="props">
+    <template v-slot:body-cell-pn="props" >
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
-          class="relative"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
         >
           <span class="absolute bottom-0 left-6">
             {{ props.row.metricas.pn }}
@@ -130,18 +121,16 @@
       </q-td>
     </template>
 
-    <template v-slot:body-cell-apn="props">
+    <template v-slot:body-cell-apn="props"  >
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
-          class="relative"
+         :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
         >
           <span class="absolute bottom-0 left-6">
             {{ props.row.metricas.apn }}
@@ -151,18 +140,16 @@
       </q-td>
     </template>
 
-    <template v-slot:body-cell-media="props">
+    <template v-slot:body-cell-media="props" >
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
-          class="relative"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
         >
           <span class="absolute bottom-0 left-6">
             {{ props.row.metricas.media.toFixed(2) }}
@@ -231,9 +218,16 @@ const columns = [
 ];
 
 export default {
+emits: ["enviar"],
   props: {
-    disabled: Boolean,
-    ordem: Number,
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    ordem: {
+      type: Array,
+      default: [],
+    },
     items: {
       type: Array,
       default: [],
@@ -285,24 +279,14 @@ export default {
       columns,
     };
   },
-
   methods: {
     open(i) {
       this.card = this.cards[i];
       this.dialog = true;
-    },
-    show(i) {
-      console.log(this.items);
-      let valores = [];
-      let idx = valores.indexOf(i);
-
-      console.log(i, "show", valores.indexOf(i) == -1);
-      return true;
-    },
+    }
   },
   mounted() {
     this.rows = this.$page.props.indicadores;
-    this.show();
   },
 };
 </script>

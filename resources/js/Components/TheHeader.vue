@@ -85,13 +85,13 @@ export default {
         },
         {
           name: "Filtros (Em breve)",
-          action: () => this.$inertia.visit(this.route("filtros.index")),
+          action: () => this.$inertia.visit(this.route("dashboard")), //this.route("filtros.index")),
           show: this.authenticated,
           active: this.route().current("filtros"),
         },
         {
           name: "Meu Canil (Em breve)",
-          action: () => this.$inertia.visit(this.route("canil")),
+          action: () => this.$inertia.visit(this.route("dashboard")), //this.route("canil")),
           show: this.authenticated,
           active: this.route().current("canil"),
         },
