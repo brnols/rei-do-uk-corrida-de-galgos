@@ -18,6 +18,7 @@
           class="text-primary font-bold"
         >
           {{ col.label }}
+
           <span>
             <q-icon
               class="cursor"
@@ -30,131 +31,123 @@
       </q-tr>
     </template>
 
-    <template v-slot:body-cell-brt="props" >
-      <q-td
-        :props="props"
-      >
+    <template v-slot:body-cell-brt="props">
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.brt.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.brt.ordem) == -1,
+            relative: true,
           }"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.brt }}
+            {{ props.row.brt.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img class="bg-orange" :src="`/images/${props.row.brt.ordem}.png`" />
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-split="props" >
-      <q-td
-        :props="props"
-      >
+    <template v-slot:body-cell-split="props">
+      <q-td :props="props">
         <div
-         :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.split.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.split.ordem) == -1,
+            relative: true,
           }"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.split }}
+            {{ props.row.split.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img
+            class="bg-orange"
+            :src="`/images/${props.row.split.ordem}.png`"
+          />
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-bend="props" > 
-      <q-td
-        :props="props"
-      >
+    <template v-slot:body-cell-bend="props">
+      <q-td :props="props">
         <div
-         :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.bend.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.bend.ordem) == -1,
+            relative: true,
           }"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.primeira_bend.toFixed(2) }}
+            {{ props.row.bend.valor.toFixed(2) }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img class="bg-orange" :src="`/images/${props.row.bend.ordem}.png`" />
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-ut="props" >
-      <q-td
-        :props="props"
-      >
+    <template v-slot:body-cell-ut="props">
+      <q-td :props="props">
         <div
-         :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.ut.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.ut.ordem) == -1,
+            relative: true,
           }"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.ut }}
+            {{ props.row.ut.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img class="bg-orange" :src="`/images/${props.row.ut.ordem}.png`" />
         </div>
       </q-td>
     </template>
-    <template v-slot:body-cell-pn="props" >
-      <q-td
-        :props="props"
-      >
+    <template v-slot:body-cell-pn="props">
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.pn.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.pn.ordem) == -1,
+            relative: true,
           }"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.pn }}
+            {{ props.row.pn.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img class="bg-orange" :src="`/images/${props.row.pn.ordem}.png`" />
         </div>
       </q-td>
     </template>
 
-    <template v-slot:body-cell-apn="props"  >
-      <q-td
-        :props="props"
-      >
+    <template v-slot:body-cell-apn="props">
+      <q-td :props="props">
         <div
-         :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.apn.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.apn.ordem) == -1,
+            relative: true,
           }"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.apn }}
+            {{ props.row.apn.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img class="bg-orange" :src="`/images/${props.row.apn.ordem}.png`" />
         </div>
       </q-td>
     </template>
 
-    <template v-slot:body-cell-media="props" >
-      <q-td
-        :props="props"
-      >
+    <template v-slot:body-cell-media="props">
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.media.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.media.ordem) == -1,
+            relative: true,
           }"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.media.toFixed(2) }}
+            {{ props.row.media.valor.toFixed(2) }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img
+            class="bg-orange"
+            :src="`/images/${props.row.media.ordem}.png`"
+          />
         </div>
       </q-td>
     </template>
@@ -187,6 +180,8 @@
 </template>
 
 <script>
+import _ from "lodash";
+
 const columns = [
   {
     name: "brt",
@@ -218,7 +213,7 @@ const columns = [
 ];
 
 export default {
-emits: ["enviar"],
+  emits: ["enviar"],
   props: {
     disabled: {
       type: Boolean,
@@ -234,8 +229,82 @@ emits: ["enviar"],
     },
   },
 
+  // computed: {
+  //   computed_rows() {
+  //     this.rows = this.$page.props.indicadores;
+
+  //     let rows = [];
+
+  //     let brt = _.orderBy(this.rows, [`metricas.brt`], ["asc"]).map((e) => {
+  //       return {
+  //         ordem: e.ordem,
+  //         valor: e.metricas.brt,
+  //       };
+  //     });
+
+  //     let split = _.orderBy(this.rows, [`metricas.split`], ["asc"]).map((e) => {
+  //       return {
+  //         ordem: e.ordem,
+  //         valor: e.metricas.split,
+  //       };
+  //     });
+
+  //     let bend = _.orderBy(this.rows, [`metricas.primeira_bend`], ["asc"]).map(
+  //       (e) => {
+  //         return {
+  //           ordem: e.ordem,
+  //           valor: e.metricas.primeira_bend,
+  //         };
+  //       }
+  //     );
+
+  //     let ut = _.orderBy(this.rows, [`metricas.ut`], ["asc"]).map((e) => {
+  //       return {
+  //         ordem: e.ordem,
+  //         valor: e.metricas.ut,
+  //       };
+  //     });
+
+  //     let pn = _.orderBy(this.rows, [`metricas.pn`], ["asc"]).map((e) => {
+  //       return {
+  //         ordem: e.ordem,
+  //         valor: e.metricas.pn,
+  //       };
+  //     });
+
+  //     let apn = _.orderBy(this.rows, [`metricas.apn`], ["asc"]).map((e) => {
+  //       return {
+  //         ordem: e.ordem,
+  //         valor: e.metricas.apn,
+  //       };
+  //     });
+
+  //     let media = _.orderBy(this.rows, [`metricas.media`], ["asc"]).map((e) => {
+  //       return {
+  //         ordem: e.ordem,
+  //         valor: e.metricas.media,
+  //       };
+  //     });
+
+  //     for (let index = 0; index < this.rows.length; index++) {
+  //       rows.push({
+  //         brt: brt[index],
+  //         split: split[index],
+  //         bend: bend[index],
+  //         ut: ut[index],
+  //         pn: pn[index],
+  //         apn: apn[index],
+  //         media: media[index],
+  //       });
+  //     }
+  //     console.log(rows, "rows");
+  //     return;
+  //   },
+  // },
+
   data: () => ({
     rows: [],
+    indicadores: [],
     dialog: false,
     card: {},
     cards: [
@@ -283,10 +352,79 @@ emits: ["enviar"],
     open(i) {
       this.card = this.cards[i];
       this.dialog = true;
-    }
+    },
   },
   mounted() {
-    this.rows = this.$page.props.indicadores;
+    // this.rows = this.$page.props.indicadores;
+    this.indicadores = this.$page.props.indicadores;
+    let rows = [];
+    let brt = _.orderBy(this.indicadores, [`metricas.brt`], ["asc"]).map(
+      (e) => {
+        return {
+          ordem: e.ordem,
+          valor: e.metricas.brt,
+        };
+      }
+    );
+    let split = _.orderBy(this.indicadores, [`metricas.split`], ["asc"]).map(
+      (e) => {
+        return {
+          ordem: e.ordem,
+          valor: e.metricas.split,
+        };
+      }
+    );
+    let bend = _.orderBy(
+      this.indicadores,
+      [`metricas.primeira_bend`],
+      ["asc"]
+    ).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.primeira_bend,
+      };
+    });
+    let ut = _.orderBy(this.indicadores, [`metricas.ut`], ["asc"]).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.ut,
+      };
+    });
+    let pn = _.orderBy(this.indicadores, [`metricas.pn`], ["asc"]).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.pn,
+      };
+    });
+    let apn = _.orderBy(this.indicadores, [`metricas.apn`], ["asc"]).map(
+      (e) => {
+        return {
+          ordem: e.ordem,
+          valor: e.metricas.apn,
+        };
+      }
+    );
+    let media = _.orderBy(this.indicadores, [`metricas.media`], ["asc"]).map(
+      (e) => {
+        return {
+          ordem: e.ordem,
+          valor: e.metricas.media,
+        };
+      }
+    );
+    for (let index = 0; index < this.indicadores.length; index++) {
+      rows.push({
+        brt: brt[index],
+        split: split[index],
+        bend: bend[index],
+        ut: ut[index],
+        pn: pn[index],
+        apn: apn[index],
+        media: media[index],
+      });
+    }
+
+    this.rows = rows;
   },
 };
 </script>

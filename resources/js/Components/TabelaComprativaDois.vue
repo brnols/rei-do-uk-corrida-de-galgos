@@ -30,18 +30,15 @@
       </q-tr>
     </template>
     <template v-slot:body-cell-semcorrida="props">
-      <q-td
-        class="flex items-center"
-        :props="props"
-      >
+      <q-td class="flex items-center" :props="props">
         <div>
           <img :src="`/images/${props.row.ordem}.png`" />
         </div>
         <span
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            relative: true,
           }"
           class="pl-2"
         >
@@ -50,14 +47,12 @@
       </q-td>
     </template>
     <template v-slot:body-cell-tp="props">
-      <q-td
-        :props="props"
-      >
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            relative: true,
           }"
           class="flex space-x-2 space-y-2 sm:space-y-0"
         >
@@ -105,19 +100,17 @@
       </q-td>
     </template> -->
     <template v-slot:body-cell-peso="props">
-      <q-td
-        :props="props"
-      >
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            relative: true,
           }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.peso }}1
+            {{ props.row.metricas.peso }}
           </span>
           <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
         </div>
@@ -125,14 +118,12 @@
     </template>
 
     <template v-slot:body-cell-categoria="props">
-      <q-td
-        :props="props"
-      >
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            relative: true,
           }"
           class="relative"
         >
@@ -145,14 +136,12 @@
     </template>
 
     <template v-slot:body-cell-historico="props">
-      <q-td
-        :props="props"
-      >
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            relative: true,
           }"
           class="flex space-x-1"
         >
@@ -330,3 +319,4 @@ export default {
   cursor: pointer;
 }
 </style>
+
