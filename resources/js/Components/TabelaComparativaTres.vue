@@ -30,24 +30,26 @@
       </q-tr>
     </template>
     <template v-slot:body-cell-distancia="props">
-      <q-td
-        class="flex"
-        :props="props"
-      >
+      <q-td class="flex" :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400':
+              this.ordem.indexOf(props.row.historico_distancia.ordem) != -1,
+            'bg-transparent':
+              ordem.indexOf(props.row.historico_distancia.ordem) == -1,
+            relative: true,
           }"
           class="flex items-center space-x-2 space-y-1 text-white"
         >
           <div>
-            <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+            <img
+              class="bg-orange"
+              :src="`/images/${props.row.historico_distancia.ordem}.png`"
+            />
           </div>
           <div class="space-x-2">
             <template
-              v-for="(dist, index) in props.row.metricas.historico_distancia"
+              v-for="(dist, index) in props.row.historico_distancia.valor"
               :key="index"
             >
               <span class="bg-success px-2 rounded-md">{{
@@ -59,59 +61,64 @@
       </q-td>
     </template>
     <template v-slot:body-cell-comportamento="props">
-      <q-td
-        :props="props"
-      >
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400':
+              this.ordem.indexOf(props.row.historico_bends.ordem) != -1,
+            'bg-transparent':
+              ordem.indexOf(props.row.historico_bends.ordem) == -1,
+            relative: true,
           }"
           class="relative"
         >
           <div class="absolute bottom-0 left-6">
-            {{ props.row.metricas.historico_bends }}
+            {{ props.row.historico_bends.valor }}
           </div>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img
+            class="bg-orange"
+            :src="`/images/${props.row.historico_bends.ordem}.png`"
+          />
         </div>
       </q-td>
     </template>
     <template v-slot:body-cell-split="props">
-      <q-td
-        :props="props"
-      >
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.rec_final.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.rec_final.ordem) == -1,
+            relative: true,
           }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.rec_final }}
+            {{ props.row.rec_final.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img
+            class="bg-orange"
+            :src="`/images/${props.row.rec_final.ordem}.png`"
+          />
         </div>
       </q-td>
     </template>
     <template v-slot:body-cell-rec="props">
-      <q-td
-        :props="props"
-      >
+      <q-td :props="props">
         <div
-          :class="{ 
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
-            'relative': true
+          :class="{
+            'bg-red-400': this.ordem.indexOf(props.row.rec_cansa.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.rec_cansa.ordem) == -1,
+            relative: true,
           }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.rec_cansa }}
+            {{ props.row.rec_cansa.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img
+            class="bg-orange"
+            :src="`/images/${props.row.rec_cansa.ordem}.png`"
+          />
         </div>
       </q-td>
     </template>
@@ -230,13 +237,70 @@ export default {
   },
 
   mounted() {
-    this.rows = this.$page.props.indicadores.map((e) => {
+    this.indicadores = this.$page.props.indicadores.map((e) => {
       let el = e.metricas.historico_distancia.split("-").map((e) => {
         return e;
       });
       e.metricas.historico_distancia = el;
       return e;
     });
+
+    let rows = [];
+
+    let historico_distancia = _.orderBy(
+      this.indicadores,
+      [`metricas.historico_distancia`],
+      ["asc"]
+    ).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.historico_distancia,
+      };
+    });
+
+    let historico_bends = _.orderBy(
+      this.indicadores,
+      [`metricas.historico_bends`],
+      ["asc"]
+    ).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.historico_bends,
+      };
+    });
+
+    let rec_final = _.orderBy(
+      this.indicadores,
+      [`metricas.rec_final`],
+      ["asc"]
+    ).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.rec_final,
+      };
+    });
+
+    let rec_cansa = _.orderBy(
+      this.indicadores,
+      [`metricas.rec_cansa`],
+      ["asc"]
+    ).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.rec_cansa,
+      };
+    });
+
+    for (let index = 0; index < this.indicadores.length; index++) {
+      rows.push({
+        historico_distancia: historico_distancia[index],
+        historico_bends: historico_bends[index],
+        rec_final: rec_final[index],
+        rec_cansa: rec_cansa[index],
+      });
+    }
+
+    this.rows = rows;
   },
 };
 </script>

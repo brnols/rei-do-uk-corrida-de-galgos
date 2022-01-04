@@ -229,79 +229,6 @@ export default {
     },
   },
 
-  // computed: {
-  //   computed_rows() {
-  //     this.rows = this.$page.props.indicadores;
-
-  //     let rows = [];
-
-  //     let brt = _.orderBy(this.rows, [`metricas.brt`], ["asc"]).map((e) => {
-  //       return {
-  //         ordem: e.ordem,
-  //         valor: e.metricas.brt,
-  //       };
-  //     });
-
-  //     let split = _.orderBy(this.rows, [`metricas.split`], ["asc"]).map((e) => {
-  //       return {
-  //         ordem: e.ordem,
-  //         valor: e.metricas.split,
-  //       };
-  //     });
-
-  //     let bend = _.orderBy(this.rows, [`metricas.primeira_bend`], ["asc"]).map(
-  //       (e) => {
-  //         return {
-  //           ordem: e.ordem,
-  //           valor: e.metricas.primeira_bend,
-  //         };
-  //       }
-  //     );
-
-  //     let ut = _.orderBy(this.rows, [`metricas.ut`], ["asc"]).map((e) => {
-  //       return {
-  //         ordem: e.ordem,
-  //         valor: e.metricas.ut,
-  //       };
-  //     });
-
-  //     let pn = _.orderBy(this.rows, [`metricas.pn`], ["asc"]).map((e) => {
-  //       return {
-  //         ordem: e.ordem,
-  //         valor: e.metricas.pn,
-  //       };
-  //     });
-
-  //     let apn = _.orderBy(this.rows, [`metricas.apn`], ["asc"]).map((e) => {
-  //       return {
-  //         ordem: e.ordem,
-  //         valor: e.metricas.apn,
-  //       };
-  //     });
-
-  //     let media = _.orderBy(this.rows, [`metricas.media`], ["asc"]).map((e) => {
-  //       return {
-  //         ordem: e.ordem,
-  //         valor: e.metricas.media,
-  //       };
-  //     });
-
-  //     for (let index = 0; index < this.rows.length; index++) {
-  //       rows.push({
-  //         brt: brt[index],
-  //         split: split[index],
-  //         bend: bend[index],
-  //         ut: ut[index],
-  //         pn: pn[index],
-  //         apn: apn[index],
-  //         media: media[index],
-  //       });
-  //     }
-  //     console.log(rows, "rows");
-  //     return;
-  //   },
-  // },
-
   data: () => ({
     rows: [],
     indicadores: [],
@@ -348,14 +275,15 @@ export default {
       columns,
     };
   },
+
   methods: {
     open(i) {
       this.card = this.cards[i];
       this.dialog = true;
     },
   },
+
   mounted() {
-    // this.rows = this.$page.props.indicadores;
     this.indicadores = this.$page.props.indicadores;
     let rows = [];
     let brt = _.orderBy(this.indicadores, [`metricas.brt`], ["asc"]).map(
@@ -366,6 +294,7 @@ export default {
         };
       }
     );
+
     let split = _.orderBy(this.indicadores, [`metricas.split`], ["asc"]).map(
       (e) => {
         return {
@@ -374,6 +303,7 @@ export default {
         };
       }
     );
+
     let bend = _.orderBy(
       this.indicadores,
       [`metricas.primeira_bend`],
@@ -384,18 +314,21 @@ export default {
         valor: e.metricas.primeira_bend,
       };
     });
+
     let ut = _.orderBy(this.indicadores, [`metricas.ut`], ["asc"]).map((e) => {
       return {
         ordem: e.ordem,
         valor: e.metricas.ut,
       };
     });
+
     let pn = _.orderBy(this.indicadores, [`metricas.pn`], ["asc"]).map((e) => {
       return {
         ordem: e.ordem,
         valor: e.metricas.pn,
       };
     });
+
     let apn = _.orderBy(this.indicadores, [`metricas.apn`], ["asc"]).map(
       (e) => {
         return {
@@ -404,6 +337,7 @@ export default {
         };
       }
     );
+
     let media = _.orderBy(this.indicadores, [`metricas.media`], ["asc"]).map(
       (e) => {
         return {
@@ -412,6 +346,7 @@ export default {
         };
       }
     );
+
     for (let index = 0; index < this.indicadores.length; index++) {
       rows.push({
         brt: brt[index],

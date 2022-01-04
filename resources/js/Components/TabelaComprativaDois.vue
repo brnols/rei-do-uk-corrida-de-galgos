@@ -32,17 +32,19 @@
     <template v-slot:body-cell-semcorrida="props">
       <q-td class="flex items-center" :props="props">
         <div>
-          <img :src="`/images/${props.row.ordem}.png`" />
+          <img :src="`/images/${props.row.dias_sem_correr.ordem}.png`" />
         </div>
         <span
           :class="{
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            'bg-red-400':
+              this.ordem.indexOf(props.row.dias_sem_correr.ordem) != -1,
+            'bg-transparent':
+              ordem.indexOf(props.row.dias_sem_correr.ordem) == -1,
             relative: true,
           }"
           class="pl-2"
         >
-          {{ props.row.metricas.dias_sem_correr }}
+          {{ props.row.dias_sem_correr.valor }}
         </span>
       </q-td>
     </template>
@@ -50,16 +52,16 @@
       <q-td :props="props">
         <div
           :class="{
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            'bg-red-400': this.ordem.indexOf(props.row.tp.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.tp.ordem) == -1,
             relative: true,
           }"
           class="flex space-x-2 space-y-2 sm:space-y-0"
         >
           <div>
-            <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+            <img class="bg-orange" :src="`/images/${props.row.tp.ordem}.png`" />
           </div>
-          <span> {{ props.row.metricas.tp }} </span>
+          <span> {{ props.row.tp.valor }} </span>
         </div>
       </q-td>
     </template>
@@ -103,16 +105,16 @@
       <q-td :props="props">
         <div
           :class="{
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            'bg-red-400': this.ordem.indexOf(props.row.peso.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.peso.ordem) == -1,
             relative: true,
           }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.peso }}
+            {{ props.row.peso.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img class="bg-orange" :src="`/images/${props.row.peso.ordem}.png`" />
         </div>
       </q-td>
     </template>
@@ -121,16 +123,19 @@
       <q-td :props="props">
         <div
           :class="{
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            'bg-red-400': this.ordem.indexOf(props.row.categorias.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.categorias.ordem) == -1,
             relative: true,
           }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
-            {{ props.row.metricas.categorias }}
+            {{ props.row.categorias.valor }}
           </span>
-          <img class="bg-orange" :src="`/images/${props.row.ordem}.png`" />
+          <img
+            class="bg-orange"
+            :src="`/images/${props.row.categorias.ordem}.png`"
+          />
         </div>
       </q-td>
     </template>
@@ -139,16 +144,23 @@
       <q-td :props="props">
         <div
           :class="{
-            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1,
-            'bg-transparent': ordem.indexOf(props.row.ordem) == -1,
+            'bg-red-400':
+              this.ordem.indexOf(props.row.historico_posicao.ordem) != -1,
+            'bg-transparent':
+              ordem.indexOf(props.row.historico_posicao.ordem) == -1,
             relative: true,
           }"
           class="flex space-x-1"
         >
           <img
-            v-for="(posicao, index) in props.row.metricas.historico_posicao"
+            :src="`/images/${props.row.historico_posicao.ordem}.png`"
+            alt="posicao"
+          />
+          <span> - </span>
+          <img
+            v-for="(posicao, index) in props.row.historico_posicao.valor"
             :key="index"
-            :src="`/images/${posicao}.png`"
+            :src="`/images/${posicao != '' ? posicao : 0}.png`"
           />
         </div>
       </q-td>
@@ -292,13 +304,76 @@ export default {
   },
 
   mounted() {
-    this.rows = this.$page.props.indicadores.map((e) => {
+    this.indicadores = this.$page.props.indicadores.map((e) => {
       let el = e.metricas.historico_posicao.split("-").map((e) => {
         return e.substr(0, 1);
       });
       e.metricas.historico_posicao = el;
       return e;
     });
+
+    let rows = [];
+
+    let dias_sem_correr = _.orderBy(
+      this.indicadores,
+      [`metricas.dias_sem_correr`],
+      ["asc"]
+    ).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.dias_sem_correr,
+      };
+    });
+
+    let tp = _.orderBy(this.indicadores, [`metricas.tp`], ["asc"]).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.tp,
+      };
+    });
+
+    let peso = _.orderBy(this.indicadores, [`metricas.peso`], ["asc"]).map(
+      (e) => {
+        return {
+          ordem: e.ordem,
+          valor: e.metricas.peso,
+        };
+      }
+    );
+
+    let categorias = _.orderBy(
+      this.indicadores,
+      [`metricas.categorias`],
+      ["asc"]
+    ).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.categorias,
+      };
+    });
+
+    let historico_posicao = _.orderBy(
+      this.indicadores,
+      [`metricas.historico_posicao`],
+      ["asc"]
+    ).map((e) => {
+      return {
+        ordem: e.ordem,
+        valor: e.metricas.historico_posicao,
+      };
+    });
+
+    for (let index = 0; index < this.indicadores.length; index++) {
+      rows.push({
+        dias_sem_correr: dias_sem_correr[index],
+        tp: tp[index],
+        peso: peso[index],
+        categorias: categorias[index],
+        historico_posicao: historico_posicao[index],
+      });
+    }
+
+    this.rows = rows;
   },
 };
 </script>
