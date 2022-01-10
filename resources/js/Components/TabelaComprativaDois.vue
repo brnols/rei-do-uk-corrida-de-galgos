@@ -6,7 +6,8 @@
     :columns="columns"
     row-key="name"
     hide-pagination
-    rows-per-page-options="6"
+    :rows-per-page-options="[6]"
+    v-bind="$attrs"
   >
     <template v-slot:header="props">
       <q-tr :props="props">
@@ -30,7 +31,6 @@
     </template>
     <template v-slot:body-cell-semcorrida="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         class="flex items-center"
         :props="props"
       >
@@ -38,11 +38,11 @@
           <img :src="`/images/${props.row.ordem}.png`" />
         </div>
         <span
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="pl-2"
         >
           {{ props.row.metricas.dias_sem_correr }}
@@ -51,15 +51,14 @@
     </template>
     <template v-slot:body-cell-tp="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="flex space-x-2 space-y-2 sm:space-y-0"
         >
           <div>
@@ -76,7 +75,7 @@
       >
         <div
           :class="[
-            disabled & (props.row.ordem == ordem)
+            ordem.indexOf(props.row.ordem) != -1
               ? 'bg-red-400'
               : 'bg-transparent',
           ]"
@@ -94,7 +93,7 @@
       >
         <div
           :class="[
-            disabled & (props.row.ordem == ordem)
+            ordem.indexOf(props.row.ordem) != -1
               ? 'bg-red-400'
               : 'bg-transparent',
           ]"
@@ -107,15 +106,14 @@
     </template> -->
     <template v-slot:body-cell-peso="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
@@ -128,15 +126,14 @@
 
     <template v-slot:body-cell-categoria="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="relative"
         >
           <span class="absolute bottom-0 left-6">
@@ -149,15 +146,14 @@
 
     <template v-slot:body-cell-historico="props">
       <q-td
-        v-show="items.indexOf(props.row.ordem) == -1 ? true : false"
         :props="props"
       >
         <div
-          :class="[
-            disabled & (props.row.ordem == ordem)
-              ? 'bg-red-400'
-              : 'bg-transparent',
-          ]"
+          :class="{ 
+            'bg-red-400': this.ordem.indexOf(props.row.ordem) != -1, 
+            'bg-transparent': ordem.indexOf(props.row.ordem) == -1 , 
+            'relative': true
+          }"
           class="flex space-x-1"
         >
           <img
@@ -240,9 +236,17 @@ const columns = [
 ];
 
 export default {
+  emits: ["enviar"],
+
   props: {
-    disabled: Boolean,
-    ordem: Number,
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    ordem: {
+      type: Array,
+      default: [],
+    },
     items: {
       type: Array,
       default: [],

@@ -19,9 +19,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('dev'),
             'telefone' => "21212121"
         ]);
-
+        
+        // Ordem aqui importa
         $this->call([
-            PistaSeeder::class
+            PistaSeeder::class,
+            PlanoSeeder::class,
+            ContratoSeeder::class,
         ]);
     }
 }

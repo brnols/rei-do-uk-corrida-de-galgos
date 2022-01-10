@@ -30,82 +30,82 @@
       Site de analise
     </h2>
     <div class="flex gap-4 pr-8 pl-8">
-      <div @click="open('https://www.google.com.br/')" class="card">
-        <p class="text-secondary font-bold">1º mês</p>
-        <img class="mx-auto" src="/images/cartao.svg" alt="cartao" />
+<!--      <div @click="open('https://www.google.com.br/')" class="card">-->
+<!--        <p class="text-secondary font-bold">1º mês</p>-->
+<!--        <img class="mx-auto" src="/images/cartao.svg" alt="cartao" />-->
+<!--        <p>R$ <span class="text-[47px] text-primary font-bold">29,90</span></p>-->
+<!--        <p class="text-primary">• Pagamento com cartão</p>-->
+<!--      </div>-->
+<!--      <div @click="open('https://www.google.com.br/')" class="card">-->
+<!--        <p class="text-secondary font-bold">1º mês</p>-->
+<!--        <img class="mx-auto" src="/images/pix-boleto.svg" alt="pixboleto" />-->
+<!--        <p>R$ <span class="text-[47px] text-primary font-bold">39,90</span></p>-->
+<!--        <p class="text-primary">• Pagamento com Pix / Boleto</p>-->
+<!--      </div>-->
+<!--      <div @click="open('https://www.google.com.br/')" class="card">-->
+<!--        <p class="text-secondary font-bold">Trimestral</p>-->
+<!--        <img-->
+<!--          class="mx-auto"-->
+<!--          src="/images/pix-cartao-boleto.svg"-->
+<!--          alt="pixcartaoboleto"-->
+<!--        />-->
+<!--        <p>R$ <span class="text-[47px] text-primary font-bold">69,90</span></p>-->
+<!--        <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>-->
+<!--      </div>-->
+      <div @click="open('https://pay.hotmart.com/R63561106K?off=cnqf4tk6')" class="card">
+        <p class="text-secondary font-bold">Mensal</p>
+        <img class="mx-auto" src="/images/boleto-pix-cartao.svg" alt="cartao" />
         <p>R$ <span class="text-[47px] text-primary font-bold">29,90</span></p>
-        <p class="text-primary">• Pagamento com cartão</p>
-      </div>
-      <div @click="open('https://www.google.com.br/')" class="card">
-        <p class="text-secondary font-bold">1º mês</p>
-        <img class="mx-auto" src="/images/pix-boleto.svg" alt="pixboleto" />
-        <p>R$ <span class="text-[47px] text-primary font-bold">39,90</span></p>
-        <p class="text-primary">• Pagamento com Pix / Boleto</p>
-      </div>
-      <div @click="open('https://www.google.com.br/')" class="card">
-        <p class="text-secondary font-bold">Trimestral</p>
-        <img
-          class="mx-auto"
-          src="/images/pix-cartao-boleto.svg"
-          alt="pixcartaoboleto"
-        />
-        <p>R$ <span class="text-[47px] text-primary font-bold">69,90</span></p>
-        <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>
-      </div>
-      <div @click="open('https://www.google.com.br/')" class="card">
-        <p class="text-secondary font-bold">Semestral</p>
-        <img class="mx-auto" src="/images/boleto-pix-cartao.svg" alt="cartao" />
-        <p>R$ <span class="text-[47px] text-primary font-bold">139,90</span></p>
         <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>
       </div>
     </div>
 
-    <h2
-      class="
-        leading-[28px]
-        text-[24px]
-        sm:text-[32px]
-        text-secondary
-        pt-16
-        pb-8
-        font-bold
-        pl-8
-      "
-    >
-      Site de análise + Grupo VIP
-    </h2>
+<!--    <h2-->
+<!--      class="-->
+<!--        leading-[28px]-->
+<!--        text-[24px]-->
+<!--        sm:text-[32px]-->
+<!--        text-secondary-->
+<!--        pt-16-->
+<!--        pb-8-->
+<!--        font-bold-->
+<!--        pl-8-->
+<!--      "-->
+<!--    >-->
+<!--      Site de análise + Grupo VIP-->
+<!--    </h2>-->
 
-    <div class="flex gap-4 pr-8 pl-8">
-      <div @click="open('https://www.google.com.br/')" class="card">
-        <p class="text-secondary font-bold">1º mês</p>
-        <img class="mx-auto" src="/images/cartao.svg" alt="cartao" />
-        <p>R$ <span class="text-[47px] text-primary font-bold">97,00</span></p>
-        <p class="text-primary">• Pagamento com cartão</p>
-      </div>
+<!--    <div class="flex gap-4 pr-8 pl-8">-->
+<!--      <div @click="open('https://www.google.com.br/')" class="card">-->
+<!--        <p class="text-secondary font-bold">1º mês</p>-->
+<!--        <img class="mx-auto" src="/images/cartao.svg" alt="cartao" />-->
+<!--        <p>R$ <span class="text-[47px] text-primary font-bold">97,00</span></p>-->
+<!--        <p class="text-primary">• Pagamento com cartão</p>-->
+<!--      </div>-->
 
-      <div @click="open('https://www.google.com.br/')" class="card">
-        <p class="text-secondary font-bold">1º mês</p>
-        <img class="mx-auto" src="/images/pix-boleto.svg" alt="pixboleto" />
-        <p>R$ <span class="text-[47px] text-primary font-bold">109,90</span></p>
-        <p class="text-primary">• Pagamento com Pix / Boleto</p>
-      </div>
-      <div @click="open('https://www.google.com.br/')" class="card">
-        <p class="text-secondary font-bold">Trimestral</p>
-        <img
-          class="mx-auto"
-          src="/images/pix-cartao-boleto.svg"
-          alt="pixcartaoboleto"
-        />
-        <p>R$ <span class="text-[47px] text-primary font-bold">249,90</span></p>
-        <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>
-      </div>
-      <div @click="open('https://www.google.com.br/')" class="card">
-        <p class="text-secondary font-bold">Semestral</p>
-        <img class="mx-auto" src="/images/boleto-pix-cartao.svg" alt="cartao" />
-        <p>R$ <span class="text-[47px] text-primary font-bold">499,90</span></p>
-        <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>
-      </div>
-    </div>
+<!--      <div @click="open('https://www.google.com.br/')" class="card">-->
+<!--        <p class="text-secondary font-bold">1º mês</p>-->
+<!--        <img class="mx-auto" src="/images/pix-boleto.svg" alt="pixboleto" />-->
+<!--        <p>R$ <span class="text-[47px] text-primary font-bold">109,90</span></p>-->
+<!--        <p class="text-primary">• Pagamento com Pix / Boleto</p>-->
+<!--      </div>-->
+<!--      <div @click="open('https://www.google.com.br/')" class="card">-->
+<!--        <p class="text-secondary font-bold">Trimestral</p>-->
+<!--        <img-->
+<!--          class="mx-auto"-->
+<!--          src="/images/pix-cartao-boleto.svg"-->
+<!--          alt="pixcartaoboleto"-->
+<!--        />-->
+<!--        <p>R$ <span class="text-[47px] text-primary font-bold">249,90</span></p>-->
+<!--        <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>-->
+<!--      </div>-->
+<!--      <div @click="open('https://www.google.com.br/')" class="card">-->
+<!--        <p class="text-secondary font-bold">Semestral</p>-->
+<!--        <img class="mx-auto" src="/images/boleto-pix-cartao.svg" alt="cartao" />-->
+<!--        <p>R$ <span class="text-[47px] text-primary font-bold">499,90</span></p>-->
+<!--        <p class="text-primary">• Pagamento com Pix, boleto ou cartão</p>-->
+<!--      </div>-->
+<!--    </div>-->
   </section>
 
   <q-dialog
@@ -113,25 +113,18 @@
     persistent
     transition-show="scale"
     transition-hide="scale"
+    maximized
+    class="p-6"
   >
-    <q-card class="card-dialog">
-      <q-card-section>
-        <div class="row items-center">
-          <q-img class="col-2" width="57px" src="/images/logo.png" alt="logo" />
-          <h2 class="col-10 text-center text-h6 text-primary">
-            Realizar pagamento
-          </h2>
-        </div>
-      </q-card-section>
+      <div class="w-full h-full bg-white">
+          <q-btn @click="dialog = false">voltar</q-btn>
+          <iframe :src="this.url"
+                  allow="payment"
+                  style="overflow: hidden; height: 100%;
+        width: 100%;"
+          ></iframe>
 
-      <!-- <q-card-section class="bg-card"> Clique aqui para pagar </q-card-section> -->
-
-      <q-card-actions align="center" class="bg-card">
-        <a @click="dialog = false" :href="url" target="_blank"
-          >Clique aqui para pagar</a
-        >
-      </q-card-actions>
-    </q-card>
+      </div>
   </q-dialog>
 </template>
 

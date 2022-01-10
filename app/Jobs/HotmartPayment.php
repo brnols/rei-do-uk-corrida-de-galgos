@@ -2,28 +2,14 @@
 
 namespace App\Jobs;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Spatie\WebhookClient\Jobs\ProcessWebhookJob as SpatieProcessWebhookJob;
+use App\Models\User;
+use App\Models\Plano;
+use App\Models\Contrato;
+use Spatie\WebhookClient\ProcessWebhookJob as SpatieProcessWebhookJob;
 
-class HotmartPayment extends SpatieProcessWebhookJob implements ShouldQueue
+class HotmartPayment extends SpatieProcessWebhookJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
+    
     /**
      * Execute the job.
      *
@@ -33,12 +19,18 @@ class HotmartPayment extends SpatieProcessWebhookJob implements ShouldQueue
     {
         $model = $this->webhookCall;
         $payload = $model->payload;
-        
-        if( $payload->event == "PURCHASE_COMPLETE" && $payload->purchase->status == "APPROVED")
-            $this->ativar($payload->buyer->email);
-        
-        if( $payload->event == "SUBSCRIPTION_CANCELLATION" )
-            $this->cancelar($payload->data->subscriber->email);
+
+        try {
+
+            if( $payload['event'] == "PURCHASE_APPROVED" )
+                $this->ativar($payload['data']['buyer']['email']);
+            
+            if( $payload['event'] == "SUBSCRIPTION_CANCELLATION" )
+                $this->cancelar($payload['data']['subscriber']['email']);
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
 
     }
 
@@ -59,7 +51,7 @@ class HotmartPayment extends SpatieProcessWebhookJob implements ShouldQueue
                 ]
             );
             
-            if( $user->assinante == null )
+            if( $user->assinante == false )
                 Contrato::create([
                     'user_id' => $user->id,
                     'plano_id' => Plano::first()->id,
@@ -70,6 +62,7 @@ class HotmartPayment extends SpatieProcessWebhookJob implements ShouldQueue
                 ]);
 
         } catch (\Throwable $th) {
+            throw $th;
         }
 
     }
@@ -84,12 +77,16 @@ class HotmartPayment extends SpatieProcessWebhookJob implements ShouldQueue
 
             $user = User::where("email", $email)->firstOrFail();
 
-            $contrato = $user->assinante; 
-            $contrato->data_cancelamento = now();
-            $contrato->ativo = 0;
-            $contrato->save();
+            $contrato =  $user->contratos()->firstWhere('ativo', 1); 
+
+            if( $contrato ){
+                $contrato->data_cancelamento = now();
+                $contrato->ativo = 0;
+                $contrato->save();
+            }
 
         } catch (\Throwable $th) {
+            // do nothing
         }
 
     }

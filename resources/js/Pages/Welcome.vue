@@ -66,72 +66,7 @@
   </section>
 
   <section class="container my-20">
-    <h1
-      class="
-        text-center text-[38px]
-        sm:text-[50px]
-        text-primary
-        font-bold
-        leading-[40px]
-      "
-    >
-      Conheça nossos planos
-    </h1>
-    <!-- planos site de analise -->
-    <h2
-      class="
-        leading-[28px]
-        text-[24px]
-        sm:text-[32px]
-        text-secondary
-        pt-12
-        pb-8
-        font-bold
-        pl-8
-      "
-    >
-      Site de analise
-    </h2>
-    <div class="flex gap-4 pr-8 pl-8">
-      <template v-for="plano in planos" :key="plano">
-        <card-planos
-          @click="open(plano.url)"
-          :src="plano.src"
-          :title="plano.title"
-          :price="plano.price"
-          :subtitle="plano.subtitle"
-        >
-        </card-planos>
-      </template>
-    </div>
-
-    <!-- planos vip -->
-    <h2
-      class="
-        leading-[28px]
-        text-[24px]
-        sm:text-[32px]
-        text-secondary
-        pt-16
-        pb-8
-        font-bold
-        pl-8
-      "
-    >
-      Site de análise + Grupo VIP
-    </h2>
-    <div class="flex gap-4 pr-8 pl-8">
-      <template v-for="plano in planos_vip" :key="plano">
-        <card-planos
-          @click="open(plano.url)"
-          :src="plano.src"
-          :title="plano.title"
-          :price="plano.price"
-          :subtitle="plano.subtitle"
-        >
-        </card-planos>
-      </template>
-    </div>
+    <planos-valores title="Conheça nossos planos"></planos-valores>  
   </section>
 
   <!-- popup -->
@@ -163,12 +98,13 @@
 <script>
 import CardPlanos from "@/Components/CardPlanos";
 import { Head, Link } from "@inertiajs/inertia-vue3";
-
+import PlanosValores from "../Components/PlanosValores.vue";
 export default {
   components: {
     CardPlanos,
     Head,
     Link,
+    PlanosValores
   },
 
   data() {

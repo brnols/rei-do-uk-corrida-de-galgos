@@ -1,6 +1,5 @@
 <?php /** @noinspection PhpUndefinedMethodInspection */
 
-use App\Http\Controllers\CanilController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FiltroController;
 use App\Http\Controllers\RaceController;
@@ -25,21 +24,19 @@ Route::inertia('/', 'Welcome')
 Route::inertia('/cursos', 'Cursos')
     ->name('cursos');
 
-
+Route::inertia('/canil', 'WIP')
+    ->name('canil');
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard/{pista?}', DashboardController::class)
+    Route::get('/corridas/{pista?}', DashboardController::class)
         ->name('dashboard');
 
-    Route::get('/dashboard/{pista?}/{race}', RaceController::class)
+    Route::get('/corridas/{pista?}/{race}', RaceController::class)
         ->name('race');
 
     Route::inertia('/planos', 'Planos')
         ->name('planos');
-
-    Route::resource('/canil', CanilController:: class)
-        ->except(['create', 'show', 'edit']);
 
     Route::resource('/filtros', FiltroController::class)
         ->only(['index', 'store']);

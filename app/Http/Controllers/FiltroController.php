@@ -17,7 +17,7 @@ class FiltroController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('WIP');
+        return Inertia::render('Filtros');
     }
 
     /**

@@ -74,7 +74,7 @@ export default {
         {
           name: "Planos e Valores",
           action: () => this.$inertia.visit(this.route("planos")),
-          show: !this.authenticated,
+          show: true,
           active: this.route().current("planos"),
         },
         {
@@ -84,21 +84,21 @@ export default {
           active: this.route().current("dashboard"),
         },
         {
-          name: "Filtros",
-          action: () => this.$inertia.visit(this.route("dashboard")),
+          name: "Filtros (Em breve)",
+          action: () => this.$inertia.visit(this.route("dashboard")), //this.route("filtros.index")),
           show: this.authenticated,
           active: this.route().current("filtros"),
         },
         {
-          name: "Meu Canil",
-          action: () => this.$inertia.visit(this.route("canil.index")),
+          name: "Meu Canil (Em breve)",
+          action: () => this.$inertia.visit(this.route("dashboard")), //this.route("canil")),
           show: this.authenticated,
-          active: this.route().current("canil.index"),
+          active: this.route().current("canil"),
         },
         {
-          name: "Transmissões ao vivo",
+          name: "Transmissões ao vivo (Em breve)",
           action: () => this.$inertia.visit(this.route("dashboard")),
-          show: this.authenticated,
+          show: false,
           active: true,
         },
         {
