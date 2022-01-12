@@ -68,13 +68,20 @@
                 <label class="small-2 text-primary"> Informações </label>
                 <q-input
                     v-model="informacao"
-                    readonly
                     outlined
-                    disable
                     bg-color="white"
                     type="textarea"
                 />
             </q-card-section>
+
+            <q-card-actions class="px pb">
+                <q-btn
+                    class="bg-primary text-white font-bold btn"
+                    label="Guardar"
+                    v-close-popup
+                    @click="atualizar"
+                />
+            </q-card-actions>
         </q-card>
     </q-dialog>
 </template>
@@ -90,7 +97,7 @@ export default {
     },
 
     props: {
-      galgos: Array
+        galgos: Array
     },
 
     data() {
@@ -109,7 +116,17 @@ export default {
         },
 
         destroy(id) {
-            this.$inertia.post(this.route('canil.destroy', id))
+            this.$q.dialog({
+                title  : 'Deletar galgo?',
+                message: 'Você não poderá desfazer essa ação.',
+                cancel : true,
+            }).onOk(() => {
+                this.$inertia.delete(this.route('canil.destroy', id))
+            })
+        },
+
+        atualizar() {
+            this.$inertia.post( this.route('canil.store'), {galgo: this.nome, observacao: this.informacao});
         }
     },
 };

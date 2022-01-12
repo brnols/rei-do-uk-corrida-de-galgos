@@ -33,9 +33,10 @@ class CanilController extends Controller
     public function store(StoreCanilRequest $request): RedirectResponse
     {
         try {
-            Auth::user()->canils()->create($request->validated());
+            Auth::user()->canils()->updateOrCreate(['galgo' => $request->galgo], $request->validated());
             return back()->with("success", "Galgo adicionado com sucesso.");
         } catch (\Throwable $throwable) {
+            dd($throwable);
             return back()->with("error", "Falha ao adicionar galgo.");
         }
     }

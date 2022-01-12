@@ -26,8 +26,8 @@ class StoreCanilRequest extends FormRequest
     {
         return [
             'galgo'      => 'required|string|max:255',
-            'pista'      => 'required|string|max:255',
-            'tabela'     => 'required|string|max:255',
+//            'pista'      => 'required|string|max:255',
+//            'tabela'     => 'required|string|max:255',
             'observacao' => 'nullable|string',
         ];
     }
