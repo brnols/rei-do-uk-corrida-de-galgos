@@ -90,10 +90,10 @@ export default {
           active: this.route().current("filtros"),
         },
         {
-          name: "Meu Canil (Em breve)",
-          action: () => this.$inertia.visit(this.route("dashboard")), //this.route("canil")),
+          name: "Meu Canil",
+          action: () => this.$inertia.visit(this.route("canil.index")), //this.route("canil")),
           show: this.authenticated,
-          active: this.route().current("canil"),
+          active: this.route().current("canil.index"),
         },
         {
           name: "Transmissões ao vivo (Em breve)",

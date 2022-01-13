@@ -146,7 +146,8 @@ export default {
     props: {
         pista              : Object,
         indicadores        : Array,
-        prox_corridas_pista: Array
+        prox_corridas_pista: Array,
+        canil              : Array
     },
 
     components: {
@@ -174,8 +175,8 @@ export default {
             ],
             enviar : {
                 disabled: false,
-                ordem: [],
-                items: [],
+                ordem   : [],
+                items   : [],
             },
             ocultar: {},
         };

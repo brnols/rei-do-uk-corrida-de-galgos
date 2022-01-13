@@ -6,6 +6,7 @@ use App\Models\Pista;
 use App\Services\Indicadores;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
@@ -42,7 +43,8 @@ class RaceController extends Controller
         return Inertia::render('Race', [
             'pista'               => $pistaAtual,
             'indicadores'         => $indicadores,
-            'prox_corridas_pista' => DB::table($pista)->where("Horario", ">", $race)->get()
+            'prox_corridas_pista' => DB::table($pista)->where("Horario", ">", $race)->get(),
+            'canil'               => Auth::user()->canils
         ]);
     }
 }

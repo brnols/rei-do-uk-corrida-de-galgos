@@ -17,8 +17,7 @@ class CreateCanilsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('galgo');
-            $table->string('pista');
-            $table->string('tabela');
+            $table->text('observacao')->nullable();
             $table->timestamps();
         });
     }
