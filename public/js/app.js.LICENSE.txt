@@ -2,7 +2,7 @@
  * @license MIT */
 
 /*!
- * Quasar Framework v2.3.3
+ * Quasar Framework v2.4.9
  * (c) 2015-present Razvan Stoenescu
  * Released under the MIT License.
  */
