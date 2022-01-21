@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $lista_table = ( $pista === '' )? $this->lista_table() : [$pista];
 
         $track = Pista::whereIn('tabela', $lista_table)
-                ->firstOrFail();
+                ->first();
         
         $pistas_selecionadas = Pista::whereIn('tabela', $lista_table)->get();
         
