@@ -5,6 +5,7 @@ namespace App\Services;
 use DB;
 use Auth;
 use Carbon\Carbon;
+use App\Services\Corridas;
 use Illuminate\Support\Facades\Schema;
 
 class Indicadores

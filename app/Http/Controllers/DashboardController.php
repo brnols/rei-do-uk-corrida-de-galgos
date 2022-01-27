@@ -2,21 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pista;
-
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+
 use Inertia\Inertia;
+use App\Models\Pista;
 use Inertia\Response;
+use App\Services\Corridas;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 
 class DashboardController extends Controller
 {
+    protected $corridas;
+
+    public function __construct(Corridas $corridas)
+    {
+        $this->corridas = $corridas;
+    }
+    
     public function __invoke(string $pista = ''): Response
     {
-        $lista_table = ( $pista === '' )? $this->lista_table() : [$pista];
+        $lista_table = ( $pista === '' )? $this->corridas->lista_table() : [$pista];
 
         $track = Pista::whereIn('tabela', $lista_table)
                 ->first();
@@ -28,7 +36,7 @@ class DashboardController extends Controller
         });
 
         return Inertia::render('Dashboard', [
-            'pistas' => Pista::whereIn('tabela', $this->lista_table())->get(), // Todas as pistas criadas no banco
+            'pistas' => Pista::whereIn('tabela', $this->corridas->lista_table())->get(), // Todas as pistas criadas no banco
             'pista'  => $track,
             'races'  => $races // Somente races das pistas selecionadas e criadas no banco
         ]);
@@ -58,23 +66,4 @@ class DashboardController extends Controller
         });
     }
 
-    /**
-     * @return [ 'tabela_name', 'tabela_name', 'tabela_name']
-     */
-    public function lista_table()
-    {
-        return Pista::all()
-                    ->reject(function($pista){ 
-                        return !$this->table_exist($pista->tabela); 
-                    })
-                    ->map(function ($model, $key) {
-                        return $model->tabela;
-                    });
-    }
-
-    public function table_exist($table)
-    {
-        return Schema::hasTable($table)
-            && Schema::hasTable("{$table}_tabela");
-    }
 }

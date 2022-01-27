@@ -8,11 +8,14 @@
                 <q-select
                     class="bg-light"
                     dense
-                    filled
                     label="Próximas Corridas"
+                    :option-label="(item) => item.pista +' (BR: '+ item.Horario + ')' "
+                    filled
                     v-model="model"
-                    :options="options"
-                    :disable="true"
+                    :options="prox_corridas"
+                    @update:model-value="$inertia.visit(route('race', { pista: model.tabela, race: model.Horario }))" 
+                    emit-value
+                    :disable="!prox_corridas.length"                   
                 >
                 </q-select>
                 <q-select
@@ -147,6 +150,7 @@ export default {
         pista              : Object,
         indicadores        : Array,
         prox_corridas_pista: Array,
+        prox_corridas      : Array,
         canil              : Array
     },
 
