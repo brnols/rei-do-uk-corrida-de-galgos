@@ -158,7 +158,8 @@ class Indicadores
                 ->historico_galgo($galgo_index, $historico)
                 ->ultima_categoria($galgo_index, $historico)
                 ->fm($galgo_index, $historico)
-                ->data_nascimento($galgo_index, $historico);
+                ->data_nascimento($galgo_index, $historico)
+                ->podio_results($galgo_index);
 
         }
     }
@@ -802,6 +803,30 @@ class Indicadores
         } catch (\Throwable $th) {
             return null;
         }
+    }
+
+    private function podio_results(int $galgo_index)
+    {
+        
+        $this->race['galgos'][$galgo_index]['podio_results'] = null;
+
+        try{
+            if( !Schema::hasTable($this->tb_results) ) return;
+
+            $race = (array) DB::table( $this->tb_results )->where('horas', $this->horario)->first();
+            
+            if( !count($race) ) return;
+
+            for ($i=1; $i <= 6; $i++)
+                if( $this->race['galgos'][$galgo_index]['nome'] == $race[ $i."_lugar" ] )
+                    $this->race['galgos'][$galgo_index]['podio_results']= $i;
+            
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        return $this;
     }
 
     /**

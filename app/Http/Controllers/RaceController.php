@@ -48,7 +48,7 @@ class RaceController extends Controller
 
         $service     = new Indicadores($pista, $race);
         $indicadores = $service->all();
-
+        
         return Inertia::render('Race', [
             'pista'               => $pistaAtual,
             'indicadores'         => $indicadores,
@@ -58,7 +58,8 @@ class RaceController extends Controller
                 return $model; 
             }),
             'prox_corridas'       => $this->proximas_corridas($pista, $race),
-            'canil'               => Auth::user()->canils
+            'canil'               => Auth::user()->canils,
+            'resultados'          => [['galgo' => 5]]
         ]);
     }
 

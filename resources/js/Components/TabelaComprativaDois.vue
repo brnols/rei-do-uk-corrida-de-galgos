@@ -30,22 +30,23 @@
       </q-tr>
     </template>
     <template v-slot:body-cell-semcorrida="props">
-      <q-td class="flex items-center" :props="props">
-        <div>
-          <img :src="`/images/${props.row.dias_sem_correr.ordem}.png`" />
-        </div>
-        <span
+      <q-td :props="props">
+        <div
           :class="{
-            'bg-red-400':
-              this.ordem.indexOf(props.row.dias_sem_correr.ordem) != -1,
-            'bg-transparent':
-              ordem.indexOf(props.row.dias_sem_correr.ordem) == -1,
+            'bg-red-400': this.ordem.indexOf(props.row.dias_sem_correr.ordem) != -1,
+            'bg-transparent': ordem.indexOf(props.row.dias_sem_correr.ordem) == -1,
             relative: true,
           }"
-          class="pl-2"
+          class="flex space-x-2 space-y-2 sm:space-y-0"
         >
-          {{ props.row.dias_sem_correr.valor }}
-        </span>
+          <div>
+            <img :src="`/images/${props.row.dias_sem_correr.ordem}.png`" />
+          </div>
+          <span>
+            {{ props.row.dias_sem_correr.valor }}
+          </span>
+
+        </div>
       </q-td>
     </template>
     <template v-slot:body-cell-tp="props">

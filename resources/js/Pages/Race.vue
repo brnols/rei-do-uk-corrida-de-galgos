@@ -88,13 +88,8 @@
                 <div>
                     Resultado
                     <span class="flex">
-            <img src="/images/1.png"/>
-            <img src="/images/5.png"/>
-            <img src="/images/6.png"/>
-            <img src="/images/2.png"/>
-            <img src="/images/4.png"/>
-            <img src="/images/3.png"/>
-          </span>
+                        <img v-for="r in resultados" v-bind:key="r.galgo" :src="'/images/'+r.galgo+'.png'"/>
+                    </span>
                 </div>
             </div>
         </div>
@@ -151,7 +146,7 @@ export default {
         indicadores        : Array,
         prox_corridas_pista: Array,
         prox_corridas      : Array,
-        canil              : Array
+        canil              : Array,
     },
 
     components: {
@@ -164,7 +159,22 @@ export default {
         SectionAvb,
         TableGalgo,
     },
+    computed: {
+        resultados: function(){
+            try {
+                
+                return this.indicadores.sort(function(a, b) {
+                        return a.podio_results - b.podio_results;
+                    }).reduce(function(previous, indicador){
+                        previous.push({galgo: indicador.ordem});
+                        return previous;
+                    }, [])
 
+            } catch (error) {
+                return [];
+            }
+        }
+    },
     /* 4 espaços! */
     data() {
         return {

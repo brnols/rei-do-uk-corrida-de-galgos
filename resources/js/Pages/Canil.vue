@@ -19,7 +19,14 @@
                         {{ galgo.galgo }}
                     </h2>
 
-                    <p class="text-dark">{{ new Date(galgo.created_at).toLocaleString("pt-BR") }}</p>
+                    <p class="text-dark">
+                        {{ new Date(galgo.created_at).toLocaleString("pt-BR") }}
+                    </p>
+                    <p class="text-dark cursor-pointer underline">
+                        <span class="text-sm" v-if="galgo.corrida" @click="$inertia.visit(route('race', { pista: galgo.corrida.tabela, race: galgo.corrida.Horario }))"> 
+                            Corre Hoje: {{ galgo.corrida.pista +' (BR:'+ galgo.corrida.hora_br + ' UK: '+ galgo.corrida.hora_uk + ')' }}
+                        </span>
+                    </p>
 
                     <span>
                         <a @click="destroy(galgo.id)" class="cursor text-danger">

@@ -20,7 +20,10 @@ class CanilController extends Controller
     public function index(): Response
     {
         return Inertia::render('Canil', [
-            'galgos' => Auth::user()->canils
+            'galgos' => Auth::user()->canils()->get()->map(function($model, $key){
+                $model->corrida = $model->proxima_corrida();
+                return $model;
+            })
         ]);
     }
 
@@ -36,7 +39,6 @@ class CanilController extends Controller
             Auth::user()->canils()->updateOrCreate(['galgo' => $request->galgo], $request->validated());
             return back()->with("success", "Galgo adicionado com sucesso.");
         } catch (\Throwable $throwable) {
-            dd($throwable);
             return back()->with("error", "Falha ao adicionar galgo.");
         }
     }
