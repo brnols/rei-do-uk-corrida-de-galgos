@@ -9,7 +9,7 @@
                     class="bg-light"
                     dense
                     label="Próximas Corridas"
-                    :option-label="(item) => item.pista +' (BR: '+ item.Horario + ')' "
+                    :option-label="(item) => item.pista +' (BR:'+ item.hora_br + ' UK: '+ item.hora_uk + ')' "
                     filled
                     v-model="model"
                     :options="prox_corridas"
@@ -23,7 +23,7 @@
                     dense
                     label="Próximas Corridas Nessa Pista"
                     option-value="Horario"
-                    option-label="Horario"
+                    :option-label="(item) => ' (BR:'+ item.hora_br + ' UK: '+ item.hora_uk + ')' "
                     filled
                     v-model="model2"
                     :options="prox_corridas_pista"

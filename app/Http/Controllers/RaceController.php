@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Inertia\Inertia;
 use App\Models\Pista;
 use App\Services\Corridas;
@@ -51,7 +52,11 @@ class RaceController extends Controller
         return Inertia::render('Race', [
             'pista'               => $pistaAtual,
             'indicadores'         => $indicadores,
-            'prox_corridas_pista' => DB::table($pista)->where("Horario", ">", $race)->get(),
+            'prox_corridas_pista' => DB::table($pista)->where("Horario", ">", $race)->get()->map(function($model, $key){
+                $model->hora_br = Carbon::createFromFormat('H:i:s', $model->Horario)->subHour(3)->format('H:i');
+                $model->hora_uk = Carbon::createFromFormat('H:i:s', $model->Horario)->format('H:i');
+                return $model; 
+            }),
             'prox_corridas'       => $this->proximas_corridas($pista, $race),
             'canil'               => Auth::user()->canils
         ]);
@@ -63,15 +68,16 @@ class RaceController extends Controller
         $corridas = collect([]);
 
         foreach( $this->corridas->lista_table() as $pista)
-            if( $pista_atual != $pista)
                 $corridas = $corridas->merge( 
-                    DB::table($pista)->where("Horario", ">", $race)->take(3)->get()->map(function($model, $key) use($pista){
+                    DB::table($pista)->where("Horario", ">", now()->addHour(3)->format('H:i'))->get()->map(function($model, $key) use($pista){
                         $model->tabela = $pista;
                         $model->pista = Pista::whereTabela($pista)->first()->nome;
+                        $model->hora_br = Carbon::createFromFormat('H:i:s', $model->Horario)->subHour(3)->format('H:i');
+                        $model->hora_uk = Carbon::createFromFormat('H:i:s', $model->Horario)->format('H:i');
                         return $model; 
                     }) 
                 );
         
-        return $corridas;
+        return $corridas->sortBy("Horario")->splice(0, 6);
     }
 }

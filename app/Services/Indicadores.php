@@ -227,11 +227,14 @@ class Indicadores
         try {
 
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-
-            if( isset($item['idade_treinador']) ){
-                $date = $this->regex("/(\d+\w{3}\d{2})/", $item['idade_treinador'], 0);
-                $this->race['galgos'][$galgo_index]['metricas']['idade'] = Carbon::now()->diffInDays(Carbon::createFromFormat('dMy', $date));
-            }
+             
+            if( isset($item['idade']) )
+                $this->race['galgos'][$galgo_index]['metricas']['idade'] = floatval($item['idade']);
+            
+            // if( isset($item['idade_treinador']) ){
+            //     $date = $this->regex("/(\d+\w{3}\d{2})/", $item['idade_treinador'], 0);
+            //     $this->race['galgos'][$galgo_index]['metricas']['idade'] = Carbon::now()->diffInDays(Carbon::createFromFormat('dMy', $date));
+            // }
         } catch (\Throwable $th) {
             //Se der erro na conversão do carbon então deixar zerado
         }
