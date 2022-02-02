@@ -172,12 +172,10 @@ export default {
         },
 
         loaderOn(){
-            console.log('loaderOn');
             this.loading = true;
         },    
 
-        loaderOff(){
-            console.log('loaderOff');
+        loaderOff(){            
             this.loading = false;
         }    
     },

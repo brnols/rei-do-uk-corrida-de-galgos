@@ -342,22 +342,14 @@ export default {
       }
     );
 
-    let categorias = _.orderBy(
-      this.indicadores,
-      [`metricas.categorias`],
-      ["asc"]
-    ).map((e) => {
+    let categorias = this.indicadores.map((e) => {
       return {
         ordem: e.ordem,
         valor: e.metricas.categorias,
       };
     });
 
-    let historico_posicao = _.orderBy(
-      this.indicadores,
-      [`metricas.historico_posicao`],
-      ["asc"]
-    ).map((e) => {
+    let historico_posicao = this.indicadores.map((e) => {
       return {
         ordem: e.ordem,
         valor: e.metricas.historico_posicao,

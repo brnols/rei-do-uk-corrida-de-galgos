@@ -44,7 +44,7 @@
                         </td>
                         <td
                             v-for="column in columns"
-                            :key="columns.value"
+                            :key="column.value"
                             class="text-primary text-xs p-2 text-center"
                         >
                             {{ column.format ? column.format(historico[column.value] ) : historico[column.value] }}

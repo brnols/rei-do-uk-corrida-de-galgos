@@ -250,16 +250,23 @@ class Indicadores
      */
     public function data_nascimento(int $galgo_index, array $items)
     {
-        $this->race['galgos'][$galgo_index]['metricas']['data_nascimento'] = 0;
+        $this->race['galgos'][$galgo_index]['metricas']['data_nascimento'] = null;
 
         try {
 
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
-
-            if( isset($item['idade_treinador']) ){
-                $date = $this->regex("/(\d+\w{3}\d{2})/", $item['idade_treinador'], 0);
-                $this->race['galgos'][$galgo_index]['metricas']['data_nascimento'] = Carbon::createFromFormat('dMy', $date)->toDateString();
+            
+            if( isset($item['idade']) ){
+                $idade = floatval($item['idade']); // 4.9
+                $years = floor($idade); // 4
+                $months = floor(($years - $idade)*12); // 4 - 4.9 = 0.9 * 12 = 10 meses
+                $this->race['galgos'][$galgo_index]['metricas']['data_nascimento'] = Carbon::now()->subYears($years)->subMonths($months)->toDateString();
             }
+
+            // if( isset($item['idade_treinador']) ){
+            //     $date = $this->regex("/(\d+\w{3}\d{2})/", $item['idade_treinador'], 0);
+            //     $this->race['galgos'][$galgo_index]['metricas']['data_nascimento'] = Carbon::createFromFormat('dMy', $date)->toDateString();
+            // }
         } catch (\Throwable $th) {
             //Se der erro na conversão do carbon então deixar zerado
         }
@@ -534,7 +541,7 @@ class Indicadores
             $item = (array) $items[0]; // Pegar ultimo pois a query está ordenada pela data
 
             if( isset($item['Grade']) )
-                $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = round($this->regex("/\d+/", $item['Grade'], $index = 2, $default = 0), 2);
+                $this->race['galgos'][$galgo_index]['metricas']['ultima_categoria'] = $item['Grade']; //round($this->regex("/\d+/", $item['Grade'], $index = 0, $default = 0), 2);
 
         } catch (\Throwable $th) {
             //throw $th;

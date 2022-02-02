@@ -27,7 +27,7 @@
         pl-8
       "
     >
-      Site de analise
+      Site de análise
     </h2>
     <div class="flex gap-4 pr-8 pl-8">
 <!--      <div @click="open('https://www.google.com.br/')" class="card">-->

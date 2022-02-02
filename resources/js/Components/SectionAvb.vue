@@ -56,19 +56,31 @@ export default {
             if(!this.selectedGalgos.length) {
                 return {}
             }
-
+            const nao_comparar = ["pick", "ultima_categoria"]
             const galgo1 = this.selectedGalgos[0];
             const galgo2 = this.selectedGalgos[1];
 
             let resultado = {};
 
             for (let metrica in galgo1.metricas) {
-                if (galgo1.metricas[metrica] === galgo2.metricas[metrica]) {
+
+                if (nao_comparar.indexOf(metrica) != -1 || galgo1.metricas[metrica] === galgo2.metricas[metrica]) {
                     resultado[metrica] = null
-                } else if (galgo1.metricas[metrica] < galgo2.metricas[metrica]) {
-                    resultado[metrica] = galgo1.ordem
-                } else {
-                    resultado[metrica] = galgo2.ordem
+                } else if (metrica == "rec_cansa" ){
+
+                    if( galgo1.metricas[metrica] > galgo2.metricas[metrica]) {
+                        resultado[metrica] = galgo1.ordem
+                    } else {
+                        resultado[metrica] = galgo2.ordem
+                    }
+
+                } else{
+                        
+                    if( galgo1.metricas[metrica] < galgo2.metricas[metrica]) {
+                        resultado[metrica] = galgo1.ordem
+                    } else {
+                        resultado[metrica] = galgo2.ordem
+                    }
                 }
             }
 

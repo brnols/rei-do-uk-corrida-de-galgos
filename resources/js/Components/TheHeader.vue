@@ -66,7 +66,7 @@ export default {
           active: this.route().current("welcome"),
         },
         {
-          name: "Teste Agora os Produtos",
+          name: "Login",
           action: () => this.$inertia.visit(this.route("dashboard")),
           show: !this.authenticated,
           active: false,
@@ -104,7 +104,7 @@ export default {
         {
           name: "Curso (Free)",
           action: () => this.$inertia.visit(this.route("cursos")),
-          show: true,
+          show: false,
           active: this.route().current("cursos"),
         },
         {

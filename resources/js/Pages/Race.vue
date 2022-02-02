@@ -162,8 +162,9 @@ export default {
     computed: {
         resultados: function(){
             try {
+                let indicadores = Object.assign([], this.indicadores);
                 
-                return this.indicadores.sort(function(a, b) {
+                return indicadores.sort(function(a, b) {
                         return a.podio_results - b.podio_results;
                     }).reduce(function(previous, indicador){
                         previous.push({galgo: indicador.ordem});

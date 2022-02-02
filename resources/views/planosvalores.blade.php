@@ -6,7 +6,7 @@
         <section>
             <h1 class="flex justify-center text-[50px] text-primary mb-12 font-bold">Planos e Valores</h1>
 
-            <h2 class="text-[32px] text-secondary pb-8 font-bold pl-8">Site de analise</h2>
+            <h2 class="text-[32px] text-secondary pb-8 font-bold pl-8">Site de análise</h2>
             <div class="flex gap-4">
                 <div class="card">
                     <p class="text-secondary font-bold">1º mês</p>

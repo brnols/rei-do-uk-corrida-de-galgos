@@ -247,22 +247,14 @@ export default {
 
     let rows = [];
 
-    let historico_distancia = _.orderBy(
-      this.indicadores,
-      [`metricas.historico_distancia`],
-      ["asc"]
-    ).map((e) => {
+    let historico_distancia = this.indicadores.map((e) => {
       return {
         ordem: e.ordem,
         valor: e.metricas.historico_distancia,
       };
     });
 
-    let historico_bends = _.orderBy(
-      this.indicadores,
-      [`metricas.historico_bends`],
-      ["asc"]
-    ).map((e) => {
+    let historico_bends = this.indicadores.map((e) => {
       return {
         ordem: e.ordem,
         valor: e.metricas.historico_bends,
@@ -283,7 +275,7 @@ export default {
     let rec_cansa = _.orderBy(
       this.indicadores,
       [`metricas.rec_cansa`],
-      ["asc"]
+      ["desc"]
     ).map((e) => {
       return {
         ordem: e.ordem,
