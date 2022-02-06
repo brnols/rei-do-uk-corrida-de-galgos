@@ -35,8 +35,11 @@
             </div>
             <!-- card -->
             <div class="col-12 col-sm-8 pt-4 sm:pt-0">
-                <Link href="">
-                    <div
+                <Link onclick="window.location = 'https://www.brunolucas.com.br/reidouk-vip/' " href="#" target="_blank">
+                <div>
+                 <q-img class="w-full rounded-md" src="/images/banner_galgo_bruno.jpg"/>
+                </div>
+                    <!-- <div
                         class="
               shadow-2xl
               py-8
@@ -48,18 +51,20 @@
               flex
               rounded-md
             "
-                    >
-                        <div>
+                    > -->
+                        <!-- <div>
                             Faça seu curso de
                             <h2 class="text-5xl font-bold">Galgo Vencedor</h2>
                         </div>
 
                         <div class="flex items-center px-4 sm:ml-20 lg:ml-0">
                             click aqui
-                        </div>
+                        </div> -->
 
-                        <q-img style="width: 151px" src="/images/icone-race.png"/>
-                    </div>
+                        <!-- <q-img style="width: 151px" src="/images/icone-race.png"/> -->
+                        
+                    <!-- </div> -->
+                    
                 </Link>
             </div>
         </div>
