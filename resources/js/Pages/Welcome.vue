@@ -18,7 +18,7 @@
   <!-- Intro -->
   <section class="container mt-8">
     <h3 class="h4 md:h3 text-primary text-center whitespace-nowrap">
-      Nossos Pilares
+      Nossos Pilares KKK!!!
     </h3>
     <h2 class="h5 text-primary text-center">Entre para a realeza!</h2>
     <p class="body text-primary text-center">
